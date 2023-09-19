@@ -24,9 +24,18 @@
         n1 = parseInt(document.getElementById("n1").value);
         n2 = parseInt(document.getElementById("n2").value);
         
-        let suma = n1 + n2;
-
-        alert(suma)
+        if(n1 == n2){
+          document.write(n1 + " y " + n2 + " son iguales");
+        }else{
+          if(n1 != n2){
+            document.write(n1 + " y " + n2 + " son diferentes, por lo tanto ");
+            if(n1 > n2){
+              document.write(n1 + " es mayor que " + n2);
+            }else{
+              document.write(n1 + " es menor que " + n2);
+            }
+          }
+        }
       }
     </script>
   </body>

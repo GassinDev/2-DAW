@@ -5,6 +5,13 @@
     <title>KC_EJ11</title>
   </head>
   <body>
+
+    <form>
+      <input type="text" name="num" id="n1" />
+      <input type="text" name="num" id="n2" />
+      <input type="text" name="num" id="n3" />
+      <button name="DALEE" onclick="orden()">Dale</button>
+    </form>
   <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
   -->
   <script type="text/javascript">
@@ -12,7 +19,40 @@
 			KC_EJ11
       Crear un programa que reciba 3 números e indique cuál es el mayor y el menor.
   		*/
+      function orden() {
+        let n1, n2;
 
+        n1 = parseInt(document.getElementById("n1").value);
+        n2 = parseInt(document.getElementById("n2").value);
+        n3 = parseInt(document.getElementById("n3").value);
+        
+        if(n1 > n2 & n1 > n3){
+          document.write("El mayor es " + n1 + "<br>");
+          if(n2 > n3){
+            document.write("El menor es " + n3 + "<br>");
+          }else{
+            document.write("El menor es " + n2 + "<br>");
+          }
+        }
+
+        if(n2 > n1 & n2 > n3){
+          document.write("El mayor es " + n2 + "<br>");
+          if(n1 < n3){
+            document.write("El menor es " + n1 + "<br>");
+          }else{
+            document.write("El menor es " + n3 + "<br>");
+          }
+        }
+
+        if(n3 > n1 & n3 > n2){
+          document.write("El mayor es " + n3 + "<br>");
+          if(n1 < n2){
+            document.write("El menor es " + n1 + "<br>");
+          }else{
+            document.write("El menor es " + n2 + "<br>");
+          }
+        }
+      }
   </script>
   </body>
 </html>

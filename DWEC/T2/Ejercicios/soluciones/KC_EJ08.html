@@ -13,6 +13,24 @@
       Crear un programa que reciba un número entero y muestre si es par o impar, positivo o negativo, o cero.
   		*/
 
+      let n = prompt("Dime un número entero")
+
+      if(n % 2 == 0 && n != 0){
+        alert("El número " + n + " es par")
+      }
+      if(n % 2 != 0 && n != 0){
+        alert("El número " + n + " es impar")
+      }
+      if(n == 0){
+        alert("Tu número es 0")
+      }
+      if(n > 0){
+        alert("El número " + n + " es positivo")
+      }
+      if(n < 0){
+        alert("El número " + n + " es negativo")
+      }
+      
   
   </script>
   </body>

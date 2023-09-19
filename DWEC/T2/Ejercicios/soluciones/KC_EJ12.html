@@ -12,6 +12,39 @@
 			KC_EJ12
 Crear un programa que reciba una letra e indique si es vocal o consonante.
 */
+        let letra = (prompt("Dime la letra")).toUpperCase();
+
+        let consonante = "QWRTYPSDFGHJKLÑZXCVBNM";
+        let vocal = "AEIOU";
+        let contador = 0;
+
+        let consonanteArray = consonante.split('');
+        let vocalArray = vocal.split('');
+
+        for(let i = 0; i < consonanteArray.length;i++){
+          
+          
+          if(letra == consonanteArray[i]){
+            alert("Es una consonante");
+            contador++;
+            break;
+          }
+
+        }
+
+        for(let i = 0; i < vocalArray.length;i++){
+          
+          if(letra == vocalArray[i]){
+            contador++;
+            alert("Es una vocal");
+            break;
+          }
+        }
+
+        if(contador == 0){
+            alert("No es una letra");
+          }
+
         
   </script>
   </body>

@@ -14,6 +14,26 @@
       El inicio y fin del rango serán introducidos por el usuario y el programa deberá validar que sean valores válidos.
   		*/
 
+      var lista = [];
+      let inicio = parseInt(prompt("Dime el primer rango"));
+      let fin = parseInt(prompt("Dime el segundo rango"));
+
+      if((fin - inicio) > 20 | (fin - inicio) < 0){
+        alert("Su rango no cumple los requisitos necesarios");
+      }else{
+        for(inicio; inicio < fin + 1;inicio++){
+            lista.push(inicio);  
+        }
+      }
+
+      for(let i = 0; i < lista.length;i++){
+        if(i == lista.length - 1){
+          document.write(lista[i]);
+        }else{
+          document.write(lista[i] + "-");
+        }
+      }
+      
   </script>
   </body>
 </html>

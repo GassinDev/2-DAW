@@ -12,7 +12,21 @@
 			KC_EJ07
       Crea un programa que solicite tres notas y calcule su media. Dependiendo del valor de la media, mostrará si el resultado es Apto o No Apto.
   		*/
+      let nota1,nota2,nota3;
 
+      nota1 = parseFloat(prompt("Dime la primera nota"));
+      nota2 = parseFloat(prompt("Dime la segunda nota"));
+      nota3 = parseFloat(prompt("Dime la tercera nota"));
+
+      let media = parseFloat((nota1 + nota2 + nota3) / 3);
+
+      document.write("Tu media de las notas es " + media);
+
+      if(media >= 5){
+        document.write(", por lo tanto tu calificación es apta.");
+      }else{
+        document.write(", por lo tanto tu calificación es no apta.")
+      }
   </script>
   </body>
 </html>

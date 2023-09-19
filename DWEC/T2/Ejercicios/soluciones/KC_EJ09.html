@@ -5,6 +5,11 @@
     <title>KC_EJ09</title>
   </head>
   <body>
+    <form>
+      <input type="text" name="num" id="dinero" />
+      <button name="DALEE" onclick="EUaUSD()">EUROS -> DOLARES</button>
+      <button name="DALEE" onclick="USDaEU()">DÓLARES -> EURO</button>
+    </form>
   <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
   -->
   <script type="text/javascript">
@@ -13,7 +18,21 @@
       Crea un programa que reciba una cantidad, y pregunte si desea convertirla de Euros a USD o de USD a Euros y muestre el resultado de la conversión.
   		*/
 
-       
+      function EUaUSD() {
+        let euros;
+
+        euros = parseFloat(document.getElementById("dinero").value);
+        
+        document.write("<br>" + "Tus " + euros + " euros son " + (euros * 1.07) + " dólares." + "<br>");
+      }
+
+      function USDaEU() {
+        let dolares;
+
+        dolares = parseInt(document.getElementById("dinero").value);
+    
+        document.write("<br>" + "Tus " + dolares + " dólares son " + (dolares * 0.97) + " euros." + "<br>");
+      }
   </script>
   </body>
 </html>
