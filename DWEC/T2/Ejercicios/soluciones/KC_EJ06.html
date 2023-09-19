@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>KC_EJ06</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" name="num" id="n1" />
+      <input type="text" name="num" id="n2" />
+      <button name="DALEE" onclick="sumar()">Dale</button>
+    </form>
+    <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
+  -->
+    <script type="text/javascript">
+      /*
+			KC_EJ06
+      Crea un programa que solicite dos números y muestre los resultados de aplicar comparaciones relacionales. 
+  		*/
+
+      function sumar() {
+        let n1, n2;
+
+        n1 = parseInt(document.getElementById("n1").value);
+        n2 = parseInt(document.getElementById("n2").value);
+        
+        let suma = n1 + n2;
+
+        alert(suma)
+      }
+    </script>
+  </body>
+</html>
