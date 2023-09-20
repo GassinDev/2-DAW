@@ -14,8 +14,6 @@
       Para cada persona deberá guardar la información en una tupla. 
       El programa no mostrará resultados de salida.
   		*/
-      
-      let tuple = new MyBestTupleExplanation();
     
       let nombre = prompt("Dime el nombre:");
       let nota = parseFloat(prompt("Dime la nota:"));
@@ -27,8 +25,13 @@
       let nota4 = parseFloat(prompt("Dime la nota:"));
 
       let tupla = new tuple(nombre,nota);
+      let [Mynombre,Mynota] = tupla;
+
       let tupla2 = new tuple(nombre2,nota2);
+      let [Mynombre2,Mynota2] = tupla;
+
       let tupla3 = new tuple(nombre3,nota3);
+      let [Mynombre3,Mynota3] = tupla;
       
   </script>
   </body>

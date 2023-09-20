@@ -7,6 +7,12 @@
   <body>
   <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
   -->
+
+  <form>
+    <input type="text" name="num" id="indice" />
+    <button name="DALEE" onclick="busca()">Buscar</button>
+  </form>
+
   <script type="text/javascript">
   		/*
 			KC_EJ16
@@ -15,7 +21,20 @@
       El programa deberá validar que el índice es válido.
 
   		*/
+    function busca(){
 
+      let listaNombres = ["Juan","Pedro","Manuel","Elena","Jose"];
+
+      let indice = document.getElementById("indice").value;
+
+      if(indice <= listaNombres.length & indice > 0){
+        alert("El número " + indice + " de la lista es " + listaNombres[indice]);
+      }else{
+        alert("Ese número no existe en la lista")
+      }
+      
+    }
+      
   </script>
   </body>
 </html>
