@@ -11,7 +11,19 @@
   		/*KC_EJ19
       Crear un programa que almacene 10 números dados por el usuario y muestre únicamente los pares.
   		*/
-    
+
+      let n;
+      let almacen = [];
+
+      for(let i = 0; i < 10;i++){
+        n = prompt("Dime un numero:")
+
+        almacen.push(n);
+
+        if(n % 2 == 0){
+          document.write(n + " ")
+        }
+      }
   </script>
   </body>
 </html>

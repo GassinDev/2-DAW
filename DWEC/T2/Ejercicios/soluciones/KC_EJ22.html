@@ -14,7 +14,29 @@
       Mostrar únicamente los nombres de las personas que tienen derecho a votar (mayores a 18 años).
 
   		*/
-    
+
+      let nombre,edad;
+      let arrayMayores = [];
+
+      for(let i = 0;i < 3;i++){
+        nombre = prompt("Dime tu nombre:");
+        edad = parseInt(prompt("Dime tu edad:"));
+
+        if(edad >= 18){
+          arrayMayores.push(nombre);
+        }
+      }
+        
+        for(let i = 0;i < arrayMayores.length;i++){
+
+          if(i == arrayMayores.length){
+            document.write(arrayMayores[i])
+          }else{
+            document.write(arrayMayores[i] + ", ")
+          }
+          
+        }
+      
   </script>
   </body>
 </html>
