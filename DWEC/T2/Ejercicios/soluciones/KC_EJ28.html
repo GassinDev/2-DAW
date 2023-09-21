@@ -1,20 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>KC_EJ28</title>
   </head>
   <body>
-  <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
+    <h1>CREA TU PROPIO RECTÁNGULO</h1>
+    <form>
+      <input type="text" name="num" id="l" />Lado
+      <input type="text" name="num" id="f" />Figura
+      <button name="DALEE" value="GenerarRectan" onclick="pintar_rectangulo()">Crear Rectángulo</button>
+    </form>
+    <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
   -->
-  <script type="text/javascript">
-  		/*
+    <script type="text/javascript">
+      /*
 			KC_EJ28
       Crear un programa que contenga una función pintar_rectangulo(lado, figura). 
       Esta función deberá pintar en la página un cuadrilátero de lado x lado con la figura proporcionada.
 
   		*/
 
-  </script>
+     
+
+      function pintar_rectangulo() {
+
+        let l = parseInt(document.getElementById("l").value);
+      let f = (document.getElementById("f").value).toString();;
+
+        let lineaPrim = "";
+        let lineaSegu = "";
+
+        for (let i = 0; i < l; i++) {
+          lineaPrim = lineaPrim + f;
+        }
+
+        for (let i = 0; i <= l; i++) {
+          lineaSegu = lineaSegu + " ";
+        }
+        
+        document.write(lineaPrim + "<br>");
+        for(let i = 0; i < l - 2; i++){
+          document.write(f + lineaSegu + f + "<br>");
+        }
+        document.write(lineaPrim + "<br>");
+
+        
+      }
+    </script>
   </body>
 </html>

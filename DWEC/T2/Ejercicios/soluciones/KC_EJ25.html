@@ -14,7 +14,32 @@
       en cada oportunidad fallida se le darán pistas para saber si debe intentar con un número mayor o menor.
 
   		*/
-  	 
+
+      let nRandom = parseInt(Math.random() * 101);
+      let intentos = 5;
+      let n;
+
+      n = parseInt(prompt("Dime el numero secreto"));
+
+      for(let i = 0; i < 5;i++){
+        
+        if(n === nRandom){
+          alert("Acertaste");
+          break;
+        }else{
+          intentos = intentos - 1;
+          if(n > nRandom){
+            alert("El número secreto es menor");
+          }else{
+            alert("El número secreto es mayor");
+          }
+          n = parseInt(prompt("Dime el numero secreto (Te quedan " + intentos + " intentos)"));
+        }
+      }
+
+      if(intentos === 0){
+        alert("Perdiste no te quedan más intentos");
+      }
   </script>
   </body>
 </html>

@@ -5,6 +5,11 @@
     <title>KC_EJ26</title>
   </head>
   <body>
+    <h1>Dime el número de filas en tu tabla</h1>
+    <form>
+      <input type="text" name="num" id="nfilas" />
+      <button name="DALEE" value="GenerarTabla" onclick="pintaFila()">Crear tabla</button>
+    </form>
   <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
   -->
   <script type="text/javascript">
@@ -15,8 +20,17 @@
       donde N es un valor introducido por el usuario.
 
   		*/
-  	 
 
+      function pintaFila(){
+
+        let n = parseInt(document.getElementById("nfilas").value);
+        let filas = "";
+        
+          for(let i = 0; i < n;i++){
+            filas = filas + "<tr><td>AAA</td><td>AAA</td><td>AAA</td></tr>";
+          }
+          document.write("<table border = 1>" + filas + "</table>");
+      }
   </script>
   </body>
 </html>
