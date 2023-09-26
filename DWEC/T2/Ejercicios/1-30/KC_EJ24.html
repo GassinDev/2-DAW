@@ -24,31 +24,27 @@ Modificar el programa KC_EJ23 para que muestre los resultados ordenados por la m
       let MayorMedia;
       let MayorNombre = "";
 
-      /*
-      while(nombre !== "terminar"){
+      while (nombre !== "terminar") {
         nombre = prompt("Dime un nombre");
         constante = 0;
 
-        if(nombre === "terminar"){
+        if (nombre === "terminar") {
           break;
-        }else{
-          while(constante < 3){
+        } else {
+          while (constante < 3) {
             constante++;
             calificacion = parseFloat(prompt("Dime la calificación"));
-            calificaciones = calificaciones + calificacion;      
+            calificaciones = calificaciones + calificacion;
           }
           media = calificaciones / 3;
-          mapa.set(nombre,media);
+          mapa.set(nombre, media);
           calificaciones = 0;
-        } 
+        }
       }
-      */
-      mapa.set("pepe", 7);
-      mapa.set("jose", 4);
-      console.log("mapa", mapa);
-      debugger
-      for(let i = 0; i < mapa.size;i++) {
-        
+
+      constante = 0;
+
+      for (let i = 0; i < mapa.size - constante; i++) {
         for (let [n, m] of mapa) {
           if (m > MayorMedia) {
             MayorMedia = m;
@@ -57,6 +53,7 @@ Modificar el programa KC_EJ23 para que muestre los resultados ordenados por la m
         }
         mapaOrdenado.set(MayorNombre, MayorMedia);
         mapa.delete(MayorNombre);
+        constante++;
         MayorMedia = 0;
       }
 
