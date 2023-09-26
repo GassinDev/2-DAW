@@ -14,7 +14,47 @@ Modificar el programa KC_EJ23 para que muestre los resultados ordenados por la m
 
   		*/
       
+      let nombre = "";
+      let calificaciones = 0 ;
+      let calificacion;
+      let media = 0;
+      let constante = 0;
+      let mapa = new Map();
+      let mapaOrdenado = new Map();
+      let MayorMedia;
+
+      while(nombre !== "terminar"){
+        nombre = prompt("Dime un nombre");
+        constante = 0;
+
+        if(nombre === "terminar"){
+          break;
+        }else{
+          while(constante < 3){
+            constante++;
+            calificacion = parseFloat(prompt("Dime la calificación"));
+            calificaciones = calificaciones + calificacion;      
+          }
+          media = calificaciones / 3;
+          mapa.set(nombre,media);
+          calificaciones = 0;
+        } 
+      }
       
+      while(mapa.size() > 0){
+        for(let [n,m] of mapa){
+        if(n > MayorMedia){
+          MayorMedia = n;
+        }
+      }
+      mapaOrdenado.set(mapa.get(MayorMedia),mapa.get(mapa.get(MayorMedia)));
+      mapa.delete(MayorMedia);
+      MayorMedia = 0;
+      }
+      
+      for(let [n,m] of mapaOrdenado){
+        document.write("Nombre: " + n + " --> Media: " + m + "<br>");
+      }
   </script>
   </body>
 </html>

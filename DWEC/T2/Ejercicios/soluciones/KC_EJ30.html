@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>KC_EJ30</title>
   </head>
   <body>
-  <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
+    <h1>MÁQUINA EXPENDEDORA DE BEBIDAS</h1>
+
+    <form>
+      <select name="Productos" id="producto">
+        <option value="" disabled selected>Seleccione una bebida</option>
+        <option value="Fanta">Fanta 1€</option>
+        <option value="Pepsi">Pepsi 1.5€</option>
+        <option value="7up">7up 2€</option>
+      </select>
+      <button name="producto" onclick="pedir()">Pedir</button>
+    </form>
+    <!--La siguiente código presenta una opción de solución mínima viable usando las entradas/salidas de JS por cliente: prompt y alert. Sin embargo, el mismo resutado puede ser alcanzado usando controles input, eventos y DOM, o JQuery, o un enfoque funcional. Utiliza con el que prefieras practicar. Si tienes dudas consulta a tu instructor de JS o a tu coach. 
   -->
-  <script type="text/javascript">
-  		/*
+    <script type="text/javascript">
+      /*
 			KC_EJ30
 Crear un programa que simule una máquina expendedora de gaseosas con las siguientes características:
 Las bebidas disponibles son: Fanta, Pepsi, 7Up. 
@@ -20,7 +31,49 @@ El programa deberá detenerse cuando el importe de la gaseosa haya sido completa
 y, de ser necesario, determinar el sobrante.
 
   		*/
+      function pedir() {
+        let productos = { "Fanta" : 1, "Pepsi" : 1.5, "7up" : 2 };
 
-  </script>
+        let eleccion = document.getElementById("producto").value;
+
+        let dinero = parseFloat(productos[eleccion]);
+        let monedas = 0;
+
+        while(dinero > 0){
+          
+          monedas = parseInt(prompt("Elige que monedas vas a introducir(1-10cent, 2-20cent, 3-50cent, 4-1€) Te queda un total de " + dinero + "€ por pagar :"));
+          switch(monedas){
+            case(1):{
+              dinero = dinero - 0.10;
+            }break;
+            case(2):{
+              dinero = dinero - 0.20;
+            }break;
+            case(3):{
+              dinero = dinero - 0.50;
+            }break;
+            case(4):{
+              dinero = dinero - 1;
+            }break;
+          }
+          
+        }
+
+
+        if(dinero === 0){
+          alert("Tu bebida esta lista para cogerla");
+        }else{
+          alert("Tu bebida esta lista para cogerla, recoja su cambio = " + (dinero * -1) + "€");
+        }
+
+        // alert(
+        //   "Pediste un " +
+        //     eleccion +
+        //     " por valor de " +
+        //     productos[eleccion] +
+        //     "€"
+        // );
+      }
+    </script>
   </body>
 </html>

@@ -14,25 +14,34 @@
 
   		*/
   	 
-      let nombre = "terminar";
-      let calificaciones;
+      let nombre = "";
+      let calificaciones = 0 ;
+      let calificacion;
+      let media = 0;
+      let constante = 0;
+      let mapa = new Map();
 
-      while(nombre !== "terminar"){juangaming
+      while(nombre !== "terminar"){
         nombre = prompt("Dime un nombre");
+        constante = 0;
 
         if(nombre === "terminar"){
           break;
         }else{
-          calificaciones = parseFloat(prompt("Dime la calificación"));
-          
-        }
-        
-
-        
+          while(constante < 3){
+            constante++;
+            calificacion = parseFloat(prompt("Dime la calificación"));
+            calificaciones = calificaciones + calificacion;      
+          }
+          media = calificaciones / 3;
+          mapa.set(nombre,media);
+          calificaciones = 0;
+        } 
       }
-      
 
-
+      for(let [n,m] of mapa){
+        document.write("Nombre: " + n + " --> Media: " + m + "<br>");
+      }
   </script>
   </body>
 </html>
