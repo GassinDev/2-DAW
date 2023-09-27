@@ -5,19 +5,64 @@
     <title>KC_EJ11</title>
   </head>
   <body>
-    <h2>Ejercicio 2</h2>
+    <h2>Ejercicio 2 - Mostrar texto</h2>
     <form>
       <button name="ver" onclick="mostrar()">Mostrar</button>
     </form>
-    <h2>Ejercicio 3</h2>
+    <h2>Ejercicio 3 - Factorial</h2>
     <form>
       <input type="text" name="num" id="number" />
       <button name="facto" onclick="factorial()">Calcular</button>
     </form>
-    <h2>Ejercicio 4</h2>
+    <h2>Ejercicio 4 - Frases cálculos</h2>
     <form>
-        <button name="fra" onclick="datosFrases()">Ver datos</button>
-      </form>
+      <button name="fra" onclick="datosFrases()">Ver datos</button>
+    </form>
+    <h2>Ejercicio 5 - Comprobar DNI</h2>
+    <form>
+      <input type="text" name="num" id="dni" size="8" />
+      <input type="text" name="l" id="letra" size="1" />
+      <button name="comdni" onclick="comprobarDNI()">Comprobar</button>
+    </form>
+    <h2>Ejercicio 6 - Cambiar párrafo color</h2>
+    <p id="parrafo">
+      Lorem ipsum dolor sit amet consectetur adipiscing elit, condimentum
+      pulvinar integer vel netus mollis vestibulum, tempor sociis sapien
+      faucibus curae suspendisse.
+    </p>
+    <form>
+      <button name="rojo" onclick="cambiarRojo()" style="background-color: red">
+        Rojo
+      </button>
+      <button
+        name="verde"
+        onclick="cambiarVerde()"
+        style="background-color: green"
+      >
+        Verde
+      </button>
+      <button
+        name="azul"
+        onclick="cambiarAzul()"
+        style="background-color: blue"
+      >
+        Verde
+      </button>
+      <button
+        name="rosa"
+        onclick="cambiarRosa()"
+        style="background-color: pink"
+      >
+        Verde
+      </button>
+      <button
+        name="amarillo"
+        onclick="cambiarAmarillo()"
+        style="background-color: yellow"
+      >
+        Verde
+      </button>
+    </form>
     <script type="text/javascript" src="Ejercicios1.js"></script>
   </body>
 </html>
