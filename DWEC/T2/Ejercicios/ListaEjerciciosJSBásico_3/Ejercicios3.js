@@ -2,5 +2,5 @@ function mostrar(){
 
 let pi = Math.PI;
 
-    alert(pi);
+    alert((pi).toFixed(4));
 }
