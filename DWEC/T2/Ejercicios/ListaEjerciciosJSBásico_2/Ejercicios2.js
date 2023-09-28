@@ -38,8 +38,8 @@ function ahorcado() {
     let palabra = variasPalabras[nRandom].split("");
     let formPala = [];
 
-    for (let i = 0; i < formPala.length; i++) {
-        formPala[i] = "X";
+    for (let i = 0; i < palabra.length; i++) {
+        formPala[i] = "_";
     }
 
     while (intentos > 0) {

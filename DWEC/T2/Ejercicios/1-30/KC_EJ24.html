@@ -15,51 +15,32 @@ Modificar el programa KC_EJ23 para que muestre los resultados ordenados por la m
   		*/
 
       let nombre = "";
-      let calificaciones = 0;
       let calificacion;
+      let contador = 0;
       let media = 0;
-      let constante = 0;
-      let mapa = new Map();
-      let mapaOrdenado = new Map();
-      let MayorMedia;
-      let MayorNombre = "";
+      let ArrayNombres = [];
+      let ArrayMedias = [];
 
-      while (nombre !== "terminar") {
-        nombre = prompt("Dime un nombre");
-        constante = 0;
+      while(nombre !== "terminar"){
 
-        if (nombre === "terminar") {
+        nombre = prompt("Dime el nombre:");
+        
+        if(nombre === "terminar"){
           break;
-        } else {
-          while (constante < 3) {
-            constante++;
-            calificacion = parseFloat(prompt("Dime la calificación"));
-            calificaciones = calificaciones + calificacion;
-          }
-          media = calificaciones / 3;
-          mapa.set(nombre, media);
-          calificaciones = 0;
-        }
-      }
+        }else{
+          ArrayNombres[contador] = nombre;
 
-      constante = 0;
-
-      for (let i = 0; i < mapa.size - constante; i++) {
-        for (let [n, m] of mapa) {
-          if (m > MayorMedia) {
-            MayorMedia = m;
-            MayorNombre = n;
+          for(let i = 1; i <= 3;i++){
+            
+            calificacion = prompt(`Dime la nota ${i}:`)
+            nNota++;
           }
         }
-        mapaOrdenado.set(MayorNombre, MayorMedia);
-        mapa.delete(MayorNombre);
-        constante++;
-        MayorMedia = 0;
+
+        contador++;
       }
 
-      for (let [n, m] of mapaOrdenado) {
-        document.write("Nombre: " + n + " --> Media: " + m + "<br>");
-      }
+      
     </script>
   </body>
 </html>
