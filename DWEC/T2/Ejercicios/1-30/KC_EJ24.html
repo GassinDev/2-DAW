@@ -15,32 +15,49 @@ Modificar el programa KC_EJ23 para que muestre los resultados ordenados por la m
   		*/
 
       let nombre = "";
-      let calificacion;
+
+      let calificacion = 0;
       let contador = 0;
       let media = 0;
+      let totalNota = 0;
+      let indice = 0;
+
       let ArrayNombres = [];
       let ArrayMedias = [];
 
-      while(nombre !== "terminar"){
+      let ArrayMediasOrdenado = [];
 
+      while (nombre !== "terminar") {
         nombre = prompt("Dime el nombre:");
-        
-        if(nombre === "terminar"){
+
+        if (nombre === "terminar") {
           break;
-        }else{
+        } else {
           ArrayNombres[contador] = nombre;
+          totalNota = 0;
 
-          for(let i = 1; i <= 3;i++){
-            
-            calificacion = prompt(`Dime la nota ${i}:`)
-            nNota++;
+          for (let i = 1; i <= 3; i++) {
+            calificacion = parseFloat(prompt(`Dime la nota ${i}:`));
+            totalNota = totalNota + calificacion;
           }
+          media = totalNota / 3;
+          ArrayMedias[contador] = media.toFixed(2);
         }
-
         contador++;
       }
 
-      
+      ArrayMediasOrdenado = ArrayMedias.sort().reverse();
+
+      for(let i = 0; i < ArrayMediasOrdenado.length;i++){
+
+        for(let x =0; x < ArrayMediasOrdenado.length;x++){
+
+          if(ArrayMediasOrdenado[i] === ArrayMedias[x]){
+            indice = x;
+            document.write(`Nombre:${ArrayNombres[indice]} --> Media:${ArrayMediasOrdenado[i]}<br>`);
+          }
+        }
+      }
     </script>
   </body>
 </html>
