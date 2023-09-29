@@ -24,6 +24,22 @@
             $resul = $resul + 1;
             echo $resul;
         }
+
+        class Car{
+            public $color;
+            public $model;
+            public function __construct($color,$model){
+                $this->color = $color;
+                $this->model = $model;
+            }
+
+            public function message(){
+                return "The car is " . $this->color . " ".$this->model. " ";
+            }
+        }
+
+        $car1 = new Car("gris","Audi");
+        echo $car1->message();
     ?>
 </body>
 </html>
