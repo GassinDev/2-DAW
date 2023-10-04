@@ -17,17 +17,37 @@
     </form>
 
     <?php
-    
+
+    if (isset($_POST["a"]) & isset($_POST["b"]) & isset($_POST["c"])) {
         $a = $_POST["a"];
         $b = $_POST["b"];
         $c = $_POST["c"];
 
-        $x;
+        resolver2grado($a,$b,$c);
+    }
 
+    function resolver2grado ($a,$b,$c){
+        $x1 = ((-1 * $b) + sqrt((pow($b, 2) - (4 * $c * $a)))) / (2 * $a);
+        $x2 = ((-1 * $b) - sqrt((pow($b, 2) - (4 * $c * $a)))) / (2 * $a);
 
-        echo $x;
-        
+        if(is_nan($x1) & is_nan($x2)){
+            echo "ERROR";
+        }else{
+            $arrayX = array($x1,$x2);
+            
+            echo "x [";
 
+            for($i= 0; $i < count($arrayX); $i++) { 
+
+                if($i === count($arrayX) - 1){
+                    echo " {$arrayX[$i]}]" ;
+                }else{
+                    echo "{$arrayX[$i]} ," ;
+                }
+                
+            }
+        }
+    }
     ?>
 </body>
 
