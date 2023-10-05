@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+ 
     <form action="ejer12.php" method="post">
         <p>a<input type="number" name="a"></p>
         <p>b<input type="number" name="b"></p>
