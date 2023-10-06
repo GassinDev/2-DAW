@@ -29,9 +29,9 @@
     echo "4. La estatura de Alberto es {$estaturas["Alberto"]} cm.<br>";
     echo "5. Los pares son";
     
-    foreach($estaturas as $posicion => $valor){
+    foreach($estaturas as $nombre => $valor){
         if($valor % 2 == 0){
-            echo " {$posicion} : {$valor} ,";
+            echo " {$nombre} : {$valor} ,";
         }
     }
     echo "<br>";
@@ -39,15 +39,15 @@
 
     asort($estaturas);
 
-    foreach($estaturas as $posicion => $valor){
+    foreach($estaturas as $nombre => $valor){
         echo "{$valor} ,";
     }
 
     echo "<br>";
     echo "7. ";
 
-    foreach($estaturas as $posicion => $valor){
-        echo "{$posicion} ,";
+    foreach($estaturas as $nombre => $valor){
+        echo "{$nombre} ,";
     }
 ?>
 </body>
