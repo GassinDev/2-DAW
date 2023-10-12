@@ -1,0 +1,1 @@
+<img src="fotos/perro.jpg" alt="perro">

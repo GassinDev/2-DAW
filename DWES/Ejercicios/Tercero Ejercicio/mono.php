@@ -1,0 +1,1 @@
+<img src="fotos/mono.jpg" alt="mono">
