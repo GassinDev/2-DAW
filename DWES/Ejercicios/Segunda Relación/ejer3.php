@@ -9,7 +9,7 @@
     <?php
 
         $sumaDePrimos = 0;
-
+    
         for($i = 2; $i < 100;$i++){
 
             if(esPrimo($i)){
