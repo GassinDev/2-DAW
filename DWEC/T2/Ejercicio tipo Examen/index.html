@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="mostrarFormularioButton">Mostrar Formulario</button>
+    <button onclick="mostrarLista()">Mostrar Lista</button>
+
+    <div id="formulario" style="display: none">
+      <h2>Formulario de Ejemplo</h2>
+      <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="Nombre" /><br /><br />
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="Precio" /><br /><br />
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="Cantidad" /><br /><br />
+
+        <button name="DALEE" onclick="introducirProducto()">Introducir</button>
+      </form>
+    </div>
+  </body>
+  <script type="text/javascript" src="func.js">
+  </script>
+</html>
