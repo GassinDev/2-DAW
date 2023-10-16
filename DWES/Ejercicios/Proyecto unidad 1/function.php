@@ -198,12 +198,12 @@ function delete()
     //Comprobamos si se ha recibido los datos del formulario.
     if (isset($_POST['name3'])) {
 
-        $name = $_POST['name3'];
+        $name = strtoupper($_POST['name3']);
         $arrayObjetos = $_SESSION['arrayObjetos'];
 
         //Buscamos el producto en nuestro array y cuando lo encontremos lo eliminamos
         foreach ($arrayObjetos as $key => $productos) {
-            $n = $productos->getName();
+            $n = strtoupper($productos->getName());
 
             if ($n === $name) {
 

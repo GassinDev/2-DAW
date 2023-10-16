@@ -28,34 +28,26 @@ let arrayEmpleado = [{
     area : "Backend",
     puesto: "Developer",
     sueldo: 950,
-    lenguajes: ["C#","Java","JS"],
+    lenguajes: ["C#"],
     seniority: "Senior",
 },
 {
     nombre : "Juan José",
     edad : 20,
     guardia : true,
-    pais : "España",
-    area : "Backend",
-    puesto: "Developer",
-    sueldo: 1050,
-    lenguajes: ["C#","Java","JS"],
-    seniority: "Senior",
-},
-{
-    nombre : "Juan José",
-    edad : 20,
-    guardia : true,
-    pais : "España",
-    area : "Backend",
-    puesto: "Developer",
-    sueldo: 1050,
-    lenguajes: ["C#","Java","JS"],
+    pais : "Italia",
+    area : "Designer",
+    puesto: "Creative",
+    sueldo: 1200,
+    lenguajes: ["Java"],
     seniority: "Senior",
 }]
 
-function empleadosQueHacenGuardia(){
-    
+empleadosQueHacenGuardia(arrayEmpleado);
+
+function empleadosQueHacenGuardia(arrayEmpleado){
+    let resultArray = arrayEmpleado.filter(empleado => empleado.guardia === true);
+    console.log(resultArray);
 }
 
 function empleadosPorPais(){
