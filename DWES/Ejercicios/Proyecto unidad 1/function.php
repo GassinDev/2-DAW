@@ -78,7 +78,7 @@ function showList()
             //Variable donde calculamos el total de un producto
             $totalCP = $producto->getPrice() * $producto->getAmount();
             //Variable que almacena el total de cada producto para tener el completo de nuestra lista.
-            $precioTotal += $totalCP; 
+            $precioTotal += $totalCP;
 
             $parte1 .= "<tr>
                             <td>{$producto->getName()}</td>
@@ -135,61 +135,70 @@ function showFormDelete()
 function insert()
 {
     //Comprobamos si se ha recibido los datos del formulario.
-    if (isset($_POST['name']) && isset($_POST['price']) && isset($_POST['amount'])) {
+    if (isset($_POST['name']) && isset($_POST['price']) && isset($_POST['amount']) && is_nan($_POST['name'])) {
 
-        //Guardamos los datos recogidos en varibales-
-        $name = $_POST['name'];
-        $price = $_POST['price'];
-        $amount = $_POST['amount'];
+        if (productoEncontrado($_POST['name'])) {
+            return false;
+        } else {
+            //Guardamos los datos recogidos en varibales-
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $amount = $_POST['amount'];
 
-        //Creamos un producto con nuestra clase Product, añdiendo las variables creadas.
-        $product = new Product($name, $price, $amount);
-        //Por último, introducimos el producto en nuestra lista.
-        $_SESSION['arrayObjetos'][] = $product;
+            //Creamos un producto con nuestra clase Product, añdiendo las variables creadas.
+            $product = new Product($name, $price, $amount);
+            //Por último, introducimos el producto en nuestra lista.
+            $_SESSION['arrayObjetos'][] = $product;
 
-        return true;
+            return true;
+        }
     }
 }
 
 function modify()
 {
+    $cont = 0;
     //Comprobamos si se ha recibido los datos del formulario.
     if (isset($_POST['name4'])) {
 
         $name2 = $_POST['name4'];
         $arrayObjetos = $_SESSION['arrayObjetos'];
 
-        //Buscamos el producto por su nombre en nuestro array
+        if(productoEncontrado($name2)){
+            //Buscamos el producto por su nombre en nuestro array
         foreach ($arrayObjetos as $productos) {
 
             $n = $productos->getName();
 
-            if ($n === $name2) {
+            if (strtoupper($n) === strtoupper($name2)) {
 
-                if(isset($_POST['name2']) | isset($_POST['price2']) | isset($_POST['amount2'])) {
+                if (isset($_POST['name2']) | isset($_POST['price2']) | isset($_POST['amount2'])) {
                     $name = $_POST['name2'];
                     $price = $_POST['price2'];
                     $amount = $_POST['amount2'];
-                    
+
                     //Los tres IF siguientes son filtros para saber si hay datos o no, porque si no
                     //hay nada cambiado en uno de ellos, no se asigna nada nuevo y permanece los datos antiguos.
                     if ($name !== "") {
                         $productos->setName($name);
                     }
-                    
+
                     if ($price !== "") {
                         $productos->setPrice($price);
                     }
-                    
+
                     if ($amount !== "") {
                         $productos->setAmount($amount);
                     }
 
+                    $cont++;
                     return true;
                 }
             }
         }
-
+        }else{
+            return false;
+        }
     }
 }
 
@@ -217,6 +226,20 @@ function delete()
             }
         }
     }
-    return false;
+}
+
+//Función para buscar si el producto se encuentra en el array
+function productoEncontrado($pro)
+{
+    $pro = strtoupper($pro);
+    $arrayObjetos = $_SESSION['arrayObjetos'];
+
+    foreach ($arrayObjetos as $productos) {
+        $n = strtoupper($productos->getName());
+
+        if ($n === $pro) {
+            return true;
+        }
+    }
 }
 ?>

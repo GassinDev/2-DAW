@@ -35,16 +35,28 @@
         }
     }
 
-    if (insert()) {
-        echo "<h2>Producto añadido con éxito</h2>";
-    } 
+    if(isset($_POST["name"])){
+        if (insert()) {
+            echo "<h2>Producto añadido con éxito</h2>";
+        }else{
+            echo "<h2>Producto no añadido- ERROR: Ya se encontró otro producto con el mismo nombre.</h2>";
+        } 
+    }
 
-    if (delete()) {
-        echo "<h2>Producto eliminado con éxito</h2>";
-    } 
-
-    if(modify()){
-        echo "<h2>Producto modificado con éxito</h2>";
+    if(isset($_POST['name3'])){
+        if (delete()) {
+            echo "<h2>Producto eliminado con éxito</h2>";
+        }else{
+            echo "<h2>Producto no encontrado</h2>";
+        } 
+    }
+    
+    if(isset($_POST['name4'])){
+        if(modify()){
+            echo "<h2>Producto modificado con éxito</h2>";
+        }else{
+            echo "<h2>Producto no encontrado</h2>";
+        }
     }
 
     showList();
