@@ -135,7 +135,7 @@ function showFormDelete()
 function insert()
 {
     //Comprobamos si se ha recibido los datos del formulario.
-    if (isset($_POST['name']) && isset($_POST['price']) && isset($_POST['amount']) && is_nan($_POST['name'])) {
+    if (isset($_POST['name']) && isset($_POST['price']) && isset($_POST['amount'])) {
 
         if (productoEncontrado($_POST['name'])) {
             return false;
