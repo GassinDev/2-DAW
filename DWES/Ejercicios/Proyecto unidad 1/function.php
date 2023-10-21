@@ -64,13 +64,13 @@ function showList()
     if (!empty($arrayObjetos)) {
 
         $parte1 =
-            "<table border='2'><caption>LISTA DE PRODUCTOS<caption> 
+            "<div class='container' ><table class='table'><thead class='table-dark'>
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Cantidad</th>
                 <th>Total</th>
-            </tr>";
+            </tr></thead>";
 
         $precioTotal = 0;
 
@@ -87,9 +87,8 @@ function showList()
                             <td>{$totalCP}€</td>
                         </tr>";
         }
-
         $tabla = $parte1 . "<td COLSPAN=4>Precio total - Lista de Productos: {$precioTotal}€</td>
-                            </table>";
+                            </table></div>";
 
         echo $tabla;
 
@@ -103,10 +102,10 @@ function showFormInsert()
 {
     echo "<h2>Introduce un producto</h2>
             <form method='post' action='index.php'>
-                Nombre: <input type='text' name='name' required><br>
-                Precio:<input type='number' name='price' step='any' required><br>
-                Cantidad: <input type='number' name='amount' required><br>
-                <input type='submit' value='Insertar'>
+                Nombre: <input  class='form-control' type='text' name='name' required><br>
+                Precio:<input class='form-control' type='number' name='price' step='any' required><br>
+                Cantidad: <input class='form-control' type='number' name='amount' required><br>
+                <input class='btn btn-primary' type='submit' value='Insertar'>
             </form>";
 }
 
@@ -114,11 +113,11 @@ function showFormModify()
 {
     echo "<h2>Modifica un producto</h2>
             <form method='post' action='index.php'>
-                Nombre del Producto: <input type='text' name='name4' required><br>
-                Nombre nuevo: <input type='text' name='name2'><br>
-                Precio nuevo:<input type='number' name='price2' step='any'><br>
-                Cantidad nueva: <input type='number' name='amount2'><br>
-                <input type='submit' value='Modificar'>
+                Nombre del Producto: <input class='form-control' type='text' name='name4' required><br>
+                Nombre nuevo: <input class='form-control' type='text' name='name2'><br>
+                Precio nuevo:<input class='form-control' type='number' name='price2' step='any'><br>
+                Cantidad nueva: <input class='form-control' type='number' name='amount2'><br>
+                <input class='btn btn-primary' type='submit' value='Modificar'>
             </form>";
 }
 
@@ -126,8 +125,8 @@ function showFormDelete()
 {
     echo "<h2>Eliminar un producto</h2>
             <form method='post' action='index.php'>
-                Nombre: <input type='text' name='name3' required><br>
-                <input type='submit' value='Eliminar'>
+                Nombre: <input class='form-control' type='text' name='name3' required><br>
+                <input class='btn btn-primary' type='submit' value='Eliminar'>
             </form>";
 }
 

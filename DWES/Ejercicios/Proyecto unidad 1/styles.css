@@ -1,0 +1,8 @@
+.container{
+    position:fixed;
+    width: 60px;
+}
+
+.form-control{
+    width: 300px;
+}
