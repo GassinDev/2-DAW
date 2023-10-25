@@ -10,9 +10,16 @@
 <body>
 	<div id="encabezado">
 		<h1>Ejercicio:</h1>
+		<form method="post" action="plantilla.php">
+			<input type="submit" name="action" value="MOSTRAR TODO">
+		</form><br>
 		<form action="plantilla.php" method="post">
 			<input type="text" name="cod" id="name">
-			<input type="submit" value="name">
+			<input type="submit" value="buscar">
+		</form>
+		<form action="plantilla.php" method="post">
+			<input type="text" name="cod" id="name2">
+			<input type="submit" value="borrar">
 		</form>
 	</div>
 
@@ -21,9 +28,22 @@
 		<?php
 		include("function.php");
 
-		if(isset($_POST["cod"])){
+
+		if (isset($_POST["action"])) {
+
+			$action = $_POST['action'];
+
+			if ($action === 'MOSTRAR TODO') {
+				verDatos();
+			}
+
+		}
+		if (isset($_POST["cod"])) {
 			$name = $_POST["cod"];
-			verDatos($name);
+			verModificar($name);
+		}
+		if (isset($_POST["unidades"])) {
+			modificar();
 		}
 		?>
 	</div>
