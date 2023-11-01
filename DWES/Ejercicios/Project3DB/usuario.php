@@ -10,7 +10,7 @@
 <body>
     <h1>INICIO</h1>  
     <h2>INICIO SESIÓN PARA ENTRAR EN TU MENÚ Y TRABAJAR CON LA BASE DE DATOS</h2>
-    <form action="index.php" method="post">
+    <form action="usuario.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username">
         <br>
@@ -23,7 +23,7 @@
     <?php
         if(isset($_POST["username"]) && isset($_POST["password"])){
             if($_POST["username"] === "dwes" && $_POST["password"] === "dwes"){
-                header('Location: usuario.php');
+                header('Location: index.php');
             }else{
                 echo'<p>Usuario no autorizado</p>';
             }

@@ -25,18 +25,25 @@
         $action = $_POST['action'];
 
         if ($action === 'CONSULTA') {
-            echo showFormInsert();
+            verFormuConsulta();
             echo "<br>";
         } elseif ($action === 'INSERCION') {
-            showFormModify();
+            
             echo "<br>";
         } elseif ($action === 'MODIFICACION') {
-            showFormDelete();
+            verFormuModi();
             echo "<br>";
         } elseif ($action === "ELIMINACION") {
 
         }
     }
+
+    if(isset($_POST["code"])) {
+        consultarDatos();
+    }elseif(isset($_POST["code2"])) {
+        mostrarModificaDatos();
+    }
+    
     ?>
 </body>
 
