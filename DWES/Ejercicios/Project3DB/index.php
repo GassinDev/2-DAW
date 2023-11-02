@@ -43,7 +43,10 @@
     }elseif(isset($_POST["code2"])) {
         mostrarModificaDatos();
     }
-    
+
+    if(isset($_POST["hijos"])) {
+        modificarDatos();
+    }
     ?>
 </body>
 
