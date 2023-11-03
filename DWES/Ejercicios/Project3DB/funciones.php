@@ -69,9 +69,21 @@ function consultarDatos()
     //SEGUNDA TABLA - PRODUCTOS
     {
         $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
-        $referencia = $ref->fetchColumn();
+        $arrayRefe = array();
 
-        $sql = "SELECT * FROM productos WHERE referencia = '$referencia'";
+        // Recorre los resultados y agrega los valores únicos al array
+        while ($row = $ref->fetch(PDO::FETCH_ASSOC)){
+            $refProducto = $row['refProduct'];
+            if (!in_array($refProducto, $arrayRefe)) {
+                $arrayRefe[] = $refProducto;
+            }
+        }
+        
+        foreach ($arrayRefe as $value){
+        
+        // $referencia = $ref->fetchColumn();
+        // $refeacortada = substr($referencia,0,2);
+        // $sql = "SELECT * FROM productos WHERE referencia LIKE '$refeacortada%'";
         $result = $conexion->query($sql);
 
         if ($result->rowCount() > 0) {
@@ -150,7 +162,7 @@ function mostrarModificaDatos()
                 echo "<td> <input type='text' name='nombre' placeholder='" . $row["nombre"] . "'> </td>";
                 echo "<td> <input type='text' name='salario' placeholder='" . $row["salario"] . "'> </td>";
                 echo "<td> <input type='text' name='hijos' placeholder='" . $row["hijos"] . "'> </td>";
-                echo "<td> <input type='text' name='fNacimiento' placeholder='" . $row["fNacimiento"] . "'> </td>";
+                echo "<td> <input type='date' name='fNacimiento' placeholder='" . $row["fNacimiento"] . "'> </td>";
                 echo "</tr>";
             }
             echo "</table>";
@@ -162,10 +174,10 @@ function mostrarModificaDatos()
     // SEGUNDA TABLA - PRODUCTOS
     $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
     $referencia = $ref->fetchColumn();
-
-    $sql = "SELECT * FROM productos WHERE referencia = '$referencia'";
+    $refeacortada = substr($referencia,0,2);
+    $sql = "SELECT * FROM productos WHERE referencia LIKE '$refeacortada%'";
     $result = $conexion->query($sql);
-
+    
     if ($result->rowCount() > 0) {
         echo "<table border='1'><caption>PRODUCTOS</caption>
                 <tr>
@@ -204,7 +216,7 @@ function mostrarModificaDatos()
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>";
             echo "<td> <input type='text' name='cantidad' placeholder='" . $row["cantidad"] . "'> </td>";
-            echo "<td> <input type='text' name='fecha' placeholder='" . $row["fecha"] . "'> </td>";
+            echo "<td> <input type='date' name='fecha' placeholder='" . $row["fecha"] . "'> </td>";
             echo "</tr>";
         }
 
