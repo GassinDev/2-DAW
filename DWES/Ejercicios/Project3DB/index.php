@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@
             verFormuConsulta();
             echo "<br>";
         } elseif ($action === 'INSERCION') {
-            
+            eleccionInsertar();
             echo "<br>";
         } elseif ($action === 'MODIFICACION') {
             buscaModi();
@@ -50,6 +50,10 @@
 
     if(isset($_POST["nuevosDatos"])) {
         editaDatos();
+    }
+
+    if(isset($_POST["eleccion"])) {
+        formulariosInsertar();
     }
     ?>
 </body>

@@ -47,28 +47,32 @@ function FormuModifica()
     } elseif (isset($_POST["descripcion"])) {
         echo "<h2>Edite su producto</h2>
 <form method='post' action='index.php'>
-    <label for='nombrepro'>Nombre:</label>
-    <input type='text' name='nombrepro' placeholder='" . $_POST['nombrepro'] . " '><br>
+    <label for='nombre'>Nombre:</label>
+    <input type='text' name='nombre' value='" . $_POST['nombre'] . "'><br>
 
     <label for='descripcion'>Descripcion:</label>
-    <input type='text' name='descripcion' placeholder='" . $_POST['descripcion'] . "'><br>
+    <input type='text' name='descripcion' value='" . $_POST['descripcion'] . "'><br>
 
     <label for='precio'>Precio:</label>
-    <input type='text' name='precio' placeholder='" . $_POST['precio'] . "'><br>
+    <input type='text' name='precio' value='" . $_POST['precio'] . "'><br>
 
     <label for='descuento'>Descuento:</label>
-    <input type='text' name='descuento' placeholder='" . $_POST['descuento'] . "'><br>
+    <input type='text' name='descuento' value='" . $_POST['descuento'] . "'><br>
 
+    <input type='hidden' name='referencia' value='" . $_POST['referencia'] . "'>
+    <input type='hidden' name='code' value='" . $_POST['code'] . "'>
+    
     <input type='submit' name='nuevosDatos' value='ACEPTAR'>
 </form>";
     } elseif (isset($_POST["cantidad"])) {
         echo "<h2>Edite la venta</h2>
 <form method='post' action='index.php'>
     <label for='nombrepro'>Cantidad:</label>
-    <input type='text' name='cantidad' placeholder='" . $_POST['cantidad'] . "'><br>
+    <input type='text' name='cantidad' value='" . $_POST['cantidad'] . "'><br>
 
     <label for='descripcion'>Fecha:</label>
-    <input type='text' name='fecha' placeholder='" . $_POST['fecha'] . "'><br>
+    <input type='text' name='fecha' value='" . $_POST['fecha'] . "'><br>
+    <input type='hidden' name='code' value='" . $_POST['code'] . "'>
 
     <input type='submit' name='nuevosDatos' value='ACEPTAR'>
 </form>";
@@ -96,7 +100,7 @@ function editaDatos()
         $nuevofNacimiento = $_POST['fNacimiento'];
         $code = $_POST['code'];
 
-        $validacionComerciales = filtradorComerciales($nuevoNombre,$nuevoSalario,$nuevoHijos,$nuevofNacimiento);
+        $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
 
         if ($validacionComerciales === true) {
             $sql = "UPDATE comerciales SET nombre = :nombre, salario = :salario, hijos = :hijos, fNacimiento = :fNacimiento WHERE codigo = :code";
@@ -118,8 +122,51 @@ function editaDatos()
 
     } elseif (isset($_POST["descripcion"])) {
 
+        $nuevoNombre = $_POST['nombre'];
+        $nuevoDescripcion = $_POST['descripcion'];
+        $nuevoPrecio = $_POST['precio'];
+        $nuevofDescuento = $_POST['descuento'];
+        $referencia = $_POST['referencia'];
+
+        $validacionProductos = filtradorProductos($nuevoNombre, $nuevoDescripcion, $nuevoPrecio, $nuevofDescuento);
+
+        if ($validacionProductos === true) {
+            $sql = "UPDATE productos SET nombre = :nombre, descripcion = :descripcion, precio = :precio, descuento = :descuento WHERE referencia = :referencia";
+
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(":nombre", $nuevoNombre);
+            $stmt->bindParam(":descripcion", $nuevoDescripcion);
+            $stmt->bindParam(":precio", $nuevoPrecio);
+            $stmt->bindParam(":descuento", $nuevofDescuento);
+            $stmt->bindParam(":referencia", $referencia);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Los cambios se han guardado correctamente.</p>";
+            } else {
+                echo "Hubo un error al guardar los cambios.";
+            }
+        }
+
     } elseif (isset($_POST["cantidad"])) {
 
+        $nuevoCantidad = $_POST['cantidad'];
+        $nuevoFecha = $_POST['fecha'];
+
+        $validacionProductos = filtradorVentas($nuevoCantidad, $nuevoFecha);
+
+        if ($validacionProductos === true) {
+            $sql = "UPDATE productos SET cantidad = :cantidad, fecha = :fecha WHERE referencia = :referencia";
+
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(":cantidad", $nuevoCantidad);
+            $stmt->bindParam(":fecha", $nuevoFecha);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Los cambios se han guardado correctamente.</p>";
+            } else {
+                echo "Hubo un error al guardar los cambios.";
+            }
+        }
     }
 }
 function consultarDatos()
@@ -292,12 +339,13 @@ function verModificarDatos()
                 $arrayRefe[] = $refProducto;
             }
         }
-
+        $contador = 0;
         $tablaGenerada = false;
         foreach ($arrayRefe as $value) {
 
             $sql = "SELECT * FROM productos WHERE referencia = '$value'";
             $result = $conexion->query($sql);
+            $contador++;
 
             if ($result->rowCount() > 0) {
 
@@ -317,9 +365,11 @@ function verModificarDatos()
                 echo "<form method='post' action='index.php'>";
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
+                    echo "<input type='hidden' name='code' value='" . $code . "'>";
                     echo "<td>" . $row["referencia"] . "</td>";
+                    echo "<input type='hidden' name='referencia' value='" . $row['referencia'] . "'>";
                     echo "<td>" . $row["nombre"] . "</td>";
-                    echo "<input type='hidden' name='nombrepro' value='" . $row['nombre'] . "'>";
+                    echo "<input type='hidden' name='nombre' value='" . $row['nombre'] . "'>";
                     echo "<td>" . $row["descripcion"] . "</td>";
                     echo "<input type='hidden' name='descripcion' value='" . $row['descripcion'] . "'>";
                     echo "<td>" . $row["precio"] . "€</td>";
@@ -329,14 +379,19 @@ function verModificarDatos()
                     echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
                     echo "</tr>";
                 }
+
                 echo "</form>";
+                if ($contador === count($arrayRefe)) {
+                    echo "</table>";
+                }
+
 
             } else {
                 echo "No se encontraron productos";
             }
 
         }
-        echo "</table>";
+
     } {
         echo "<br>";
         //TERCERA TABLA - VENTAS
@@ -354,6 +409,7 @@ function verModificarDatos()
                 echo "<form method='post' action='index.php'>";
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
+                    echo "<input type='hidden' name='code' value='" . $code . "'>";
                     echo "<td>" . $row["refProducto"] . "</td>";
                     echo "<td>" . $row["cantidad"] . "</td>";
                     echo "<input type='hidden' name='cantidad' value='" . $row['cantidad'] . "'>";
@@ -369,6 +425,52 @@ function verModificarDatos()
             }
         }
         $conexion = null;
+    }
+}
+
+function eleccionInsertar()
+{
+    echo " <form method='post' action='index.php'>
+    <h2>Elije qué quieres introducir</h2>
+
+    <label>
+        <input type='radio' name='eleccion' value='Comercial'> Comercial
+    </label>
+    <br>
+
+    <label>
+        <input type='radio' name='eleccion' value='Producto'> Producto
+    </label>
+    <br>
+
+    <label>
+        <input type='radio' name='eleccion' value='Venta'> Venta
+    </label>
+    <br>
+    <br>
+    <input type='submit' name='submit' value='Aceptar'>
+</form>";
+}
+
+function formulariosInsertar()
+{
+
+    if ($_POST['eleccion'] === "Comercial") {
+        echo "<form method='post' action='index.php'>
+                <input type='hidden' name='code'>
+
+                <input type='hidden' name='nombre' >
+
+                <input type='hidden' name='salario'>
+
+                <input type='hidden' name='hijos'>
+
+                <input type='hidden' name='fNacimiento'>
+                <input type='submit' name='datostabla' value='EDITAR'></td>
+            </form>";
+    } elseif ($_POST["eleccion"] === "Producto") {
+
+    } elseif ($_POST["eleccion"] === "Venta") {
     }
 }
 
@@ -396,7 +498,7 @@ function filtradorComerciales($nombre, $salario, $hijos, $fNacimiento)
 
     if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóú\s]+$/', $nombre)) {
         $valido = false;
-        echo "<br>Erro en el nombre, se introdujeron otros carácteres diferentes a letras.";
+        echo "<br>Error en el nombre, se introdujeron otros carácteres diferentes a letras.";
     }
     if (!validarFecha($fNacimiento)) {
         $valido = false;
@@ -409,6 +511,48 @@ function filtradorComerciales($nombre, $salario, $hijos, $fNacimiento)
     if (!is_numeric($salario) || $salario < 0) {
         $valido = false;
         echo "<br>Ese número de salario no es válido.";
+    }
+
+    return $valido;
+}
+
+function filtradorProductos($nombre, $descripcion, $precio, $descuentos)
+{
+
+    $valido = true;
+
+    if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóú\s]+$/', $nombre)) {
+        $valido = false;
+        echo "<br>Error en el nombre, se introdujeron otros carácteres diferentes a letras.";
+    }
+    if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóú\s]+$/', $descripcion)) {
+        $valido = false;
+        echo "<br>Erro en el nombre, se introdujeron otros carácteres diferentes a letras.";
+    }
+    if (!is_numeric($precio) || $precio < 0) {
+        $valido = false;
+        echo "<br>Ese número de hijos no es válido.";
+    }
+    if (!is_numeric($descuentos) || $descuentos < 0) {
+        $valido = false;
+        echo "<br>Ese número de salario no es válido.";
+    }
+
+    return $valido;
+}
+
+function filtradorVentas($cantidad, $fecha)
+{
+
+    $valido = true;
+
+    if (!is_numeric($cantidad) || $cantidad < 0) {
+        $valido = false;
+        echo "<br>Ese número de hijos no es válido.";
+    }
+    if (!validarFecha($fecha)) {
+        $valido = false;
+        echo "<br>Formato de fecha no válido. Utiliza YYYY-MM-DD.";
     }
 
     return $valido;
