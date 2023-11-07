@@ -31,7 +31,7 @@
             
             echo "<br>";
         } elseif ($action === 'MODIFICACION') {
-            verFormuModi();
+            buscaModi();
             echo "<br>";
         } elseif ($action === "ELIMINACION") {
 
@@ -41,11 +41,15 @@
     if(isset($_POST["code"])) {
         consultarDatos();
     }elseif(isset($_POST["code2"])) {
-        mostrarModificaDatos();
+        verModificarDatos();
     }
 
-    if(isset($_POST["hijos"])) {
-        modificarDatos();
+    if(isset($_POST["datostabla"])) {
+        FormuModifica();
+    }
+
+    if(isset($_POST["nuevosDatos"])) {
+        editaDatos();
     }
     ?>
 </body>
