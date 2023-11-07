@@ -456,21 +456,97 @@ function formulariosInsertar()
 {
 
     if ($_POST['eleccion'] === "Comercial") {
-        echo "<form method='post' action='index.php'>
-                <input type='hidden' name='code'>
-
-                <input type='hidden' name='nombre' >
-
-                <input type='hidden' name='salario'>
-
-                <input type='hidden' name='hijos'>
-
-                <input type='hidden' name='fNacimiento'>
-                <input type='submit' name='datostabla' value='EDITAR'></td>
-            </form>";
+        echo "<h2>AÑADE SU COMERCIAL</h2>
+        <form method='post' action='index.php'>
+        <label for='code'>Código:</label>
+        <input type='number' name='code' id='code'>
+        <br>
+        <br>
+        <label for='nombre'>Nombre:</label>
+        <input type='text' name='nombre' id='nombre'>
+        <br>
+        <br>
+        <label for='salario'>Salario:</label>
+        <input type='text' name='salario' id='salario'>
+        <br>
+        <br>
+        <label for='hijos'>Número de Hijos:</label>
+        <input type='number' name='hijos' id='hijos'>
+        <br>
+        <br>
+        <label for='fNacimiento'>Fecha de Nacimiento:</label>
+        <input type='date' name='fNacimiento' id='fNacimiento'>
+        <br>
+        <br>
+        <input type='submit' name='datosNuevos' value='AÑADIR'>
+    </form>";
     } elseif ($_POST["eleccion"] === "Producto") {
+        
+        echo "<h2>AÑADE SU PRODUCTO</h2>
+        <form method='post' action='index.php'>
+        <label for='nombreComercial'>Selecciona un comercial:</label>
+        <select name='nombreComercial' id='nombreComercial'>";
 
+        $conexion = conectarDB();
+        $sql = "SELECT nombre FROM comerciales";
+        $result = $conexion->query($sql);
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
+        }
+
+        $conexion = null;
+
+        echo "</select>
+        <br>
+        <br>
+        <label for='nombre'>Nombre:</label>
+        <input type='text' name='nombre' id='nombre'>
+        <br>
+        <br>
+        <label for='descripcion'>Descripcion:</label>
+        <input type='text' name='descripcion' id='descripcion'>
+        <br>
+        <br>
+        <label for='precio'>Precio:</label>
+        <input type='text' name='precio' id='precio'>
+        <br>
+        <br>
+        <label for='descuento'>Descuento:</label>
+        <input type='text' name='descuento' id='descuento'>
+        <br>
+        <br>
+        <input type='submit' name='datosNuevos' value='AÑADIR'>
+        </form>";
     } elseif ($_POST["eleccion"] === "Venta") {
+        echo "<h2>AÑADE LA VENTA DE UN PRODUCTO</h2>
+        <form method='post' action='index.php'>
+        <label for='nombreComercial'>Selecciona un comercial:</label>
+        <select name='nombreComercial' id='nombreComercial'>";
+
+        $conexion = conectarDB();
+        $sql = "SELECT nombre,descripcion FROM productos";
+        $result = $conexion->query($sql);
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] ."-".$row['descripcion'] ."</option>";
+        }
+
+        $conexion = null;
+
+        echo "</select>
+        <br>
+        <br>
+        <label for='cantidad'>Cantidad:</label>
+        <input type='text' name='cantidad' id='cantidad'>
+        <br>
+        <br>
+        <label for='fecha'>Fecha:</label>
+        <input type='date' name='fecha' id='fecha'>
+        <br>
+        <br>
+        <input type='submit' name='datosNuevos' value='AÑADIR'>
+        </form>";
     }
 }
 
