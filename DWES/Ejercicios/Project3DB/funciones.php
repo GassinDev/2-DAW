@@ -79,6 +79,49 @@ function FormuModifica()
     }
 }
 
+function introducirDatos()
+{
+
+    if (isset($_POST["hijos"])) {
+
+        $nuevoNombre = $_POST['nombre'];
+        $nuevoSalario = $_POST['salario'];
+        $nuevoHijos = $_POST['hijos'];
+        $nuevofNacimiento = $_POST['fNacimiento'];
+
+        $conexion = conectarDB();
+        $sql = "SELECT codigo FROM comerciales";
+        $result = $conexion->query($sql);
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dato_final = $row['codigo'];
+        }
+
+        $dato_final += 111;
+
+        $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
+
+        if ($validacionComerciales === true) {
+            $sql = "INSERT INTO comerciales (codigo,nombre, salario, hijos, fNacimiento) VALUES (':code',':nombre', :salario, ':fNacimiento')";
+            $stmt = $conexion->prepare($sql);
+
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(":nombre", $nuevoNombre);
+            $stmt->bindParam(":salario", $nuevoSalario);
+            $stmt->bindParam(":hijos", $nuevoHijos);
+            $stmt->bindParam(":fNacimiento", $nuevofNacimiento);
+            $stmt->bindParam(":code", $dato_final);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Los cambios se han guardado correctamente.</p>";
+            } else {
+                echo "Hubo un error al guardar los cambios.";
+            }
+        }
+
+    }
+}
+
 function buscaModi()
 {
     echo "<h2>Elija el código de los datos que quiere modificar</h2>
@@ -458,10 +501,7 @@ function formulariosInsertar()
     if ($_POST['eleccion'] === "Comercial") {
         echo "<h2>AÑADE SU COMERCIAL</h2>
         <form method='post' action='index.php'>
-        <label for='code'>Código:</label>
-        <input type='number' name='code' id='code'>
-        <br>
-        <br>
+
         <label for='nombre'>Nombre:</label>
         <input type='text' name='nombre' id='nombre'>
         <br>
@@ -475,13 +515,13 @@ function formulariosInsertar()
         <br>
         <br>
         <label for='fNacimiento'>Fecha de Nacimiento:</label>
-        <input type='date' name='fNacimiento' id='fNacimiento'>
+        <input type='text' name='fNacimiento' id='fNacimiento'>
         <br>
         <br>
         <input type='submit' name='datosNuevos' value='AÑADIR'>
     </form>";
     } elseif ($_POST["eleccion"] === "Producto") {
-        
+
         echo "<h2>AÑADE SU PRODUCTO</h2>
         <form method='post' action='index.php'>
         <label for='nombreComercial'>Selecciona un comercial:</label>
@@ -529,7 +569,7 @@ function formulariosInsertar()
         $result = $conexion->query($sql);
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] ."-".$row['descripcion'] ."</option>";
+            echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "-" . $row['descripcion'] . "</option>";
         }
 
         $conexion = null;
@@ -587,6 +627,18 @@ function filtradorComerciales($nombre, $salario, $hijos, $fNacimiento)
     if (!is_numeric($salario) || $salario < 0) {
         $valido = false;
         echo "<br>Ese número de salario no es válido.";
+    }
+
+    $conexion = conectarDB();
+    $sql = "SELECT codigo FROM comerciales";
+    $result = $conexion->query($sql);
+
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+
+        if($row['nombre'] === $nombre){
+            $valido = false;
+            echo "<br>Error en el nombre, ya se encuentra otro comercial con el mismo nombre.";
+        }
     }
 
     return $valido;
