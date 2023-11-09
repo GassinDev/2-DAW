@@ -55,6 +55,10 @@
     if(isset($_POST["eleccion"])) {
         formulariosInsertar();
     }
+
+    if(isset($_POST["datosNuevos"])) {
+        introducirDatos();
+    }
     ?>
 </body>
 

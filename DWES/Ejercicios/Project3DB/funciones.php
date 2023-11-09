@@ -94,23 +94,24 @@ function introducirDatos()
         $result = $conexion->query($sql);
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $dato_final = $row['codigo'];
+            $codigo = $row['codigo'];
         }
 
-        $dato_final += 111;
+        $codigo += 111;
 
         $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
 
         if ($validacionComerciales === true) {
-            $sql = "INSERT INTO comerciales (codigo,nombre, salario, hijos, fNacimiento) VALUES (':code',':nombre', :salario, ':fNacimiento')";
-            $stmt = $conexion->prepare($sql);
+            
+            $sql = "INSERT INTO comerciales (codigo, nombre, salario, hijos, fNacimiento) VALUES (:code, :nombre, :salario, :hijos, :fNacimiento)";
 
             $stmt = $conexion->prepare($sql);
+
             $stmt->bindParam(":nombre", $nuevoNombre);
             $stmt->bindParam(":salario", $nuevoSalario);
             $stmt->bindParam(":hijos", $nuevoHijos);
             $stmt->bindParam(":fNacimiento", $nuevofNacimiento);
-            $stmt->bindParam(":code", $dato_final);
+            $stmt->bindParam(":code", $codigo);
 
             if ($stmt->execute()) {
                 echo "<br><p>Los cambios se han guardado correctamente.</p>";
@@ -630,7 +631,7 @@ function filtradorComerciales($nombre, $salario, $hijos, $fNacimiento)
     }
 
     $conexion = conectarDB();
-    $sql = "SELECT codigo FROM comerciales";
+    $sql = "SELECT nombre FROM comerciales";
     $result = $conexion->query($sql);
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
