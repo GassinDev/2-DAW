@@ -90,19 +90,24 @@ function introducirDatos()
         $nuevofNacimiento = $_POST['fNacimiento'];
 
         $conexion = conectarDB();
-        $sql = "SELECT codigo FROM comerciales";
-        $result = $conexion->query($sql);
+        $codigo = 0;
 
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $codigo = $row['codigo'];
+        for ($i = 0; $i < 10000; $i++) {
+            $sql = "SELECT codigo FROM comerciales WHERE codigo=$i";
+            $result = $conexion->query($sql);
+
+            $tamaño = $result->rowCount();
+
+            if ($tamaño === 0) {
+                $codigo = $i;
+                break;
+            }
         }
-
-        $codigo += 111;
 
         $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
 
         if ($validacionComerciales === true) {
-            
+
             $sql = "INSERT INTO comerciales (codigo, nombre, salario, hijos, fNacimiento) VALUES (:code, :nombre, :salario, :hijos, :fNacimiento)";
 
             $stmt = $conexion->prepare($sql);
@@ -114,12 +119,103 @@ function introducirDatos()
             $stmt->bindParam(":code", $codigo);
 
             if ($stmt->execute()) {
-                echo "<br><p>Los cambios se han guardado correctamente.</p>";
+                echo "<br><p>Tu comercial se introdujo con éxito.</p>";
             } else {
-                echo "Hubo un error al guardar los cambios.";
+                echo "<br><p>Hubo un error al insertar el comercial.</p>";
             }
         }
 
+    } elseif (isset($_POST["precio"])) {
+
+        $nuevoNombre = $_POST['nombre'];
+        $nuevoDescripcion = $_POST['descripcion'];
+        $nuevoPrecio = $_POST['precio'];
+        $nuevofDescuento = $_POST['descuento'];
+
+        $conexion = conectarDB();
+
+        $letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $referencia = '';
+
+        $existRefe = true;
+
+        while ($existRefe) {
+            for ($i = 0; $i < 2; $i++) {
+                $referencia .= $letras[rand(0, strlen($letras) - 1)];
+            }
+
+            $referencia .= str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+
+            $sql = "SELECT referencia FROM productos WHERE referencia='$referencia'";
+            $result = $conexion->query($sql);
+
+            $tamaño = $result->rowCount();
+
+            if ($tamaño === 0) {
+                $existRefe = false;
+            }
+        }
+
+        $validacionProductos = filtradorProductos($nuevoNombre, $nuevoDescripcion, $nuevoPrecio, $nuevofDescuento);
+
+        if ($validacionProductos === true) {
+
+            $sql = "INSERT INTO productos (referencia, nombre, descripcion, precio, descuento) VALUES (:referencia, :nombre, :descripcion, :precio, :descuento)";
+
+            $stmt = $conexion->prepare($sql);
+
+            $stmt->bindParam(":nombre", $nuevoNombre);
+            $stmt->bindParam(":descripcion", $nuevoDescripcion);
+            $stmt->bindParam(":precio", $nuevoPrecio);
+            $stmt->bindParam(":descuento", $nuevofDescuento);
+            $stmt->bindParam(":referencia", $referencia);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Tu producto se introdujo con éxito.</p>";
+            } else {
+                echo "<br><p>Hubo un error al insertar el producto.</p>";
+            }
+        }
+    } elseif (isset($_POST["cantidad"])) {
+
+        $nuevoPrecio = $_POST['cantidad'];
+        $nuevoFecha = $_POST['fecha'];
+
+        $conexion = conectarDB();
+        $nombre = $_POST['nombreComercial'];
+        $nom_refe = $_POST['nombreProducto'];
+        $nom_refe_array = explode("-",$nom_refe);
+
+        $nombreProducto = $nom_refe_array[0];
+        $descripcionProducto = $nom_refe_array[1];
+
+        $sql = "SELECT codigo FROM comerciales WHERE nombre = '$nombre'";
+        $result = $conexion->query($sql);
+        $codComercial = $result->fetch_assoc();
+
+        $sql = "SELECT referencia FROM productos WHERE nombre = '$nombreProducto', descripcion='$descripcionProducto'";
+        $result = $conexion->query($sql);
+        $refProducto = $result->fetch_assoc();
+        
+        $validacionVentas = filtradorVentas($nuevoPrecio, $nuevoFecha);
+
+        if ($validacionVentas === true) {
+
+            $sql = "INSERT INTO ventas (codComercial, refProducto, cantidad, fecha) VALUES (:codComercial, :refProducto, :cantidad, :fecha)";
+
+            $stmt = $conexion->prepare($sql);
+
+            $stmt->bindParam(":cantidad", $nuevoNombre);
+            $stmt->bindParam(":fecha", $nuevoDescripcion);
+            $stmt->bindParam(":codComercial", $codComercial);
+            $stmt->bindParam(":refProducto", $refProducto);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Tu venta se introdujo con éxito.</p>";
+            } else {
+                echo "<br><p>Hubo un error al insertar la venta.</p>";
+            }
+        }
     }
 }
 
@@ -525,22 +621,6 @@ function formulariosInsertar()
 
         echo "<h2>AÑADE SU PRODUCTO</h2>
         <form method='post' action='index.php'>
-        <label for='nombreComercial'>Selecciona un comercial:</label>
-        <select name='nombreComercial' id='nombreComercial'>";
-
-        $conexion = conectarDB();
-        $sql = "SELECT nombre FROM comerciales";
-        $result = $conexion->query($sql);
-
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
-        }
-
-        $conexion = null;
-
-        echo "</select>
-        <br>
-        <br>
         <label for='nombre'>Nombre:</label>
         <input type='text' name='nombre' id='nombre'>
         <br>
@@ -566,11 +646,28 @@ function formulariosInsertar()
         <select name='nombreComercial' id='nombreComercial'>";
 
         $conexion = conectarDB();
+        $sql = "SELECT nombre FROM comerciales";
+        $result = $conexion->query($sql);
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
+        }
+
+        $conexion = null;
+
+        echo "</select>
+        <br>
+        <br>
+
+        <label for='nombreProducto'>Selecciona un producto:</label>
+        <select name='nombreProducto' id='nombreProducto'>";
+
+        $conexion = conectarDB();
         $sql = "SELECT nombre,descripcion FROM productos";
         $result = $conexion->query($sql);
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "-" . $row['descripcion'] . "</option>";
+            echo "<option value='" . $row['nombre'] . "-" . $row['descripcion'] . "'>" . $row['nombre'] . "-" . $row['descripcion'] . "</option>";
         }
 
         $conexion = null;
@@ -636,7 +733,7 @@ function filtradorComerciales($nombre, $salario, $hijos, $fNacimiento)
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-        if($row['nombre'] === $nombre){
+        if ($row['nombre'] === $nombre) {
             $valido = false;
             echo "<br>Error en el nombre, ya se encuentra otro comercial con el mismo nombre.";
         }
