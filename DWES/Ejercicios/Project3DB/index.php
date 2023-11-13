@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel='stylesheet' href='styles.css'>
 </head>
 
 <body>
     <h1>Bienvenido Administrador</h1>
-    <h2>FUNCIONES QUE PUEDE REALIZAR</h2>
-    <form method="post" action="index.php">
+    <form id="menuNav" method="post" action="index.php">
         <input type="submit" name="action" value="CONSULTA">
         <input type="submit" name="action" value="INSERCION">
         <input type="submit" name="action" value="MODIFICACION">
@@ -28,13 +28,14 @@
             verFormuConsulta();
             echo "<br>";
         } elseif ($action === 'INSERCION') {
-            eleccionInsertar();
+            eleccionInsertar("eleinsert");
             echo "<br>";
         } elseif ($action === 'MODIFICACION') {
             buscaModi();
             echo "<br>";
         } elseif ($action === "ELIMINACION") {
-
+            eleccionInsertar("eleinsert2");
+            echo "<br>";
         }
     }
 
@@ -42,6 +43,8 @@
         consultarDatos();
     }elseif(isset($_POST["code2"])) {
         verModificarDatos();
+    }elseif(isset($_POST["Mostrartodo"])) {
+        consultarTodo();
     }
 
     if(isset($_POST["datostabla"])) {
@@ -52,12 +55,20 @@
         editaDatos();
     }
 
-    if(isset($_POST["eleccion"])) {
+    if(isset($_POST["eleinsert"])) {
         formulariosInsertar();
+    }
+
+    if(isset($_POST["eleinsert2"])) {
+        mostrarDatosBorrar();
     }
 
     if(isset($_POST["datosNuevos"])) {
         introducirDatos();
+    }
+
+    if(isset($_POST["datostablaBoCo"]) || isset($_POST["datostablaBoPro"]) || isset($_POST["datostablaBoVe"])) {
+        borrarDatos();
     }
     ?>
 </body>

@@ -1,0 +1,44 @@
+
+/* NAVEGACION */ 
+#menuNav input {
+    padding: 8px;
+    margin: 0 5px;
+    color: white;
+    background-color: #555; /* Color de fondo de los botones */
+    border: none;
+    cursor: pointer;
+}
+
+#menuNav input:hover {
+    background-color: red; /* Cambia el color de fondo al pasar el ratón sobre los botones */
+}
+
+/* TABLAS */
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Ajusta la separación entre el formulario y la tabla según tus necesidades */
+}
+
+table, th, td {
+    border: 1px solid #333; /* Color del borde de la tabla y las celdas */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #333; /* Color de fondo de las celdas de encabezado */
+    color: white;
+}
+
+/* FORMULARIOS */
+
+input[type="submit"]:hover {
+    color: aliceblue;
+    background-color: green; /* Cambia el color al pasar el ratón sobre el botón */
+}
+
