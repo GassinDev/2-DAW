@@ -468,9 +468,8 @@ function verModificarDatos()
                 echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
                 echo "</tr>";
             }
-            echo "</form>";
-
             echo "</table>";
+            echo "</form>";
         } else {
             echo "No se encontraron comerciales";
         }
@@ -621,10 +620,9 @@ function mostrarDatosBorrar()
                     <th>F.Nacimiento</th>
                 </tr>";
 
-            echo "<form method='post' action='index.php'>";
-
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
+                echo "<form method='post' action='index.php'>";
                 echo "<input type='hidden' name='codebo' value='" . $row['codigo'] . "'>";
                 echo "<td>" . $row["codigo"] . "</td>";
                 echo "<td>" . $row["nombre"] . "</td>";
@@ -632,16 +630,14 @@ function mostrarDatosBorrar()
                 echo "<td>" . $row["hijos"] . "</td>";
                 echo "<td>" . $row["fNacimiento"] . "</td>";
                 echo "<td><input type='submit' name='datostablaBoCo' value='BORRAR'></td>";
+                echo "</form>";
                 echo "</tr>";
             }
-            echo "</form>";
-
             echo "</table>";
+
         } else {
             echo "No se encontraron comerciales";
         }
-
-
 
     } elseif ($_POST["eleccion"] === "Producto") {
 
@@ -662,11 +658,9 @@ function mostrarDatosBorrar()
                     <th>Descuento</th>
                 </tr>";
 
-
-
-            echo "<form method='post' action='index.php'>";
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
+                echo "<form method='post' action='index.php'>";
                 echo "<td>" . $row["referencia"] . "</td>";
                 echo "<input type='hidden' name='referenciabo' value='" . $row['referencia'] . "'>";
                 echo "<td>" . $row["nombre"] . "</td>";
@@ -674,19 +668,15 @@ function mostrarDatosBorrar()
                 echo "<td>" . $row["precio"] . "€</td>";
                 echo "<td>" . $row["descuento"] . "%</td>";
                 echo "<td><input type='submit' name='datostablaBoPro' value='BORRAR'></td>";
+                echo "</form>";
                 echo "</tr>";
             }
 
-            echo "</form>";
             echo "</table>";
 
         } else {
             echo "No se encontraron productos";
         }
-
-
-
-
 
     } elseif ($_POST["eleccion"] === "Venta") {
 
@@ -702,19 +692,22 @@ function mostrarDatosBorrar()
                         <th>Cantidad</th>
                         <th>Fecha</th>
                     </tr>";
-            echo "<form method='post' action='index.php'>";
+            
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
+                echo "<form method='post' action='index.php'>";
                 echo "<input type='hidden' name='referenciabo' value='" . $row['refProducto'] . "'>";
+                echo "<input type='hidden' name='codigobo' value='" . $row['codComercial'] . "'>";
                 echo "<td>" . $row["codComercial"] . "</td>";
                 echo "<td>" . $row["refProducto"] . "</td>";
                 echo "<td>" . $row["cantidad"] . "</td>";
                 echo "<td>" . $row["fecha"] . "</td>";
-                echo "<input type='hidden' name='fecha' value='" . $row['fecha'] . "'>";
+                echo "<input type='hidden' name='fechabo' value='" . $row['fecha'] . "'>";
                 echo "<td><input type='submit' name='datostablaBoVe' value='BORRAR'></td>";
+                echo "</form>";
                 echo "</tr>";
             }
-            echo "</form>";
+
             echo "</table>";
         } else {
             echo "No se encontraron ventas";
@@ -732,7 +725,7 @@ function borrarDatos()
     if (isset($_POST["datostablaBoCo"])) {
 
         $codigo = $_POST["codebo"];
-
+        var_dump($codigo);
         $sql = "DELETE FROM ventas WHERE codComercial = :codigo";
         $sql2 = "DELETE FROM comerciales WHERE codigo = :codigo";
 
@@ -746,6 +739,7 @@ function borrarDatos()
             $stmt2->bindParam(":codigo", $codigo);
 
             if ($stmt2->execute()) {
+                var_dump($codigo);
                 echo "<br><p>Se ha eliminado correctamente el comercial y sus respectivas ventas.</p>";
             } else {
                 echo "Hubo un error al borrar el comercial.";
@@ -783,12 +777,16 @@ function borrarDatos()
     }elseif (isset($_POST["datostablaBoVe"])){
 
         $referencia = $_POST["referenciabo"];
+        $codigo = $_POST["codigobo"];
+        $fecha = $_POST["fechabo"];
 
-        $sql = "DELETE FROM ventas WHERE refProducto = :referencia";
+        $sql = "DELETE FROM ventas WHERE refProducto = :referencia AND codComercial = :codigo AND fecha = :fecha";
 
         $stmt = $conexion->prepare($sql);
 
         $stmt->bindParam(":referencia", $referencia);
+        $stmt->bindParam(":codigo", $codigo);
+        $stmt->bindParam(":fecha", $fecha);
 
         if ($stmt->execute()) {
 
