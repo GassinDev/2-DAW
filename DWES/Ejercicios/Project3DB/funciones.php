@@ -44,7 +44,7 @@ function FormuModifica()
     <label for='fNacimiento'>Fecha de Nacimiento:</label>
     <input type='text' name='fNacimiento' value='" . $_POST['fNacimiento'] . "'><br>
     
-    <input type='hidden' name='code' value='" . $_POST['code'] . "'>
+    <input type='hidden' name='code3' value='" . $_POST['code'] . "'>
 
     <input type='submit' name='nuevosDatos' value='ACEPTAR'>
 </form>";
@@ -64,7 +64,7 @@ function FormuModifica()
     <input type='text' name='descuento' value='" . $_POST['descuento'] . "'><br>
 
     <input type='hidden' name='referencia' value='" . $_POST['referencia'] . "'>
-    <input type='hidden' name='code' value='" . $_POST['code'] . "'>
+    <input type='hidden' name='code3' value='" . $_POST['code'] . "'>
     
     <input type='submit' name='nuevosDatos' value='ACEPTAR'>
 </form>";
@@ -76,7 +76,7 @@ function FormuModifica()
 
     <label for='descripcion'>Fecha:</label>
     <input type='text' name='fecha' value='" . $_POST['fecha'] . "'><br>
-    <input type='hidden' name='code' value='" . $_POST['code'] . "'>
+    <input type='hidden' name='code3' value='" . $_POST['code'] . "'>
 
     <input type='submit' name='nuevosDatos' value='ACEPTAR'>
 </form>";
@@ -240,14 +240,14 @@ function buscaModi()
 function editaDatos()
 {
     $conexion = conectarDB();
-
+    
     if (isset($_POST["salario"])) {
 
         $nuevoNombre = $_POST['nombre'];
         $nuevoSalario = $_POST['salario'];
         $nuevoHijos = $_POST['hijos'];
         $nuevofNacimiento = $_POST['fNacimiento'];
-        $code = $_POST['code'];
+        $code = $_POST['code3'];
 
         $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
 
@@ -295,6 +295,7 @@ function editaDatos()
                 echo "Hubo un error al guardar los cambios.";
             }
         }
+
 
     } elseif (isset($_POST["cantidad"])) {
 
@@ -348,10 +349,9 @@ function consultarDatos()
 
             echo "</table>";
         } else {
-            echo "No se encontraron comerciales";
+            echo "<p>No se encontraron comerciales</p >";
         }
     }
-    echo "<br>";
     //SEGUNDA TABLA - PRODUCTOS
     {
         $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
@@ -364,7 +364,6 @@ function consultarDatos()
                 $arrayRefe[] = $refProducto;
             }
         }
-
         $tablaGenerada = false;
         foreach ($arrayRefe as $value) {
 
@@ -395,14 +394,19 @@ function consultarDatos()
                     echo "<td>" . $row["descuento"] . "%</td>";
                     echo "</tr>";
                 }
+                echo "</table>";
 
-            } else {
-                echo "No se encontraron productos";
-            }
+            } 
         }
-        echo "</table>";
+
+        if (!$tablaGenerada) {
+            echo "<p>No se encontraron productos</p>";
+        } else {
+            echo "</table>";
+        }
+
     } {
-        echo "<br>";
+
         //TERCERA TABLA - VENTAS
         {
             $sql = "SELECT * FROM ventas WHERE codComercial = $code";
@@ -426,7 +430,7 @@ function consultarDatos()
 
                 echo "</table>";
             } else {
-                echo "No se encontraron ventas";
+                echo "<p>No se encontraron ventas</p>";
             }
         }
         $conexion = null;
@@ -474,7 +478,6 @@ function verModificarDatos()
             echo "No se encontraron comerciales";
         }
     }
-    echo "<br>";
     //SEGUNDA TABLA - PRODUCTOS
     {
         $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
@@ -487,13 +490,11 @@ function verModificarDatos()
                 $arrayRefe[] = $refProducto;
             }
         }
-        $contador = 0;
         $tablaGenerada = false;
         foreach ($arrayRefe as $value) {
 
             $sql = "SELECT * FROM productos WHERE referencia = '$value'";
             $result = $conexion->query($sql);
-            $contador++;
 
             if ($result->rowCount() > 0) {
 
@@ -529,19 +530,16 @@ function verModificarDatos()
                 }
 
                 echo "</form>";
-                if ($contador === count($arrayRefe)) {
-                    echo "</table>";
-                }
-
-
-            } else {
-                echo "<p>No se encontraron productos</p>";
             }
+        }
 
+        if (!$tablaGenerada) {
+            echo "<p>No se encontraron productos</p>";
+        } else {
+            echo "</table>";
         }
 
     } {
-        echo "<br>";
         //TERCERA TABLA - VENTAS
         {
             $sql = "SELECT * FROM ventas WHERE codComercial = $code";
@@ -933,7 +931,7 @@ function filtradorComerciales($nombre, $salario, $hijos, $fNacimiento)
     }
 
     $conexion = conectarDB();
-    $sql = "SELECT nombre FROM comerciales";
+    $sql = "SELECT nombre FROM comerciales WHERE nombre != '$nombre'";
     $result = $conexion->query($sql);
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -952,21 +950,21 @@ function filtradorProductos($nombre, $descripcion, $precio, $descuentos)
 
     $valido = true;
 
-    if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóú\s]+$/', $nombre)) {
+    if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóú0-9\s]+$/', $nombre) || strlen($nombre) > 20) {
         $valido = false;
         echo "<br>Error en el nombre, se introdujeron otros carácteres diferentes a letras.";
     }
-    if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóú\s]+$/', $descripcion)) {
+    if (strlen($descripcion) === 0 || strlen($descripcion) > 20) {
         $valido = false;
-        echo "<br>Erro en el nombre, se introdujeron otros carácteres diferentes a letras.";
+        echo "<br>Error en la descripcion, introduzca correctamente la descripción(0 - 20 carácteres).";
     }
     if (!is_numeric($precio) || $precio < 0) {
         $valido = false;
-        echo "<br>Ese número de hijos no es válido.";
+        echo "<br>Ese precio no es válido.";
     }
     if (!is_numeric($descuentos) || $descuentos < 0) {
         $valido = false;
-        echo "<br>Ese número de salario no es válido.";
+        echo "<br>Ese número de descuento no es válido.";
     }
 
     return $valido;
@@ -979,7 +977,7 @@ function filtradorVentas($cantidad, $fecha)
 
     if (!is_numeric($cantidad) || $cantidad < 0) {
         $valido = false;
-        echo "<br>Ese número de hijos no es válido.";
+        echo "<br>Esa cantidad no es válida.";
     }
     if (!validarFecha($fecha)) {
         $valido = false;
