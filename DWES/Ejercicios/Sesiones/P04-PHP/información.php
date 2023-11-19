@@ -6,9 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    
+<h1>HOLA INVITADO</h1>
 </body>
-<?php
-    
-?>
 </html>
