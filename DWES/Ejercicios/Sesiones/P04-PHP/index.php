@@ -32,9 +32,9 @@
         $usuario = $_POST["usuario"];
         $contrasena = $_POST["contrasena"];
 
-        $hashAlmacenado = obtenerHashDesdeBaseDeDatos($usuario);
+        $hashAlmacenado = obtenerHashBaseDeDatos($usuario);
 
-        if (verificarContraseña($contrasena, $hashAlmacenado)) {
+        if ($hashAlmacenado && password_verify($contrasena, $hashAlmacenado)) {
 
             $_SESSION['usuario_autenticado'] = true;
             $_SESSION['usuario'] = $usuario;
@@ -50,12 +50,17 @@
         header("Location: información.php");
             exit();
     }
+
+    if(isset($_COOKIE['fondoColor'])){
+        echo $_COOKIE['fondoColor'];
+    }
     ?>
     
     <form action="index.php" method="post">
         <input type="hidden" name="continuar_como_invitado" value="1">
         <button type="submit" >Continuar como invitado</button>
     </form>
+    
 </body>
 
 </html>

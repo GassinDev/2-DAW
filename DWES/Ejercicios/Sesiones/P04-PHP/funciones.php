@@ -15,10 +15,10 @@ function conectarDB()
     }
 }
 
-function obtenerHashDesdeBaseDeDatos($usuario)
+function obtenerHashBaseDeDatos($usuario)
 {
     try {
-        
+
         $conexion = conectarDB();
 
         $sql = "SELECT pwd FROM usuarios WHERE usuario = :usuario";
@@ -39,11 +39,9 @@ function obtenerHashDesdeBaseDeDatos($usuario)
     return false;
 }
 
-function verificarContraseña($hashAlmacenado, $contrasena){
-    if($hashAlmacenado === $contrasena){
-        return true;
-    }else{
-        return false;
-    }
+function elegirColorFondo()
+{
+    $color = $_POST['color'];
+    setcookie("colorFondo",  $color, time() + 3600, "/");
 }
 ?>

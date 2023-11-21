@@ -6,6 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-<h1>HOLA INVITADO</h1>
+<h1>Información</h1>
+<a href="index.php">Volver al login</a>
+<?php
+    if ($_COOKIE['colorFondo']) {
+        $color = $_COOKIE['colorFondo'];
+        echo "<style>body { background-color: $color; }</style>";
+    }
+?>
 </body>
 </html>

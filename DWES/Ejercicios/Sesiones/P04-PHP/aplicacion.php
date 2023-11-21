@@ -9,9 +9,10 @@
 
 <body>
     <h1>HOLA USUARIO</h1>
-    <form action="index.php" method="post">
-        <input type="hidden" name="cerrar_sesion" value="1">
-        <button type="submit" >Cerrar sesión</button>
+    <form action="aplicacion.php" method="post">
+        <button type="submit" name="informacion">Información</button>
+        <button type="submit" name="preferencia">Preferencia</button>
+        <button type="submit" name="cerrar_sesion">Cerrar sesión</button>
     </form>
 
     <?php
@@ -22,7 +23,17 @@
         session_destroy();
         header("Location: index.php");
         exit();
+    }elseif(isset($_POST["preferencia"])){
+        header("Location: preferencia.php");
+    }elseif(isset($_POST["informacion"])){
+        header("Location: información.php");
     }
+
+    if ($_COOKIE['colorFondo']) {
+        $color = $_COOKIE['colorFondo'];
+        echo "<style>body { background-color: $color; }</style>";
+    }
+    
     ?>
 </body>
 
