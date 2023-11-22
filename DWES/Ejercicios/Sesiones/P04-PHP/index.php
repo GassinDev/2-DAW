@@ -22,22 +22,28 @@
     session_start();
     include("funciones.php");
 
+    //COMPROBAMOS SI HAY UNA SESION INICIADA
     if (isset($_SESSION['usuario_autenticado']) && $_SESSION['usuario_autenticado'] === true) {
         header("Location: aplicacion.php");
         exit();
     }
 
+    //SI INICIAMOS SESION COMPROBAMOS SI ES CORRECTO EL USUARIO Y LA CONTRASEÑA
     if (isset($_POST['inicio_sesion'])) {
 
         $usuario = $_POST["usuario"];
         $contrasena = $_POST["contrasena"];
+        $horaInicio = date('H:i:s');
 
+        //FUNCION QUE OBTIENE EL HASH DE LA BASE DE DATOS SEGUN EL USUARIO
         $hashAlmacenado = obtenerHashBaseDeDatos($usuario);
 
+        //VERIFICAMOS LA CONTRASEÑA INTRODUCIDA CON EL HASH
         if ($hashAlmacenado && password_verify($contrasena, $hashAlmacenado)) {
 
             $_SESSION['usuario_autenticado'] = true;
             $_SESSION['usuario'] = $usuario;
+            $_SESSION['hora'] = $horaInicio;
             header("Location: aplicacion.php");
             exit();
 
@@ -46,14 +52,12 @@
         }
     }
 
+    //PARA VER LA INFORMACION SIN INICIAR SESION
     if (isset($_POST['continuar_como_invitado'])) {
         header("Location: información.php");
             exit();
     }
 
-    if(isset($_COOKIE['fondoColor'])){
-        echo $_COOKIE['fondoColor'];
-    }
     ?>
     
     <form action="index.php" method="post">

@@ -19,7 +19,7 @@
     </form>
     <br>
     <form action="preferencia.php" method="post">
-        <input type="submit" value="Restablecer preferencias"name="restablecer">
+        <input type="submit" value="Restablecer preferencias" name="restablecer">
     </form>
     <br>
     <a href="index.php">Volver al login</a>
@@ -33,14 +33,26 @@
         include("funciones.php");
         session_start();
 
-        if(isset($_POST['color'])){
-            elegirColorFondo();
+        //CREA LA COOKIE CON EL RESPECTIVO COLOR ELEGIDO
+        if (isset($_POST['color'])) {
+            $color = $_POST['color'];
+            setcookie('colorFondo', $color, time() + 3600, "/"); 
+            header("Location: preferencia.php");
+            exit();
         }
-
-        if ($_COOKIE['colorFondo']) {
+        
+        //APLICA LA COOKIE PARA CAMBIAR EL COLOR DEL FONDO
+        if (isset($_COOKIE['colorFondo'])) {
             $color = $_COOKIE['colorFondo'];
             echo "<style>body { background-color: $color; }</style>";
         }
+        
+        //ELIMINAR LA COOKIE
+        if (isset($_POST['restablecer'])) {
+            borrarCookie('colorFondo');
+            header("Location: preferencia.php");
+            exit();
+            }
 
     ?>
 </body>

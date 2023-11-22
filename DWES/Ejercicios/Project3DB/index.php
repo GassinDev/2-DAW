@@ -10,6 +10,7 @@
 
 <body>
     <h1>Bienvenido Administrador</h1>
+    <!-- Formulario de navegación para seleccionar acciones -->
     <form id="menuNav" method="post" action="index.php">
         <input type="submit" name="action" value="CONSULTA">
         <input type="submit" name="action" value="INSERCION">
@@ -18,60 +19,65 @@
     </form><br>
 
     <?php
+    // Incluir el archivo de funciones y conectar a la base de datos
     include("funciones.php");
     conectarDB();
+
+    // Verificar si se ha seleccionado una acción
     if (isset($_POST['action'])) {
 
         $action = $_POST['action'];
-        
+
+        // Realizar acciones según la opción seleccionada
         if ($action === 'CONSULTA') {
-            verFormuConsulta();
+            verFormuConsulta(); // Función para mostrar formulario de consulta
             echo "<br>";
         } elseif ($action === 'INSERCION') {
-            eleccionInsertar("eleinsert");
+            eleccionInsertar("eleinsert"); // Función para mostrar formulario de inserción
             echo "<br>";
         } elseif ($action === 'MODIFICACION') {
-            buscaModi();
+            buscaModi(); // Función para buscar datos a modificar
             echo "<br>";
         } elseif ($action === "ELIMINACION") {
-            eleccionInsertar("eleinsert2");
+            eleccionInsertar("eleinsert2"); // Función para mostrar formulario de eliminación
             echo "<br>";
         }
     }
 
+    // Realizar acciones según las opciones seleccionadas después del formulario principal
     if(isset($_POST["code"])) {
-        consultarDatos();
-    }elseif(isset($_POST["code2"])) {
-        verModificarDatos();
-    }elseif(isset($_POST["Mostrartodo"])) {
-        consultarTodo();
+        consultarDatos(); // Función para consultar datos específicos
+    } elseif(isset($_POST["code2"])) {
+        verModificarDatos(); // Función para mostrar datos a modificar
+    } elseif(isset($_POST["Mostrartodo"])) {
+        consultarTodo(); // Función para consultar todos los datos
     }
 
     if(isset($_POST["datostabla"])) {
-        FormuModifica();
+        FormuModifica(); // Función para mostrar formulario de modificación
     }
 
     if(isset($_POST["nuevosDatos"])) {
-        editaDatos();
+        editaDatos(); // Función para editar datos
     }
 
     if(isset($_POST["eleinsert"])) {
-        formulariosInsertar();
+        formulariosInsertar(); // Función para mostrar formularios de inserción
     }
 
     if(isset($_POST["eleinsert2"])) {
-        mostrarDatosBorrar();
+        mostrarDatosBorrar(); // Función para mostrar datos a borrar
     }
 
     if(isset($_POST["datosNuevos"])) {
-        introducirDatos();
+        introducirDatos(); // Función para introducir nuevos datos
     }
 
+    // Realizar acciones según las opciones seleccionadas para borrar datos
     if(isset($_POST["datostablaBoCo"]) || isset($_POST["datostablaBoPro"]) || isset($_POST["datostablaBoVe"])) {
-        borrarDatos();
+        borrarDatos(); // Función para borrar datos de distintas tablas
     }
     ?>
 </body>
-
 
 </html>
