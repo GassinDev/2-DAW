@@ -1,15 +1,18 @@
 <?php
 function conectarDB()
 {
+      // Detalles de conexión a la base de datos
     $dsn = "mysql:host=localhost;dbname=ventas_comerciales";
     $usuario = "root";
     $contrasena = "";
 
     try {
+         // Creando una conexión PDO
         $conexion = new PDO($dsn, $usuario, $contrasena);
         $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conexion;
     } catch (PDOException $e) {
+        // Manejo de errores de conexión
         echo ("Error de conexión: " . $e->getMessage());
     }
 }
@@ -28,6 +31,8 @@ function verFormuConsulta()
 
 function FormuModifica()
 {
+     // Mostrando un formulario para modificar datos según el tipo de datos a modificar
+    // (comercial, producto, o venta)
     if (isset($_POST["salario"])) {
         echo "
 <form method='post' action='index.php'>
@@ -85,7 +90,7 @@ function FormuModifica()
 
 function introducirDatos()
 {
-
+    // Insertando datos según el tipo de datos a introducir
     if (isset($_POST["hijos"])) {
 
         $nuevoNombre = $_POST['nombre'];
@@ -242,7 +247,7 @@ function editaDatos()
     $conexion = conectarDB();
     
     if (isset($_POST["salario"])) {
-
+         // Modificar datos de comerciales
         $nuevoNombre = $_POST['nombre'];
         $nuevoSalario = $_POST['salario'];
         $nuevoHijos = $_POST['hijos'];
