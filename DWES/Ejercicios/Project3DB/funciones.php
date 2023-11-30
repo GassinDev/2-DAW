@@ -1,22 +1,24 @@
 <?php
+// Function to connect to the database
 function conectarDB()
 {
-      // Detalles de conexión a la base de datos
+      // Database connection details
     $dsn = "mysql:host=localhost;dbname=ventas_comerciales";
     $usuario = "root";
     $contrasena = "";
 
     try {
-         // Creando una conexión PDO
+         // Creating a PDO connection
         $conexion = new PDO($dsn, $usuario, $contrasena);
         $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conexion;
     } catch (PDOException $e) {
-        // Manejo de errores de conexión
+        // Handling connection errors
         echo ("Error de conexión: " . $e->getMessage());
     }
 }
 
+// The following functions are forms
 function verFormuConsulta()
 {
     echo "<h2>Consulte sus datos</h2>
@@ -29,10 +31,10 @@ function verFormuConsulta()
             </form>";
 }
 
+// Displaying a form to modify data based on the type of data to modify
+// (commercial, product, or sale)
 function FormuModifica()
 {
-     // Mostrando un formulario para modificar datos según el tipo de datos a modificar
-    // (comercial, producto, o venta)
     if (isset($_POST["salario"])) {
         echo "
 <form method='post' action='index.php'>
@@ -88,151 +90,6 @@ function FormuModifica()
     }
 }
 
-function introducirDatos()
-{
-    // Insertando datos según el tipo de datos a introducir
-    if (isset($_POST["hijos"])) {
-
-        $nuevoNombre = $_POST['nombre'];
-        $nuevoSalario = $_POST['salario'];
-        $nuevoHijos = $_POST['hijos'];
-        $nuevofNacimiento = $_POST['fNacimiento'];
-
-        $conexion = conectarDB();
-        $codigo = 0;
-
-        for ($i = 0; $i < 10000; $i++) {
-            $sql = "SELECT codigo FROM comerciales WHERE codigo=$i";
-            $result = $conexion->query($sql);
-
-            $tamaño = $result->rowCount();
-
-            if ($tamaño === 0) {
-                $codigo = $i;
-                break;
-            }
-        }
-
-        $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
-
-        if ($validacionComerciales === true) {
-
-            $sql = "INSERT INTO comerciales (codigo, nombre, salario, hijos, fNacimiento) VALUES (:code, :nombre, :salario, :hijos, :fNacimiento)";
-
-            $stmt = $conexion->prepare($sql);
-
-            $stmt->bindParam(":nombre", $nuevoNombre);
-            $stmt->bindParam(":salario", $nuevoSalario);
-            $stmt->bindParam(":hijos", $nuevoHijos);
-            $stmt->bindParam(":fNacimiento", $nuevofNacimiento);
-            $stmt->bindParam(":code", $codigo);
-
-            if ($stmt->execute()) {
-                echo "<br><p>Tu comercial se introdujo con éxito.</p>";
-            } else {
-                echo "<br><p>Hubo un error al insertar el comercial.</p>";
-            }
-        }
-
-    } elseif (isset($_POST["precio"])) {
-
-        $nuevoNombre = $_POST['nombre'];
-        $nuevoDescripcion = $_POST['descripcion'];
-        $nuevoPrecio = $_POST['precio'];
-        $nuevofDescuento = $_POST['descuento'];
-
-        $conexion = conectarDB();
-
-        $letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $referencia = '';
-
-        $existRefe = true;
-
-        while ($existRefe) {
-            for ($i = 0; $i < 2; $i++) {
-                $referencia .= $letras[rand(0, strlen($letras) - 1)];
-            }
-
-            $referencia .= str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
-
-            $sql = "SELECT referencia FROM productos WHERE referencia='$referencia'";
-            $result = $conexion->query($sql);
-
-            $tamaño = $result->rowCount();
-
-            if ($tamaño === 0) {
-                $existRefe = false;
-            }
-        }
-
-        $validacionProductos = filtradorProductos($nuevoNombre, $nuevoDescripcion, $nuevoPrecio, $nuevofDescuento);
-
-        if ($validacionProductos === true) {
-
-            $sql = "INSERT INTO productos (referencia, nombre, descripcion, precio, descuento) VALUES (:referencia, :nombre, :descripcion, :precio, :descuento)";
-
-            $stmt = $conexion->prepare($sql);
-
-            $stmt->bindParam(":nombre", $nuevoNombre);
-            $stmt->bindParam(":descripcion", $nuevoDescripcion);
-            $stmt->bindParam(":precio", $nuevoPrecio);
-            $stmt->bindParam(":descuento", $nuevofDescuento);
-            $stmt->bindParam(":referencia", $referencia);
-
-            if ($stmt->execute()) {
-                echo "<br><p>Tu producto se introdujo con éxito.</p>";
-            } else {
-                echo "<br><p>Hubo un error al insertar el producto.</p>";
-            }
-        }
-    } elseif (isset($_POST["cantidad"])) {
-
-        $nuevoCantidad = $_POST['cantidad'];
-        $nuevoFecha = $_POST['fecha'];
-
-        $conexion = conectarDB();
-        $nombre = $_POST['nombreComercial'];
-        $nom_refe = $_POST['nombreProducto'];
-        $nom_refe_array = explode("-", $nom_refe);
-
-        $nombreProducto = $nom_refe_array[0];
-        $descripcionProducto = $nom_refe_array[1];
-
-        $sql = "SELECT codigo FROM comerciales WHERE nombre = :nombre";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->execute();
-        $codComercial = $stmt->fetch(PDO::FETCH_ASSOC)['codigo'];
-
-        $sql = "SELECT referencia FROM productos WHERE nombre = :nombreProducto AND descripcion = :descripcionProducto";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bindParam(':nombreProducto', $nombreProducto);
-        $stmt->bindParam(':descripcionProducto', $descripcionProducto);
-        $stmt->execute();
-        $refProducto = $stmt->fetch(PDO::FETCH_ASSOC)['referencia'];
-
-        $validacionVentas = filtradorVentas($nuevoCantidad, $nuevoFecha);
-
-        if ($validacionVentas === true) {
-
-            $sql = "INSERT INTO ventas (codComercial, refProducto, cantidad, fecha) VALUES (:codComercial, :refProducto, :cantidad, :fecha)";
-
-            $stmt = $conexion->prepare($sql);
-
-            $stmt->bindParam(":cantidad", $nuevoCantidad);
-            $stmt->bindParam(":fecha", $nuevoFecha);
-            $stmt->bindParam(":codComercial", $codComercial);
-            $stmt->bindParam(":refProducto", $refProducto);
-
-            if ($stmt->execute()) {
-                echo "<br><p>Tu venta se introdujo con éxito.</p>";
-            } else {
-                echo "<br><p>Hubo un error al insertar la venta.</p>";
-            }
-        }
-    }
-}
-
 function buscaModi()
 {
     echo "<h2>Elija el código de los datos que quiere modificar</h2>
@@ -240,343 +97,6 @@ function buscaModi()
                 Código del comercial: <input type='text' name='code2' required><br>
                 <input type='submit' value='Buscar'>
             </form>";
-}
-
-function editaDatos()
-{
-    $conexion = conectarDB();
-    
-    if (isset($_POST["salario"])) {
-         // Modificar datos de comerciales
-        $nuevoNombre = $_POST['nombre'];
-        $nuevoSalario = $_POST['salario'];
-        $nuevoHijos = $_POST['hijos'];
-        $nuevofNacimiento = $_POST['fNacimiento'];
-        $code = $_POST['code3'];
-
-        $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
-
-        if ($validacionComerciales === true) {
-            $sql = "UPDATE comerciales SET nombre = :nombre, salario = :salario, hijos = :hijos, fNacimiento = :fNacimiento WHERE codigo = :code";
-
-            $stmt = $conexion->prepare($sql);
-            $stmt->bindParam(":nombre", $nuevoNombre);
-            $stmt->bindParam(":salario", $nuevoSalario);
-            $stmt->bindParam(":hijos", $nuevoHijos);
-            $stmt->bindParam(":fNacimiento", $nuevofNacimiento);
-            $stmt->bindParam(":code", $code);
-
-            if ($stmt->execute()) {
-                echo "<br><p>Los cambios se han guardado correctamente.</p>";
-            } else {
-                echo "Hubo un error al guardar los cambios.";
-            }
-        }
-
-
-    } elseif (isset($_POST["descripcion"])) {
-
-        $nuevoNombre = $_POST['nombre'];
-        $nuevoDescripcion = $_POST['descripcion'];
-        $nuevoPrecio = $_POST['precio'];
-        $nuevofDescuento = $_POST['descuento'];
-        $referencia = $_POST['referencia'];
-
-        $validacionProductos = filtradorProductos($nuevoNombre, $nuevoDescripcion, $nuevoPrecio, $nuevofDescuento);
-
-        if ($validacionProductos === true) {
-            $sql = "UPDATE productos SET nombre = :nombre, descripcion = :descripcion, precio = :precio, descuento = :descuento WHERE referencia = :referencia";
-
-            $stmt = $conexion->prepare($sql);
-            $stmt->bindParam(":nombre", $nuevoNombre);
-            $stmt->bindParam(":descripcion", $nuevoDescripcion);
-            $stmt->bindParam(":precio", $nuevoPrecio);
-            $stmt->bindParam(":descuento", $nuevofDescuento);
-            $stmt->bindParam(":referencia", $referencia);
-
-            if ($stmt->execute()) {
-                echo "<br><p>Los cambios se han guardado correctamente.</p>";
-            } else {
-                echo "Hubo un error al guardar los cambios.";
-            }
-        }
-
-
-    } elseif (isset($_POST["cantidad"])) {
-
-        $nuevoCantidad = $_POST['cantidad'];
-        $nuevoFecha = $_POST['fecha'];
-
-        $validacionProductos = filtradorVentas($nuevoCantidad, $nuevoFecha);
-
-        if ($validacionProductos === true) {
-            $sql = "UPDATE productos SET cantidad = :cantidad, fecha = :fecha WHERE referencia = :referencia";
-
-            $stmt = $conexion->prepare($sql);
-            $stmt->bindParam(":cantidad", $nuevoCantidad);
-            $stmt->bindParam(":fecha", $nuevoFecha);
-
-            if ($stmt->execute()) {
-                echo "<br><p>Los cambios se han guardado correctamente.</p>";
-            } else {
-                echo "Hubo un error al guardar los cambios.";
-            }
-        }
-    }
-}
-function consultarDatos()
-{
-    $code = (int) ($_POST["code"]);
-    $conexion = conectarDB();
-
-    //PRIMERA TABLA - COMERCIALES
-    {
-        $sql = "SELECT * FROM comerciales WHERE codigo = $code";
-        $result = $conexion->query($sql);
-
-        if ($result->rowCount() > 0) {
-            echo "<table border='1'><caption>COMERCIALES</caption>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Salario</th>
-                    <th>Hijos</th>
-                    <th>F.Nacimiento</th>
-                </tr>";
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<td>" . $row["nombre"] . "</td>";
-                echo "<td>" . $row["salario"] . "</td>";
-                echo "<td>" . $row["hijos"] . "</td>";
-                echo "<td>" . $row["fNacimiento"] . "</td>";
-                echo "</tr>";
-            }
-
-            echo "</table>";
-        } else {
-            echo "<p>No se encontraron comerciales</p >";
-        }
-    }
-    //SEGUNDA TABLA - PRODUCTOS
-    {
-        $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
-        $arrayRefe = array();
-
-        // Recorre los resultados y agrega los valores únicos al array
-        while ($row = $ref->fetch(PDO::FETCH_ASSOC)) {
-            $refProducto = $row['refProducto'];
-            if (!in_array($refProducto, $arrayRefe)) {
-                $arrayRefe[] = $refProducto;
-            }
-        }
-        $tablaGenerada = false;
-        foreach ($arrayRefe as $value) {
-
-            $sql = "SELECT * FROM productos WHERE referencia = '$value'";
-            $result = $conexion->query($sql);
-
-            if ($result->rowCount() > 0) {
-
-                if (!$tablaGenerada) {
-                    echo "<table border='1'><caption>PRODUCTOS</caption>
-                <tr>
-                    <th>Referencia</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Descuento</th>
-                </tr>";
-
-                    $tablaGenerada = true;
-                }
-
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>";
-                    echo "<td>" . $row["referencia"] . "</td>";
-                    echo "<td>" . $row["nombre"] . "</td>";
-                    echo "<td>" . $row["descripcion"] . "</td>";
-                    echo "<td>" . $row["precio"] . "€</td>";
-                    echo "<td>" . $row["descuento"] . "%</td>";
-                    echo "</tr>";
-                }
-                echo "</table>";
-
-            } 
-        }
-
-        if (!$tablaGenerada) {
-            echo "<p>No se encontraron productos</p>";
-        } else {
-            echo "</table>";
-        }
-
-    } {
-
-        //TERCERA TABLA - VENTAS
-        {
-            $sql = "SELECT * FROM ventas WHERE codComercial = $code";
-            $result = $conexion->query($sql);
-
-            if ($result->rowCount() > 0) {
-                echo "<table border='1'><caption>VENTAS</caption>
-                    <tr>
-                        <th>Referencia</th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                    </tr>";
-
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>";
-                    echo "<td>" . $row["refProducto"] . "</td>";
-                    echo "<td>" . $row["cantidad"] . "</td>";
-                    echo "<td>" . $row["fecha"] . "</td>";
-                    echo "</tr>";
-                }
-
-                echo "</table>";
-            } else {
-                echo "<p>No se encontraron ventas</p>";
-            }
-        }
-        $conexion = null;
-    }
-}
-
-function verModificarDatos()
-{
-    $code = (int) ($_POST["code2"]);
-    $conexion = conectarDB();
-
-    //PRIMERA TABLA - COMERCIALES
-    {
-        $sql = "SELECT * FROM comerciales WHERE codigo = $code";
-        $result = $conexion->query($sql);
-
-        if ($result->rowCount() > 0) {
-            echo "<table border='1'><caption>COMERCIALES</caption>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Salario</th>
-                    <th>Hijos</th>
-                    <th>F.Nacimiento</th>
-                </tr>";
-
-            echo "<form method='post' action='index.php'>";
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<input type='hidden' name='code' value='" . $code . "'>";
-                echo "<td>" . $row["nombre"] . "</td>";
-                echo "<input type='hidden' name='nombre' value='" . $row['nombre'] . "'>";
-                echo "<td>" . $row["salario"] . "</td>";
-                echo "<input type='hidden' name='salario' value='" . $row['salario'] . "'>";
-                echo "<td>" . $row["hijos"] . "</td>";
-                echo "<input type='hidden' name='hijos' value='" . $row['hijos'] . "'>";
-                echo "<td>" . $row["fNacimiento"] . "</td>";
-                echo "<input type='hidden' name='fNacimiento' value='" . $row['fNacimiento'] . "'>";
-                echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-            echo "</form>";
-        } else {
-            echo "No se encontraron comerciales";
-        }
-    }
-    //SEGUNDA TABLA - PRODUCTOS
-    {
-        $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
-        $arrayRefe = array();
-
-        // Recorre los resultados y agrega los valores únicos al array
-        while ($row = $ref->fetch(PDO::FETCH_ASSOC)) {
-            $refProducto = $row['refProducto'];
-            if (!in_array($refProducto, $arrayRefe)) {
-                $arrayRefe[] = $refProducto;
-            }
-        }
-        $tablaGenerada = false;
-        foreach ($arrayRefe as $value) {
-
-            $sql = "SELECT * FROM productos WHERE referencia = '$value'";
-            $result = $conexion->query($sql);
-
-            if ($result->rowCount() > 0) {
-
-
-                if (!$tablaGenerada) {
-                    echo "<table border='1'><caption>PRODUCTOS</caption>
-                <tr>
-                    <th>Referencia</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Descuento</th>
-                </tr>";
-
-                    $tablaGenerada = true;
-                }
-                echo "<form method='post' action='index.php'>";
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>";
-                    echo "<input type='hidden' name='code' value='" . $code . "'>";
-                    echo "<td>" . $row["referencia"] . "</td>";
-                    echo "<input type='hidden' name='referencia' value='" . $row['referencia'] . "'>";
-                    echo "<td>" . $row["nombre"] . "</td>";
-                    echo "<input type='hidden' name='nombre' value='" . $row['nombre'] . "'>";
-                    echo "<td>" . $row["descripcion"] . "</td>";
-                    echo "<input type='hidden' name='descripcion' value='" . $row['descripcion'] . "'>";
-                    echo "<td>" . $row["precio"] . "€</td>";
-                    echo "<input type='hidden' name='precio' value='" . $row['precio'] . "'>";
-                    echo "<td>" . $row["descuento"] . "%</td>";
-                    echo "<input type='hidden' name='descuento' value='" . $row['descuento'] . "'>";
-                    echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
-                    echo "</tr>";
-                }
-
-                echo "</form>";
-            }
-        }
-
-        if (!$tablaGenerada) {
-            echo "<p>No se encontraron productos</p>";
-        } else {
-            echo "</table>";
-        }
-
-    } {
-        //TERCERA TABLA - VENTAS
-        {
-            $sql = "SELECT * FROM ventas WHERE codComercial = $code";
-            $result = $conexion->query($sql);
-
-            if ($result->rowCount() > 0) {
-                echo "<table border='1'><caption>VENTAS</caption>
-                    <tr>
-                        <th>Referencia</th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                    </tr>";
-                echo "<form method='post' action='index.php'>";
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>";
-                    echo "<input type='hidden' name='code' value='" . $code . "'>";
-                    echo "<td>" . $row["refProducto"] . "</td>";
-                    echo "<td>" . $row["cantidad"] . "</td>";
-                    echo "<input type='hidden' name='cantidad' value='" . $row['cantidad'] . "'>";
-                    echo "<td>" . $row["fecha"] . "</td>";
-                    echo "<input type='hidden' name='fecha' value='" . $row['fecha'] . "'>";
-                    echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
-                    echo "</tr>";
-                }
-                echo "</form>";
-                echo "</table>";
-            } else {
-                echo "<p>No se encontraron ventas</p>";
-            }
-        }
-        $conexion = null;
-    }
 }
 
 function eleccionInsertar($value)
@@ -603,203 +123,6 @@ function eleccionInsertar($value)
 </form>";
 }
 
-function mostrarDatosBorrar()
-{
-    $conexion = conectarDB();
-    if ($_POST['eleccion'] === "Comercial") {
-
-        //PRIMERA TABLA - COMERCIALES
-
-        $sql = "SELECT * FROM comerciales";
-        $result = $conexion->query($sql);
-
-        if ($result->rowCount() > 0) {
-            echo "<table border='1'><caption>COMERCIALES</caption>
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Salario</th>
-                    <th>Hijos</th>
-                    <th>F.Nacimiento</th>
-                </tr>";
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<form method='post' action='index.php'>";
-                echo "<input type='hidden' name='codebo' value='" . $row['codigo'] . "'>";
-                echo "<td>" . $row["codigo"] . "</td>";
-                echo "<td>" . $row["nombre"] . "</td>";
-                echo "<td>" . $row["salario"] . "</td>";
-                echo "<td>" . $row["hijos"] . "</td>";
-                echo "<td>" . $row["fNacimiento"] . "</td>";
-                echo "<td><input type='submit' name='datostablaBoCo' value='BORRAR'></td>";
-                echo "</form>";
-                echo "</tr>";
-            }
-            echo "</table>";
-
-        } else {
-            echo "No se encontraron comerciales";
-        }
-
-    } elseif ($_POST["eleccion"] === "Producto") {
-
-        //SEGUNDA TABLA - PRODUCTOS
-
-        $sql = "SELECT * FROM productos";
-        $result = $conexion->query($sql);
-
-
-        if ($result->rowCount() > 0) {
-
-            echo "<table border='1'><caption>PRODUCTOS</caption>
-                <tr>
-                    <th>Referencia</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Descuento</th>
-                </tr>";
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<form method='post' action='index.php'>";
-                echo "<td>" . $row["referencia"] . "</td>";
-                echo "<input type='hidden' name='referenciabo' value='" . $row['referencia'] . "'>";
-                echo "<td>" . $row["nombre"] . "</td>";
-                echo "<td>" . $row["descripcion"] . "</td>";
-                echo "<td>" . $row["precio"] . "€</td>";
-                echo "<td>" . $row["descuento"] . "%</td>";
-                echo "<td><input type='submit' name='datostablaBoPro' value='BORRAR'></td>";
-                echo "</form>";
-                echo "</tr>";
-            }
-
-            echo "</table>";
-
-        } else {
-            echo "No se encontraron productos";
-        }
-
-    } elseif ($_POST["eleccion"] === "Venta") {
-
-        //TERCERA TABLA - VENTAS
-
-        $sql = "SELECT * FROM ventas";
-        $result = $conexion->query($sql);
-
-        if ($result->rowCount() > 0) {
-            echo "<table border='1'><caption>VENTAS</caption>
-                    <tr><th>Código</th>
-                        <th>Referencia</th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                    </tr>";
-            
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<form method='post' action='index.php'>";
-                echo "<input type='hidden' name='referenciabo' value='" . $row['refProducto'] . "'>";
-                echo "<input type='hidden' name='codigobo' value='" . $row['codComercial'] . "'>";
-                echo "<td>" . $row["codComercial"] . "</td>";
-                echo "<td>" . $row["refProducto"] . "</td>";
-                echo "<td>" . $row["cantidad"] . "</td>";
-                echo "<td>" . $row["fecha"] . "</td>";
-                echo "<input type='hidden' name='fechabo' value='" . $row['fecha'] . "'>";
-                echo "<td><input type='submit' name='datostablaBoVe' value='BORRAR'></td>";
-                echo "</form>";
-                echo "</tr>";
-            }
-
-            echo "</table>";
-        } else {
-            echo "No se encontraron ventas";
-        }
-
-        $conexion = null;
-    }
-}
-
-function borrarDatos()
-{
-
-    $conexion = conectarDB();
-
-    if (isset($_POST["datostablaBoCo"])) {
-
-        $codigo = $_POST["codebo"];
-        var_dump($codigo);
-        $sql = "DELETE FROM ventas WHERE codComercial = :codigo";
-        $sql2 = "DELETE FROM comerciales WHERE codigo = :codigo";
-
-        $stmt = $conexion->prepare($sql);
-
-        $stmt->bindParam(":codigo", $codigo);
-
-        if ($stmt->execute()) {
-
-            $stmt2 = $conexion->prepare($sql2);
-            $stmt2->bindParam(":codigo", $codigo);
-
-            if ($stmt2->execute()) {
-                var_dump($codigo);
-                echo "<br><p>Se ha eliminado correctamente el comercial y sus respectivas ventas.</p>";
-            } else {
-                echo "Hubo un error al borrar el comercial.";
-            }
-
-        } else {
-            echo "Hubo un error al borrar.";
-        }
-
-    }elseif (isset($_POST["datostablaBoPro"])){
-
-        $referencia = $_POST["referenciabo"];
-
-        $sql = "DELETE FROM ventas WHERE refProducto = :referencia";
-        $sql2 = "DELETE FROM productos WHERE referencia = :referencia";     
-
-        $stmt = $conexion->prepare($sql);
-
-        $stmt->bindParam(":referencia", $referencia);
-
-        if ($stmt->execute()) {
-
-            $stmt2 = $conexion->prepare($sql2);
-            $stmt2->bindParam(":referencia", $referencia);
-
-            if ($stmt2->execute()) {
-                echo "<br><p>Se ha eliminado correctamente el producto y sus respectivas ventas.</p>";
-            } else {
-                echo "Hubo un error al borrar el producto.";
-            }
-
-        } else {
-            echo "Hubo un error al borrar.";
-        }
-    }elseif (isset($_POST["datostablaBoVe"])){
-
-        $referencia = $_POST["referenciabo"];
-        $codigo = $_POST["codigobo"];
-        $fecha = $_POST["fechabo"];
-
-        $sql = "DELETE FROM ventas WHERE refProducto = :referencia AND codComercial = :codigo AND fecha = :fecha";
-
-        $stmt = $conexion->prepare($sql);
-
-        $stmt->bindParam(":referencia", $referencia);
-        $stmt->bindParam(":codigo", $codigo);
-        $stmt->bindParam(":fecha", $fecha);
-
-        if ($stmt->execute()) {
-
-            echo "<br><p>Se ha eliminado correctamente la venta del producto.</p>";
-
-        } else {
-            echo "Hubo un error al borrar la venta.";
-        }
-    }
-}
 function formulariosInsertar()
 {
 
@@ -896,6 +219,803 @@ function formulariosInsertar()
     }
 }
 
+// From here on, there are regular functions
+
+// Function that displays all tables with their data
+function consultarTodo()
+{
+
+    $conexion = conectarDB();
+
+    // FIRST TABLE - SALESPEOPLE
+    {
+        $sql = "SELECT * FROM comerciales";
+        $result = $conexion->query($sql);
+
+        if ($result->rowCount() > 0) {
+            // Display table for salespeople
+            echo "<table border='1'><caption>COMERCIALES</caption>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Salario</th>
+                    <th>Hijos</th>
+                    <th>F.Nacimiento</th>
+                </tr>";
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td>" . $row["codigo"] . "</td>";
+                echo "<td>" . $row["nombre"] . "</td>";
+                echo "<td>" . $row["salario"] . "</td>";
+                echo "<td>" . $row["hijos"] . "</td>";
+                echo "<td>" . $row["fNacimiento"] . "</td>";
+                echo "</tr>";
+            }
+
+            echo "</table>";
+        } else {
+            echo "No se encontraron comerciales";
+        }
+    }
+    echo "<br>";
+    // SECOND TABLE - PRODUCTS
+    {
+
+        $sql = "SELECT * FROM productos";
+        $result = $conexion->query($sql);
+
+        if ($result->rowCount() > 0) {
+            // Display table for products
+            echo "<table border='1'><caption>PRODUCTOS</caption>
+                <tr>
+                    <th>Referencia</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Descuento</th>
+                </tr>";
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td>" . $row["referencia"] . "</td>";
+                echo "<td>" . $row["nombre"] . "</td>";
+                echo "<td>" . $row["descripcion"] . "</td>";
+                echo "<td>" . $row["precio"] . "€</td>";
+                echo "<td>" . $row["descuento"] . "%</td>";
+                echo "</tr>";
+            }
+
+        } else {
+            echo "No se encontraron productos";
+        }
+    }
+    echo "</table>"; {
+        echo "<br>";
+        // THIRD TABLE - SALES
+        {
+            $sql = "SELECT * FROM ventas";
+            $result = $conexion->query($sql);
+
+            if ($result->rowCount() > 0) {
+                // Display table for sales
+                echo "<table border='1'><caption>VENTAS</caption>
+                    <tr>
+                        <th>codComercial</th>
+                        <th>Referencia</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                    </tr>";
+
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<td>" . $row["codComercial"] . "</td>";
+                    echo "<td>" . $row["refProducto"] . "</td>";
+                    echo "<td>" . $row["cantidad"] . "</td>";
+                    echo "<td>" . $row["fecha"] . "</td>";
+                    echo "</tr>";
+                }
+
+                echo "</table>";
+            } else {
+                echo "No se encontraron ventas";
+            }
+        }
+        $conexion = null;
+    }
+}
+// Function responsible for collecting the data and inserting it into its table
+function introducirDatos()
+{
+   // Inserting data based on the type of data to be entered
+    if (isset($_POST["hijos"])) {
+
+        $nuevoNombre = $_POST['nombre'];
+        $nuevoSalario = $_POST['salario'];
+        $nuevoHijos = $_POST['hijos'];
+        $nuevofNacimiento = $_POST['fNacimiento'];
+
+        $conexion = conectarDB();
+        $codigo = 0;
+
+        // The following code assigns a code that is not present in the database, starting from 0.
+        for ($i = 0; $i < 10000; $i++) {
+            $sql = "SELECT codigo FROM comerciales WHERE codigo=$i";
+            $result = $conexion->query($sql);
+
+            $tamaño = $result->rowCount();
+
+            if ($tamaño === 0) {
+                $codigo = $i;
+                break;
+            }
+        }
+
+       // Validate the data
+        $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
+
+        if ($validacionComerciales === true) {
+
+            // Insert the data using a query
+            $sql = "INSERT INTO comerciales (codigo, nombre, salario, hijos, fNacimiento) VALUES (:code, :nombre, :salario, :hijos, :fNacimiento)";
+
+            $stmt = $conexion->prepare($sql);
+
+            $stmt->bindParam(":nombre", $nuevoNombre);
+            $stmt->bindParam(":salario", $nuevoSalario);
+            $stmt->bindParam(":hijos", $nuevoHijos);
+            $stmt->bindParam(":fNacimiento", $nuevofNacimiento);
+            $stmt->bindParam(":code", $codigo);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Tu comercial se introdujo con éxito.</p>";
+            } else {
+                echo "<br><p>Hubo un error al insertar el comercial.</p>";
+            }
+        }
+
+        // Same structure as the previous code
+    } elseif (isset($_POST["precio"])) {
+
+        $nuevoNombre = $_POST['nombre'];
+        $nuevoDescripcion = $_POST['descripcion'];
+        $nuevoPrecio = $_POST['precio'];
+        $nuevofDescuento = $_POST['descuento'];
+
+        $conexion = conectarDB();
+
+        $letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $referencia = '';
+
+        $existRefe = true;
+
+        while ($existRefe) {
+            for ($i = 0; $i < 2; $i++) {
+                $referencia .= $letras[rand(0, strlen($letras) - 1)];
+            }
+
+            $referencia .= str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+
+            $sql = "SELECT referencia FROM productos WHERE referencia='$referencia'";
+            $result = $conexion->query($sql);
+
+            $tamaño = $result->rowCount();
+
+            if ($tamaño === 0) {
+                $existRefe = false;
+            }
+        }
+
+        $validacionProductos = filtradorProductos($nuevoNombre, $nuevoDescripcion, $nuevoPrecio, $nuevofDescuento);
+
+        if ($validacionProductos === true) {
+
+            $sql = "INSERT INTO productos (referencia, nombre, descripcion, precio, descuento) VALUES (:referencia, :nombre, :descripcion, :precio, :descuento)";
+
+            $stmt = $conexion->prepare($sql);
+
+            $stmt->bindParam(":nombre", $nuevoNombre);
+            $stmt->bindParam(":descripcion", $nuevoDescripcion);
+            $stmt->bindParam(":precio", $nuevoPrecio);
+            $stmt->bindParam(":descuento", $nuevofDescuento);
+            $stmt->bindParam(":referencia", $referencia);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Tu producto se introdujo con éxito.</p>";
+            } else {
+                echo "<br><p>Hubo un error al insertar el producto.</p>";
+            }
+        }
+        // Same structure as the previous code
+    } elseif (isset($_POST["cantidad"])) {
+
+        $nuevoCantidad = $_POST['cantidad'];
+        $nuevoFecha = $_POST['fecha'];
+
+        // We use an array to store the values of the product and its description.
+        $conexion = conectarDB();
+        $nombre = $_POST['nombreComercial'];
+        $nom_refe = $_POST['nombreProducto'];
+        $nom_refe_array = explode("-", $nom_refe);
+
+        $nombreProducto = $nom_refe_array[0];
+        $descripcionProducto = $nom_refe_array[1];
+
+        $sql = "SELECT codigo FROM comerciales WHERE nombre = :nombre";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->execute();
+        $codComercial = $stmt->fetch(PDO::FETCH_ASSOC)['codigo'];
+
+        $sql = "SELECT referencia FROM productos WHERE nombre = :nombreProducto AND descripcion = :descripcionProducto";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':nombreProducto', $nombreProducto);
+        $stmt->bindParam(':descripcionProducto', $descripcionProducto);
+        $stmt->execute();
+        $refProducto = $stmt->fetch(PDO::FETCH_ASSOC)['referencia'];
+
+        $validacionVentas = filtradorVentas($nuevoCantidad, $nuevoFecha);
+
+        if ($validacionVentas === true) {
+
+            $sql = "INSERT INTO ventas (codComercial, refProducto, cantidad, fecha) VALUES (:codComercial, :refProducto, :cantidad, :fecha)";
+
+            $stmt = $conexion->prepare($sql);
+
+            $stmt->bindParam(":cantidad", $nuevoCantidad);
+            $stmt->bindParam(":fecha", $nuevoFecha);
+            $stmt->bindParam(":codComercial", $codComercial);
+            $stmt->bindParam(":refProducto", $refProducto);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Tu venta se introdujo con éxito.</p>";
+            } else {
+                echo "<br><p>Hubo un error al insertar la venta.</p>";
+            }
+        }
+    }
+}
+// Function responsible for collecting the data and replacing it with the previous ones
+function editaDatos()
+{
+    $conexion = conectarDB();
+    // Identical structure to the insert, but in this case, the query is an UPDATE.
+    if (isset($_POST["salario"])) {
+        $nuevoNombre = $_POST['nombre'];
+        $nuevoSalario = $_POST['salario'];
+        $nuevoHijos = $_POST['hijos'];
+        $nuevofNacimiento = $_POST['fNacimiento'];
+        $code = $_POST['code3'];
+
+        $validacionComerciales = filtradorComerciales($nuevoNombre, $nuevoSalario, $nuevoHijos, $nuevofNacimiento);
+
+        if ($validacionComerciales === true) {
+            $sql = "UPDATE comerciales SET nombre = :nombre, salario = :salario, hijos = :hijos, fNacimiento = :fNacimiento WHERE codigo = :code";
+
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(":nombre", $nuevoNombre);
+            $stmt->bindParam(":salario", $nuevoSalario);
+            $stmt->bindParam(":hijos", $nuevoHijos);
+            $stmt->bindParam(":fNacimiento", $nuevofNacimiento);
+            $stmt->bindParam(":code", $code);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Los cambios se han guardado correctamente.</p>";
+            } else {
+                echo "Hubo un error al guardar los cambios.";
+            }
+        }
+
+
+    } elseif (isset($_POST["descripcion"])) {
+
+        $nuevoNombre = $_POST['nombre'];
+        $nuevoDescripcion = $_POST['descripcion'];
+        $nuevoPrecio = $_POST['precio'];
+        $nuevofDescuento = $_POST['descuento'];
+        $referencia = $_POST['referencia'];
+
+        $validacionProductos = filtradorProductos($nuevoNombre, $nuevoDescripcion, $nuevoPrecio, $nuevofDescuento);
+
+        if ($validacionProductos === true) {
+            $sql = "UPDATE productos SET nombre = :nombre, descripcion = :descripcion, precio = :precio, descuento = :descuento WHERE referencia = :referencia";
+
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(":nombre", $nuevoNombre);
+            $stmt->bindParam(":descripcion", $nuevoDescripcion);
+            $stmt->bindParam(":precio", $nuevoPrecio);
+            $stmt->bindParam(":descuento", $nuevofDescuento);
+            $stmt->bindParam(":referencia", $referencia);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Los cambios se han guardado correctamente.</p>";
+            } else {
+                echo "Hubo un error al guardar los cambios.";
+            }
+        }
+
+
+    } elseif (isset($_POST["cantidad"])) {
+
+        $nuevoCantidad = $_POST['cantidad'];
+        $nuevoFecha = $_POST['fecha'];
+
+        $validacionProductos = filtradorVentas($nuevoCantidad, $nuevoFecha);
+
+        if ($validacionProductos === true) {
+            $sql = "UPDATE productos SET cantidad = :cantidad, fecha = :fecha WHERE referencia = :referencia";
+
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(":cantidad", $nuevoCantidad);
+            $stmt->bindParam(":fecha", $nuevoFecha);
+
+            if ($stmt->execute()) {
+                echo "<br><p>Los cambios se han guardado correctamente.</p>";
+            } else {
+                echo "Hubo un error al guardar los cambios.";
+            }
+        }
+    }
+}
+// Function responsible for querying specific data
+function consultarDatos()
+{
+    $code = (int) ($_POST["code"]);
+    $conexion = conectarDB();
+
+   // FIRST TABLE - COMMERCIALS 
+    {
+        $sql = "SELECT * FROM comerciales WHERE codigo = $code";
+        $result = $conexion->query($sql);
+
+        if ($result->rowCount() > 0) {
+            echo "<table border='1'><caption>COMERCIALES</caption>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Salario</th>
+                    <th>Hijos</th>
+                    <th>F.Nacimiento</th>
+                </tr>";
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td>" . $row["nombre"] . "</td>";
+                echo "<td>" . $row["salario"] . "</td>";
+                echo "<td>" . $row["hijos"] . "</td>";
+                echo "<td>" . $row["fNacimiento"] . "</td>";
+                echo "</tr>";
+            }
+
+            echo "</table>";
+        } else {
+            echo "<p>No se encontraron comerciales</p >";
+        }
+    }
+    // SECOND TABLE - PRODUCTS
+    {
+        $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
+        $arrayRefe = array();
+
+        // Iterates through the results and adds unique values to the array
+        while ($row = $ref->fetch(PDO::FETCH_ASSOC)) {
+            $refProducto = $row['refProducto'];
+            if (!in_array($refProducto, $arrayRefe)) {
+                $arrayRefe[] = $refProducto;
+            }
+        }
+        $tablaGenerada = false;
+        foreach ($arrayRefe as $value) {
+
+            $sql = "SELECT * FROM productos WHERE referencia = '$value'";
+            $result = $conexion->query($sql);
+
+            if ($result->rowCount() > 0) {
+
+                if (!$tablaGenerada) {
+                    echo "<table border='1'><caption>PRODUCTOS</caption>
+                <tr>
+                    <th>Referencia</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Descuento</th>
+                </tr>";
+
+                    $tablaGenerada = true;
+                }
+
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<td>" . $row["referencia"] . "</td>";
+                    echo "<td>" . $row["nombre"] . "</td>";
+                    echo "<td>" . $row["descripcion"] . "</td>";
+                    echo "<td>" . $row["precio"] . "€</td>";
+                    echo "<td>" . $row["descuento"] . "%</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+
+            } 
+        }
+
+        if (!$tablaGenerada) {
+            echo "<p>No se encontraron productos</p>";
+        } else {
+            echo "</table>";
+        }
+
+    } {
+
+        // THIRD TABLE - SALES
+        {
+            $sql = "SELECT * FROM ventas WHERE codComercial = $code";
+            $result = $conexion->query($sql);
+
+            if ($result->rowCount() > 0) {
+                echo "<table border='1'><caption>VENTAS</caption>
+                    <tr>
+                        <th>Referencia</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                    </tr>";
+
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<td>" . $row["refProducto"] . "</td>";
+                    echo "<td>" . $row["cantidad"] . "</td>";
+                    echo "<td>" . $row["fecha"] . "</td>";
+                    echo "</tr>";
+                }
+
+                echo "</table>";
+            } else {
+                echo "<p>No se encontraron ventas</p>";
+            }
+        }
+        $conexion = null;
+    }
+}
+// Function that displays data in a table with a modify button in each row
+function verModificarDatos()
+{
+    $code = (int) ($_POST["code2"]);
+    $conexion = conectarDB();
+
+    // FIRST TABLE - COMMERCIALS 
+    {
+        $sql = "SELECT * FROM comerciales WHERE codigo = $code";
+        $result = $conexion->query($sql);
+
+        if ($result->rowCount() > 0) {
+            echo "<table border='1'><caption>COMERCIALES</caption>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Salario</th>
+                    <th>Hijos</th>
+                    <th>F.Nacimiento</th>
+                </tr>";
+
+            echo "<form method='post' action='index.php'>";
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<input type='hidden' name='code' value='" . $code . "'>";
+                echo "<td>" . $row["nombre"] . "</td>";
+                echo "<input type='hidden' name='nombre' value='" . $row['nombre'] . "'>";
+                echo "<td>" . $row["salario"] . "</td>";
+                echo "<input type='hidden' name='salario' value='" . $row['salario'] . "'>";
+                echo "<td>" . $row["hijos"] . "</td>";
+                echo "<input type='hidden' name='hijos' value='" . $row['hijos'] . "'>";
+                echo "<td>" . $row["fNacimiento"] . "</td>";
+                echo "<input type='hidden' name='fNacimiento' value='" . $row['fNacimiento'] . "'>";
+                echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            echo "</form>";
+        } else {
+            echo "No se encontraron comerciales";
+        }
+    }
+    // SECOND TABLE - PRODUCTS
+    {
+        $ref = ($conexion->query("SELECT refProducto FROM ventas WHERE codComercial = $code"));
+        $arrayRefe = array();
+
+        
+        // Iterates through the results and adds unique values to the array
+        while ($row = $ref->fetch(PDO::FETCH_ASSOC)) {
+            $refProducto = $row['refProducto'];
+            if (!in_array($refProducto, $arrayRefe)) {
+                $arrayRefe[] = $refProducto;
+            }
+        }
+        $tablaGenerada = false;
+        foreach ($arrayRefe as $value) {
+
+            $sql = "SELECT * FROM productos WHERE referencia = '$value'";
+            $result = $conexion->query($sql);
+
+            if ($result->rowCount() > 0) {
+
+
+                if (!$tablaGenerada) {
+                    echo "<table border='1'><caption>PRODUCTOS</caption>
+                <tr>
+                    <th>Referencia</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Descuento</th>
+                </tr>";
+
+                    $tablaGenerada = true;
+                }
+                echo "<form method='post' action='index.php'>";
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<input type='hidden' name='code' value='" . $code . "'>";
+                    echo "<td>" . $row["referencia"] . "</td>";
+                    echo "<input type='hidden' name='referencia' value='" . $row['referencia'] . "'>";
+                    echo "<td>" . $row["nombre"] . "</td>";
+                    echo "<input type='hidden' name='nombre' value='" . $row['nombre'] . "'>";
+                    echo "<td>" . $row["descripcion"] . "</td>";
+                    echo "<input type='hidden' name='descripcion' value='" . $row['descripcion'] . "'>";
+                    echo "<td>" . $row["precio"] . "€</td>";
+                    echo "<input type='hidden' name='precio' value='" . $row['precio'] . "'>";
+                    echo "<td>" . $row["descuento"] . "%</td>";
+                    echo "<input type='hidden' name='descuento' value='" . $row['descuento'] . "'>";
+                    echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
+                    echo "</tr>";
+                }
+
+                echo "</form>";
+            }
+        }
+
+        if (!$tablaGenerada) {
+            echo "<p>No se encontraron productos</p>";
+        } else {
+            echo "</table>";
+        }
+
+    } {
+        // THIRD TABLE - SALES
+        {
+            $sql = "SELECT * FROM ventas WHERE codComercial = $code";
+            $result = $conexion->query($sql);
+
+            if ($result->rowCount() > 0) {
+                echo "<table border='1'><caption>VENTAS</caption>
+                    <tr>
+                        <th>Referencia</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                    </tr>";
+                echo "<form method='post' action='index.php'>";
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<input type='hidden' name='code' value='" . $code . "'>";
+                    echo "<td>" . $row["refProducto"] . "</td>";
+                    echo "<td>" . $row["cantidad"] . "</td>";
+                    echo "<input type='hidden' name='cantidad' value='" . $row['cantidad'] . "'>";
+                    echo "<td>" . $row["fecha"] . "</td>";
+                    echo "<input type='hidden' name='fecha' value='" . $row['fecha'] . "'>";
+                    echo "<td><input type='submit' name='datostabla' value='EDITAR'></td>";
+                    echo "</tr>";
+                }
+                echo "</form>";
+                echo "</table>";
+            } else {
+                echo "<p>No se encontraron ventas</p>";
+            }
+        }
+        $conexion = null;
+    }
+}
+// Function that displays data in a table with a delete button in each row
+function mostrarDatosBorrar()
+{
+    $conexion = conectarDB();
+    if ($_POST['eleccion'] === "Comercial") {
+
+        
+        // FIRST TABLE - COMMERCIALS
+
+        $sql = "SELECT * FROM comerciales";
+        $result = $conexion->query($sql);
+
+        if ($result->rowCount() > 0) {
+            echo "<table border='1'><caption>COMERCIALES</caption>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Salario</th>
+                    <th>Hijos</th>
+                    <th>F.Nacimiento</th>
+                </tr>";
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<form method='post' action='index.php'>";
+                echo "<input type='hidden' name='codebo' value='" . $row['codigo'] . "'>";
+                echo "<td>" . $row["codigo"] . "</td>";
+                echo "<td>" . $row["nombre"] . "</td>";
+                echo "<td>" . $row["salario"] . "</td>";
+                echo "<td>" . $row["hijos"] . "</td>";
+                echo "<td>" . $row["fNacimiento"] . "</td>";
+                echo "<td><input type='submit' name='datostablaBoCo' value='BORRAR'></td>";
+                echo "</form>";
+                echo "</tr>";
+            }
+            echo "</table>";
+
+        } else {
+            echo "No se encontraron comerciales";
+        }
+
+    } elseif ($_POST["eleccion"] === "Producto") {
+
+        // SECOND TABLE - PRODUCTS
+
+        $sql = "SELECT * FROM productos";
+        $result = $conexion->query($sql);
+
+
+        if ($result->rowCount() > 0) {
+
+            echo "<table border='1'><caption>PRODUCTOS</caption>
+                <tr>
+                    <th>Referencia</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Descuento</th>
+                </tr>";
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<form method='post' action='index.php'>";
+                echo "<td>" . $row["referencia"] . "</td>";
+                echo "<input type='hidden' name='referenciabo' value='" . $row['referencia'] . "'>";
+                echo "<td>" . $row["nombre"] . "</td>";
+                echo "<td>" . $row["descripcion"] . "</td>";
+                echo "<td>" . $row["precio"] . "€</td>";
+                echo "<td>" . $row["descuento"] . "%</td>";
+                echo "<td><input type='submit' name='datostablaBoPro' value='BORRAR'></td>";
+                echo "</form>";
+                echo "</tr>";
+            }
+
+            echo "</table>";
+
+        } else {
+            echo "No se encontraron productos";
+        }
+
+    } elseif ($_POST["eleccion"] === "Venta") {
+
+        // THIRD TABLE - SALES
+
+        $sql = "SELECT * FROM ventas";
+        $result = $conexion->query($sql);
+
+        if ($result->rowCount() > 0) {
+            echo "<table border='1'><caption>VENTAS</caption>
+                    <tr><th>Código</th>
+                        <th>Referencia</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                    </tr>";
+            
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<form method='post' action='index.php'>";
+                echo "<input type='hidden' name='referenciabo' value='" . $row['refProducto'] . "'>";
+                echo "<input type='hidden' name='codigobo' value='" . $row['codComercial'] . "'>";
+                echo "<td>" . $row["codComercial"] . "</td>";
+                echo "<td>" . $row["refProducto"] . "</td>";
+                echo "<td>" . $row["cantidad"] . "</td>";
+                echo "<td>" . $row["fecha"] . "</td>";
+                echo "<input type='hidden' name='fechabo' value='" . $row['fecha'] . "'>";
+                echo "<td><input type='submit' name='datostablaBoVe' value='BORRAR'></td>";
+                echo "</form>";
+                echo "</tr>";
+            }
+
+            echo "</table>";
+        } else {
+            echo "No se encontraron ventas";
+        }
+
+        $conexion = null;
+    }
+}
+// Function that deletes data from the respective row corresponding to the pressed button
+function borrarDatos()
+{
+
+    $conexion = conectarDB();
+    
+    //Simply collects the key data from the selected row and inserts them into a DELETE query.
+    if (isset($_POST["datostablaBoCo"])) {
+
+        $codigo = $_POST["codebo"];
+        var_dump($codigo);
+        $sql = "DELETE FROM ventas WHERE codComercial = :codigo";
+        $sql2 = "DELETE FROM comerciales WHERE codigo = :codigo";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->bindParam(":codigo", $codigo);
+
+        if ($stmt->execute()) {
+
+            $stmt2 = $conexion->prepare($sql2);
+            $stmt2->bindParam(":codigo", $codigo);
+
+            if ($stmt2->execute()) {
+                var_dump($codigo);
+                echo "<br><p>Se ha eliminado correctamente el comercial y sus respectivas ventas.</p>";
+            } else {
+                echo "Hubo un error al borrar el comercial.";
+            }
+
+        } else {
+            echo "Hubo un error al borrar.";
+        }
+
+    }elseif (isset($_POST["datostablaBoPro"])){
+
+        $referencia = $_POST["referenciabo"];
+
+        $sql = "DELETE FROM ventas WHERE refProducto = :referencia";
+        $sql2 = "DELETE FROM productos WHERE referencia = :referencia";     
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->bindParam(":referencia", $referencia);
+
+        if ($stmt->execute()) {
+
+            $stmt2 = $conexion->prepare($sql2);
+            $stmt2->bindParam(":referencia", $referencia);
+
+            if ($stmt2->execute()) {
+                echo "<br><p>Se ha eliminado correctamente el producto y sus respectivas ventas.</p>";
+            } else {
+                echo "Hubo un error al borrar el producto.";
+            }
+
+        } else {
+            echo "Hubo un error al borrar.";
+        }
+    }elseif (isset($_POST["datostablaBoVe"])){
+
+        $referencia = $_POST["referenciabo"];
+        $codigo = $_POST["codigobo"];
+        $fecha = $_POST["fechabo"];
+
+        $sql = "DELETE FROM ventas WHERE refProducto = :referencia AND codComercial = :codigo AND fecha = :fecha";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->bindParam(":referencia", $referencia);
+        $stmt->bindParam(":codigo", $codigo);
+        $stmt->bindParam(":fecha", $fecha);
+
+        if ($stmt->execute()) {
+
+            echo "<br><p>Se ha eliminado correctamente la venta del producto.</p>";
+
+        } else {
+            echo "Hubo un error al borrar la venta.";
+        }
+    }
+}
+
+
+//Functions to validate the data
 function validarFecha($fecha)
 {
     // Expresión regular para el formato YYYY-MM-DD
@@ -992,104 +1112,5 @@ function filtradorVentas($cantidad, $fecha)
     return $valido;
 }
 
-function consultarTodo()
-{
 
-    $conexion = conectarDB();
-
-    //PRIMERA TABLA - COMERCIALES
-    {
-        $sql = "SELECT * FROM comerciales";
-        $result = $conexion->query($sql);
-
-        if ($result->rowCount() > 0) {
-            echo "<table border='1'><caption>COMERCIALES</caption>
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Salario</th>
-                    <th>Hijos</th>
-                    <th>F.Nacimiento</th>
-                </tr>";
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<td>" . $row["codigo"] . "</td>";
-                echo "<td>" . $row["nombre"] . "</td>";
-                echo "<td>" . $row["salario"] . "</td>";
-                echo "<td>" . $row["hijos"] . "</td>";
-                echo "<td>" . $row["fNacimiento"] . "</td>";
-                echo "</tr>";
-            }
-
-            echo "</table>";
-        } else {
-            echo "No se encontraron comerciales";
-        }
-    }
-    echo "<br>";
-    //SEGUNDA TABLA - PRODUCTOS
-    {
-
-        $sql = "SELECT * FROM productos";
-        $result = $conexion->query($sql);
-
-        if ($result->rowCount() > 0) {
-
-            echo "<table border='1'><caption>PRODUCTOS</caption>
-                <tr>
-                    <th>Referencia</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Descuento</th>
-                </tr>";
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<td>" . $row["referencia"] . "</td>";
-                echo "<td>" . $row["nombre"] . "</td>";
-                echo "<td>" . $row["descripcion"] . "</td>";
-                echo "<td>" . $row["precio"] . "€</td>";
-                echo "<td>" . $row["descuento"] . "%</td>";
-                echo "</tr>";
-            }
-
-        } else {
-            echo "No se encontraron productos";
-        }
-    }
-    echo "</table>"; {
-        echo "<br>";
-        //TERCERA TABLA - VENTAS
-        {
-            $sql = "SELECT * FROM ventas";
-            $result = $conexion->query($sql);
-
-            if ($result->rowCount() > 0) {
-                echo "<table border='1'><caption>VENTAS</caption>
-                    <tr>
-                        <th>codComercial</th>
-                        <th>Referencia</th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                    </tr>";
-
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>";
-                    echo "<td>" . $row["codComercial"] . "</td>";
-                    echo "<td>" . $row["refProducto"] . "</td>";
-                    echo "<td>" . $row["cantidad"] . "</td>";
-                    echo "<td>" . $row["fecha"] . "</td>";
-                    echo "</tr>";
-                }
-
-                echo "</table>";
-            } else {
-                echo "No se encontraron ventas";
-            }
-        }
-        $conexion = null;
-    }
-}
 

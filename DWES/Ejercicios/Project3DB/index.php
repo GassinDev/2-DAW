@@ -10,7 +10,7 @@
 
 <body>
     <h1>Bienvenido Administrador</h1>
-    <!-- Formulario de navegación para seleccionar acciones -->
+    <!-- Navigation form to select actions -->
     <form id="menuNav" method="post" action="index.php">
         <input type="submit" name="action" value="CONSULTA">
         <input type="submit" name="action" value="INSERCION">
@@ -19,63 +19,63 @@
     </form><br>
 
     <?php
-    // Incluir el archivo de funciones y conectar a la base de datos
+    // Include the functions file and connect to the database
     include("funciones.php");
     conectarDB();
 
-    // Verificar si se ha seleccionado una acción
+    // Check if an action has been selected
     if (isset($_POST['action'])) {
 
         $action = $_POST['action'];
 
-        // Realizar acciones según la opción seleccionada
+        // Perform actions based on the selected option
         if ($action === 'CONSULTA') {
-            verFormuConsulta(); // Función para mostrar formulario de consulta
+            verFormuConsulta(); // Function to display the query form
             echo "<br>";
         } elseif ($action === 'INSERCION') {
-            eleccionInsertar("eleinsert"); // Función para mostrar formulario de inserción
+            eleccionInsertar("eleinsert"); // Function to display the insertion form
             echo "<br>";
         } elseif ($action === 'MODIFICACION') {
-            buscaModi(); // Función para buscar datos a modificar
+            buscaModi(); // Function to search for data to modify
             echo "<br>";
         } elseif ($action === "ELIMINACION") {
-            eleccionInsertar("eleinsert2"); // Función para mostrar formulario de eliminación
+            eleccionInsertar("eleinsert2"); // Function to display the deletion form
             echo "<br>";
         }
     }
 
-    // Realizar acciones según las opciones seleccionadas después del formulario principal
+    // Perform actions based on the selected options after the main form
     if(isset($_POST["code"])) {
-        consultarDatos(); // Función para consultar datos específicos
+        consultarDatos(); // Function to query specific data
     } elseif(isset($_POST["code2"])) {
-        verModificarDatos(); // Función para mostrar datos a modificar
+        verModificarDatos(); // Function to display data to modify
     } elseif(isset($_POST["Mostrartodo"])) {
-        consultarTodo(); // Función para consultar todos los datos
+        consultarTodo(); // Function to query all data
     }
 
     if(isset($_POST["datostabla"])) {
-        FormuModifica(); // Función para mostrar formulario de modificación
+        FormuModifica(); // Function to display modification form
     }
 
     if(isset($_POST["nuevosDatos"])) {
-        editaDatos(); // Función para editar datos
+        editaDatos(); // Function to edit data
     }
 
     if(isset($_POST["eleinsert"])) {
-        formulariosInsertar(); // Función para mostrar formularios de inserción
+        formulariosInsertar(); // Function to display insertion forms
     }
 
     if(isset($_POST["eleinsert2"])) {
-        mostrarDatosBorrar(); // Función para mostrar datos a borrar
+        mostrarDatosBorrar(); // Function to display data to delete
     }
 
     if(isset($_POST["datosNuevos"])) {
-        introducirDatos(); // Función para introducir nuevos datos
+        introducirDatos(); // Function to enter new data
     }
 
-    // Realizar acciones según las opciones seleccionadas para borrar datos
+    // Perform actions based on the selected options to delete data
     if(isset($_POST["datostablaBoCo"]) || isset($_POST["datostablaBoPro"]) || isset($_POST["datostablaBoVe"])) {
-        borrarDatos(); // Función para borrar datos de distintas tablas
+        borrarDatos(); // Function to delete data from different tables
     }
     ?>
 </body>

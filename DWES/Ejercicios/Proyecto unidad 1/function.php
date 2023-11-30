@@ -1,14 +1,14 @@
 <?php
 
-//Inicamos la session
+//We start the session.
 session_start();
 
-//Aqui comprobamos si nuestro array para guardar los productos existe, sino lo creamos.
+//Here we check if our array to store the products exists, if not we create it.
 if (!isset($_SESSION['arrayObjetos'])) {
     $_SESSION['arrayObjetos'] = array();
 }
 
-//Creamos la clase Product
+//We create the Product class
 class Product
 {
     public $name;
@@ -53,14 +53,14 @@ class Product
     }
 }
 
-//Función que saca los datos del array de la session gracias a los get y set y vamos
-//añadiendolos en las filas de una tabla.
+// Function that retrieves data from the session array using get and set,
+// and progressively adds them to the rows of a table.
 function showList()
 {
-    //Accedemos a la variable de nuestra session para utilizarlo en la función como otra variable.
+    // Access the variable from our session to use it in the function as another variable.
     $arrayObjetos = $_SESSION['arrayObjetos'];
 
-    //Si encuentra alguna posición en el array comenzamos a crear una tabla 
+    // If a position is found in the array, we start creating a table.
     if (!empty($arrayObjetos)) {
 
         $parte1 =
@@ -75,9 +75,9 @@ function showList()
         $precioTotal = 0;
 
         foreach ($arrayObjetos as $producto) {
-            //Variable donde calculamos el total de un producto
+            // Variable where we calculate the total of a product
             $totalCP = $producto->getPrice() * $producto->getAmount();
-            //Variable que almacena el total de cada producto para tener el completo de nuestra lista.
+            // Variable that stores the total for each product to have the complete total of our list
             $precioTotal += $totalCP;
 
             $parte1 .= "<tr>
@@ -97,7 +97,7 @@ function showList()
     }
 }
 
-//Las 4 funciones siguientes son simples echo, los cuales son formularios.
+// The following 4 functions are simple echoes, which are forms.
 function showFormInsert()
 {
     echo "<h2>Introduce un producto</h2>
@@ -130,23 +130,23 @@ function showFormDelete()
             </form>";
 }
 
-//La función que hace que podamos meter datos en nuestra lista.
+// Function that allows us to input data into our list
 function insert()
 {
-    //Comprobamos si se ha recibido los datos del formulario.
+    // Check if the form data has been received
     if (isset($_POST['name']) && isset($_POST['price']) && isset($_POST['amount'])) {
 
         if (productoEncontrado($_POST['name'])) {
             return false;
         } else {
-            //Guardamos los datos recogidos en varibales-
+            // Save the collected data in variables
             $name = $_POST['name'];
             $price = $_POST['price'];
             $amount = $_POST['amount'];
 
-            //Creamos un producto con nuestra clase Product, añdiendo las variables creadas.
+           // Create a product using our Product class, adding the created variables
             $product = new Product($name, $price, $amount);
-            //Por último, introducimos el producto en nuestra lista.
+            // Finally, we add the product to our list
             $_SESSION['arrayObjetos'][] = $product;
 
             return true;
@@ -157,14 +157,14 @@ function insert()
 function modify()
 {
     $cont = 0;
-    //Comprobamos si se ha recibido los datos del formulario.
+    // Check if the form data has been received
     if (isset($_POST['name4'])) {
 
         $name2 = $_POST['name4'];
         $arrayObjetos = $_SESSION['arrayObjetos'];
 
         if(productoEncontrado($name2)){
-            //Buscamos el producto por su nombre en nuestro array
+            // Search for the product by its name in our array
         foreach ($arrayObjetos as $productos) {
 
             $n = $productos->getName();
@@ -176,8 +176,9 @@ function modify()
                     $price = $_POST['price2'];
                     $amount = $_POST['amount2'];
 
-                    //Los tres IF siguientes son filtros para saber si hay datos o no, porque si no
-                    //hay nada cambiado en uno de ellos, no se asigna nada nuevo y permanece los datos antiguos.
+                    // The following three IF statements are filters to check if there is data or not,
+                    // because if nothing has changed in one of them, no new data is assigned,
+                    // and the old data remains.
                     if ($name !== "") {
                         $productos->setName($name);
                     }
@@ -203,13 +204,13 @@ function modify()
 
 function delete()
 {
-    //Comprobamos si se ha recibido los datos del formulario.
+    // Check if the form data has been received
     if (isset($_POST['name3'])) {
 
         $name = strtoupper($_POST['name3']);
         $arrayObjetos = $_SESSION['arrayObjetos'];
 
-        //Buscamos el producto en nuestro array y cuando lo encontremos lo eliminamos
+        // Search for the product in our array, and when found, remove it
         foreach ($arrayObjetos as $key => $productos) {
             $n = strtoupper($productos->getName());
 
@@ -227,7 +228,7 @@ function delete()
     }
 }
 
-//Función para buscar si el producto se encuentra en el array
+// Function to search if the product is in the array
 function productoEncontrado($pro)
 {
     $pro = strtoupper($pro);

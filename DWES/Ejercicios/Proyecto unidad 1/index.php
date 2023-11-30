@@ -23,7 +23,7 @@
     <?php
     include('function.php');
 
-    //Vemos que ha usado alguno de los botones y si es así lo clasificamos según el valor
+    //We see that you have used one of the buttons and if so we classify it according to the value
     if (isset($_POST['action'])) {
 
         $action = $_POST['action'];
@@ -40,7 +40,9 @@
         }
     }
 
+    // Check if the "name" field is set in the POST data
     if (isset($_POST["name"])) {
+        // If set, attempt to insert the product
         if (insert()) {
             echo "<h2>Producto añadido con éxito</h2>";
         } else {
@@ -48,7 +50,9 @@
         }
     }
 
+    // Check if the "name3" field is set in the POST data
     if (isset($_POST['name3'])) {
+        // If set, attempt to delete the product
         if (delete()) {
             echo "<h2>Producto eliminado con éxito</h2>";
         } else {
@@ -56,7 +60,9 @@
         }
     }
 
+    // Check if the "name4" field is set in the POST data
     if (isset($_POST['name4'])) {
+        // If set, attempt to modify the product
         if (modify()) {
             echo "<h2>Producto modificado con éxito</h2>";
         } else {

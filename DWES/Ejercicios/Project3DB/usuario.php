@@ -22,14 +22,14 @@
 
     
     <?php
-        // Verificar si tanto el nombre de usuario como la contraseña están establecidos en la solicitud POST
+        // Check if both the username and password are set in the POST request
         if(isset($_POST["username"]) && isset($_POST["password"])){
-            // Verificar si el nombre de usuario y la contraseña ingresados coinciden con los valores esperados
+            // Check if the entered username and password match the expected values
             if($_POST["username"] === "dwes" && $_POST["password"] === "dwes"){
-                // Si las credenciales son correctas, redirigir a "index.php"
+                // If the credentials are correct, redirect to "index.php"
                 header('Location: index.php');
             }else{
-                // Si las credenciales son incorrectas, mostrar un mensaje de error
+                // If the credentials are incorrect, display an error message
                 echo'<p>Usuario no autorizado</p>';
             }
         }
