@@ -8,17 +8,17 @@
 </head>
 <?php
 session_start();
+require("funciones.php");
 
-
-echo '<script language="javascript">alert("Entrando en la Aplicación - Desarrollada por Juan José Flores Gassín");</script>';
+echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores Gassín';
 ?>
 <body>
     <h1>Bienvenido <?php echo $_SESSION['usuario']?></h1>
     <h2>Inicio sesión : <?php echo $_SESSION['hora']?></h2>
     <form action="aplicacion.php" method="post">
         <button type="submit" name="darAlta">Dar de Alta un nuevo usuario</button>
-        <button type="submit" name="informacion">Modificar usuario</button>
-        <button type="submit" name="preferencia">Eliminar usuario</button>
+        <button type="submit" name="modificar">Modificar usuario</button>
+        <button type="submit" name="eliminar">Eliminar usuario</button>
         <button type="submit" name="cerrar_sesion">Cerrar sesión</button>
     </form>
     
@@ -30,12 +30,22 @@ echo '<script language="javascript">alert("Entrando en la Aplicación - Desarrol
         session_destroy();
         header("Location: index.php");
         exit();
-    }elseif(isset($_POST["preferencia"])){
-        header("Location: preferencia.php");
-    }elseif(isset($_POST["informacion"])){
-        header("Location: información.php");
     }
 
+    if(isset($_POST["darAlta"])){
+        echo "<br>";
+        formAlta();
+    }
+
+    if(isset($_POST["modificar"])){
+        echo "<br>";
+        formBuscaModificar();
+    }
+
+    if(isset($_POST["eliminar"])){
+        echo "<br>";
+        formEliminar();
+    }
     ?>
 </body>
 

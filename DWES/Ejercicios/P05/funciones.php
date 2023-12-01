@@ -74,4 +74,58 @@ class Usuario
 
 }
 
+function formAlta()
+{
+    echo "<h2>Da de alta a un usuario</h2>
+    <form action='aplicaciones.php' method='post'>
+    <label for='usuario'>Usuario:</label>
+    <input type='text' id='usuario' name='usuario' required>
+    <br>
+    <label for='contrasena'>Contraseña:</label>
+    <input type='password' id='contrasena' name='contrasena' required>
+    <br>
+    <label for='contrasena'>Repetir Contraseña:</label>
+    <input type='password' id='repecontrasena' name='repecontrasena' required>
+    <br>
+    <button type='submit' name='darAlta'>Dar de Alta</button>
+    </form>";
+}
+
+function formBuscaModificar(){
+
+    echo "<h2>Busca el usuario que quieres modificar</h2>
+    <form action='aplicaciones.php' method='post'>
+    <label for='usuario'>Usuario:</label>
+    <input type='text' id='usuario' name='usuario' required>
+    <button type='submit' name='Buscar'>Buscar</button>
+    </form>";
+}
+
+function formModificar(){
+    echo "<h2>Da de alta a un usuario</h2>
+    <form action='aplicaciones.php' method='post'>
+    <label for='usuario'>Usuario:</label>
+    <input type='text' id='usuario' name='usuario' required>
+    <br>
+    <label for='contrasena'>Contraseña:</label>
+    <input type='password' id='contrasena' name='contrasena' required>
+    <br>
+    <label for='contrasena'>Repetir Contraseña:</label>
+    <input type='password' id='repecontrasena' name='repecontrasena' required>
+    <br>
+    <button type='submit' name='darAlta'>Dar de Alta</button>
+    </form>";
+}
+function formEliminar(){
+
+    echo "<h2>Introduce el usuario que quieras eliminar</h2>
+    <form action='aplicaciones.php' method='post'>
+    <label for='usuario'>Usuario:</label>
+    <input type='text' id='usuario' name='usuario' required>
+    <button type='submit' name='eliminar'>Eliminar</button>
+    </form>";
+}
+
+
+
 ?>
