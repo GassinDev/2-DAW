@@ -27,7 +27,9 @@ if (isset($_COOKIE['colorFondo'])){
 
     <?php
     
-    //VARIAS OPCIONES AL USAR CADA BOTON DEL MENÚ
+    
+//VARIOUS OPTIONS WHEN USING EACH MENU BUTTON
+//IN THE FIRST ONE WE ELIMINATE THE SESSIONS
     if (isset($_POST["cerrar_sesion"])) {
         session_unset();
         session_destroy();

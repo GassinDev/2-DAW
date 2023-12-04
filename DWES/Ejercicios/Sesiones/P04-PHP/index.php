@@ -22,23 +22,23 @@
     session_start();
     include("funciones.php");
 
-    //COMPROBAMOS SI HAY UNA SESION INICIADA
+    //WE CHECK IF THERE IS A SESSION STARTED
     if (isset($_SESSION['usuario_autenticado']) && $_SESSION['usuario_autenticado'] === true) {
         header("Location: aplicacion.php");
         exit();
     }
 
-    //SI INICIAMOS SESION COMPROBAMOS SI ES CORRECTO EL USUARIO Y LA CONTRASEÑA
+    //IF WE LOG IN WE CHECK IF THE USER AND PASSWORD ARE CORRECT
     if (isset($_POST['inicio_sesion'])) {
 
         $usuario = $_POST["usuario"];
         $contrasena = $_POST["contrasena"];
         $horaInicio = date('H:i:s');
 
-        //FUNCION QUE OBTIENE EL HASH DE LA BASE DE DATOS SEGUN EL USUARIO
+        //FUNCTION THAT OBTAINS THE HASH FROM THE DATABASE ACCORDING TO THE USER
         $hashAlmacenado = obtenerHashBaseDeDatos($usuario);
 
-        //VERIFICAMOS LA CONTRASEÑA INTRODUCIDA CON EL HASH
+        //WE VERIFY THE PASSWORD ENTERED WITH THE HASH
         if ($hashAlmacenado && password_verify($contrasena, $hashAlmacenado)) {
 
             $_SESSION['usuario_autenticado'] = true;
@@ -52,7 +52,7 @@
         }
     }
 
-    //PARA VER LA INFORMACION SIN INICIAR SESION
+    //TO SEE THE INFORMATION WITHOUT LOGIN
     if (isset($_POST['continuar_como_invitado'])) {
         header("Location: información.php");
             exit();

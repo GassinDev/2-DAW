@@ -1,5 +1,5 @@
 <?php
-//PARA CONECTAR A LA BASE DE DATOS
+//TO CONNECT TO THE DATABASE
 function conectarDB()
 {
     $dsn = "mysql:host=localhost;dbname=tarea4";
@@ -15,7 +15,7 @@ function conectarDB()
     }
 }
 
-//FUNCION PARA OBTENER EL HASH DE LA BASE DE DATOS
+//FUNCTION TO OBTAIN THE DATABASE HASH
 function obtenerHashBaseDeDatos($usuario)
 {
     try {
@@ -40,16 +40,19 @@ function obtenerHashBaseDeDatos($usuario)
     return false;
 }
 
-//Creamos la clase Usuario
+//WE CREATE THE CLASS Usuario
 class Usuario
 {
     public $username;
     public $password;
 
-    function __construct($username, $password)
+    public $email;
+
+    function __construct($username, $password, $email)
     {
         $this->username = $username;
         $this->password = $password;
+        $this->email = $email;
     }
 
     function getUsername()
@@ -62,6 +65,11 @@ class Usuario
         return $this->password;
     }
 
+    function getEmail()
+    {
+        return $this->email;
+    }
+
     function setUsername($username)
     {
         $this->username = $username;
@@ -72,14 +80,24 @@ class Usuario
         $this->password = $password;
     }
 
+    function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
 }
 
+
+//FORMS FOR THE FUNCTIONS OF THE WEBSITE
 function formAlta()
 {
     echo "<h2>Da de alta a un usuario</h2>
     <form action='aplicaciones.php' method='post'>
     <label for='usuario'>Usuario:</label>
     <input type='text' id='usuario' name='usuario' required>
+    <br>
+    <label for='email'>Email:</label>
+    <input type='email' id='email' name='email' required>
     <br>
     <label for='contrasena'>Contraseña:</label>
     <input type='password' id='contrasena' name='contrasena' required>
@@ -126,6 +144,22 @@ function formEliminar(){
     </form>";
 }
 
+function arrayUsuarios(){
 
+    $conexion = conectarDB();
+
+    $sql = "SELECT * FROM usuarios";
+    $result = $conexion->query($sql);
+
+    if ($result->rowCount() > 0) {
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+
+            echo $row["nombre"];
+
+        }
+
+    }
+}
 
 ?>

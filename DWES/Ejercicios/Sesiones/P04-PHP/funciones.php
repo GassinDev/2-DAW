@@ -1,6 +1,6 @@
 <?php
 
-//PARA CONECTAR A LA BASE DE DATOS
+//TO CONNECT TO THE DATABASE
 function conectarDB()
 {
     $dsn = "mysql:host=localhost;dbname=tarea4";
@@ -16,7 +16,7 @@ function conectarDB()
     }
 }
 
-//FUNCION PARA OBTENER EL HASH DE LA BASE DE DATOS
+//FUNCTION TO OBTAIN THE DATABASE HASH
 function obtenerHashBaseDeDatos($usuario)
 {
     try {
@@ -41,7 +41,8 @@ function obtenerHashBaseDeDatos($usuario)
     return false;
 }
 
-//PARA BORRAR LA COOKIE
+
+//TO DELETE THE COOKIE
 function borrarCookie($nombreCookie){
     setcookie('colorFondo', '', time() - 3600, "/");
 }
