@@ -43,16 +43,22 @@ function obtenerHashBaseDeDatos($usuario)
 //WE CREATE THE CLASS Usuario
 class Usuario
 {
+    public $id;
     public $username;
     public $password;
-
     public $email;
 
-    function __construct($username, $password, $email)
+    function __construct($id, $username, $password, $email)
     {
+        $this->id = $id;
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
+    }
+
+    function getId()
+    {
+        return $this->id;
     }
 
     function getUsername()
@@ -92,7 +98,7 @@ class Usuario
 function formAlta()
 {
     echo "<h2>Da de alta a un usuario</h2>
-    <form action='aplicaciones.php' method='post'>
+    <form action='aplicacion.php' method='post'>
     <label for='usuario'>Usuario:</label>
     <input type='text' id='usuario' name='usuario' required>
     <br>
@@ -143,8 +149,66 @@ function formEliminar(){
     <button type='submit' name='eliminar'>Eliminar</button>
     </form>";
 }
+function verDatos(){
+    $usuarios = creaArrayUsuarios();
 
-function arrayUsuarios(){
+    // Iterate through the array and do something
+    foreach ($usuarios as $usuario) {
+        // Access individual properties of $usuario
+        $id = $usuario->getId();
+        $nombre = $usuario->getUsername();
+        $contrasena = $usuario->getPassword();
+        $email = $usuario->getEmail();
+
+        // Do something with the user data
+        echo "ID: $id, Nombre: $nombre, Contraseña: $contrasena, Email: $email<br>";
+    }
+}
+
+function darAlta(){
+
+    $arrayUsuarios = creaArrayUsuarios();
+
+    $nombre = $_POST['usuario'];
+    $password = $_POST['contrasena'];
+    $email = $_POST['email'];
+
+    $id = generarId($arrayUsuarios);
+
+    $usuario = new Usuario($id,$nombre,$password,$email);
+
+    $conexion = conectarDB();
+    
+    // Using a prepared statement to prevent SQL injection
+    $sql = "INSERT INTO usuarios (id, usuario, pwd, email) VALUES (:id, :usuario, :pwd, :email)";
+
+    $statement = $conexion->prepare($sql);
+
+    $id = $usuario->getId();
+    $usu = $usuario->getUsername();
+    $contrasena = $usuario->getPassword();
+    $email = $usuario->getEmail();
+    
+    // Bind parameters
+    $statement->bindParam(':id', $id);
+    $statement->bindParam(':usuario', $usu);
+    $statement->bindParam(':pwd', $contrasena);
+    $statement->bindParam(':email', $email);
+
+    // Execute the query
+    $result = $statement->execute();
+
+    // Check for success
+    if ($result) {
+        echo "Usuario dado de alta con éxito.";
+    } else {
+        echo "Error al dar de alta al usuario.";
+    }
+
+}
+function creaArrayUsuarios(){
+
+    $arrayUsuarios = array();
 
     $conexion = conectarDB();
 
@@ -155,11 +219,49 @@ function arrayUsuarios(){
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-            echo $row["nombre"];
+            $id = $row["id"];
+            $nombre = $row["usuario"];
+            $contrasena = $row["pwd"];
+            $email = $row["email"];
+
+            $usuario = new Usuario($id,$nombre,$contrasena,$email);
+
+            $arrayUsuarios[] = $usuario;
 
         }
-
     }
+
+    return $arrayUsuarios;
 }
 
+
+function generarId($arrayUsuarios){
+
+    $id = 1;
+
+    // Find an available ID
+    foreach ($arrayUsuarios as $usuario) {
+        if ($id == $usuario->getId()) {
+            $id++;
+        } else {
+            // Break the loop once an available ID is found
+            break;
+        }
+    }
+        return $id;
+}
+
+function validacionUsuario($usu,$password,$email){
+
+    $arrayUsuarios = creaArrayUsuarios();
+    $valido = true;
+
+    foreach($arrayUsuarios as $usuario){
+        if($usu !== $usuario->getUsername()){
+            $valido= false;
+        }
+    }
+
+    return $valido;
+}
 ?>

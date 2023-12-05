@@ -16,14 +16,14 @@ echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores G
     <h1>Bienvenido <?php echo $_SESSION['usuario']?></h1>
     <h2>Inicio sesión : <?php echo $_SESSION['hora']?></h2>
     <form action="aplicacion.php" method="post">
-        <button type="submit" name="darAlta">Dar de Alta un nuevo usuario</button>
+        <button type="submit" name="formDarAlta">Dar de Alta un nuevo usuario</button>
         <button type="submit" name="modificar">Modificar usuario</button>
         <button type="submit" name="eliminar">Eliminar usuario</button>
         <button type="submit" name="cerrar_sesion">Cerrar sesión</button>
     </form>
     
     <?php
-    
+    verDatos();
     //VARIAS OPCIONES AL USAR CADA BOTON DEL MENÚ
     if (isset($_POST["cerrar_sesion"])) {
         session_unset();
@@ -32,7 +32,7 @@ echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores G
         exit();
     }
 
-    if(isset($_POST["darAlta"])){
+    if(isset($_POST["formDarAlta"])){
         echo "<br>";
         formAlta();
     }
@@ -45,6 +45,10 @@ echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores G
     if(isset($_POST["eliminar"])){
         echo "<br>";
         formEliminar();
+    }
+
+    if(isset($_POST['darAlta'])){
+        darAlta();
     }
     ?>
 </body>
