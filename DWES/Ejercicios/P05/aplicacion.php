@@ -42,6 +42,21 @@ echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores G
         formBuscaModificar();
     }
 
+    if(isset($_POST["BuscarModi"])){
+        if(buscaDatosUsuario()){
+            $usuario = buscaDatosUsuario();
+            formModificar($usuario);
+        }else{
+            echo "<br>";
+            echo "Usuario no encontrado.";
+        }
+    }
+
+    if(isset($_POST["modificarDatos"])){
+        echo "<br>";
+        modificarUsuario();
+    }
+
     if(isset($_POST["eliminar"])){
         echo "<br>";
         formEliminar();
@@ -49,6 +64,10 @@ echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores G
 
     if(isset($_POST['darAlta'])){
         darAlta();
+    }
+
+    if(isset($_POST['eliminarUsuario'])){
+        eliminarUsuario();
     }
     ?>
 </body>
