@@ -117,21 +117,43 @@ function formAlta()
 
 function formBuscaModificar()
 {
+    echo "<h2>Elija el usuario que quieres modificar</h2>";
 
-    echo "<h2>Busca el usuario que quieres modificar</h2>
-    <form action='aplicacion.php' method='post'>
-    <label for='usuario'>Usuario:</label>
-    <input type='text' id='usuario' name='usuario' required>
-    <button type='submit' name='BuscarModi'>Buscar</button>
-    </form>";
+    $arrayUsuarios = creaArrayUsuarios();
+
+    // Check if the array of users is not empty.
+    if (!empty($arrayUsuarios)) {
+
+        echo '<form action="aplicacion.php" method="post">';
+
+        echo '<select name="usuario">';
+
+        foreach ($arrayUsuarios as $usuario) {
+
+            if ($usuario->getUsername() !== $_SESSION['usuario']) {
+                echo '<option value="' . $usuario->getUsername() . '">' . $usuario->getUsername() . '</option>';
+            }
+
+        }
+
+        echo '</select>';
+
+        echo ' <input type="submit" name="BuscarModi" value="Modificar">';
+
+        echo '</form>';
+    } else {
+
+        echo 'No hay usuarios disponibles.';
+    }
 }
 
 function formModificar($usuario)
 {
     echo "<h2>Modifica el usuario</h2>
     <form action='aplicacion.php' method='post'>
+    <input type='hidden' id='usuario' name='usuario' value='" . $usuario->getUsername() . "'>
     <label for='usuario'>Usuario:</label>
-    <input type='text' id='usuario' name='usuario' value='". $usuario->getUsername()."'required>
+    <input type='text' id='usuarioN' name='usuarioN' value='" . $usuario->getUsername() . "'required>
     <br>
     <label for='contrasena'>Contraseña:</label>
     <input type='password' id='contrasena' name='contrasena'required>
@@ -140,9 +162,9 @@ function formModificar($usuario)
     <input type='password' id='repecontrasena' name='repecontrasena' required>
     <br>
     <label for='email'>Email:</label>
-    <input type='email' id='email' name='email' value='". $usuario->getEmail(). "'required>
+    <input type='email' id='email' name='email' value='" . $usuario->getEmail() . "'required>
     <br>
-    <button type='submit' name='modificarDatos'>Dar de Alta</button>
+    <button type='submit' name='modificarDatos'>Aceptar Cambios</button>
     </form>";
 }
 function formEliminar()
@@ -152,19 +174,19 @@ function formEliminar()
 
     $arrayUsuarios = creaArrayUsuarios();
 
-    // Verificar si el array de usuarios no está vacío
+    // Check if the array of users is not empty.
     if (!empty($arrayUsuarios)) {
-        
+
         echo '<form action="aplicacion.php" method="post">';
 
         echo '<select name="usuarios">';
 
         foreach ($arrayUsuarios as $usuario) {
 
-            if($usuario->getUsername() !== $_SESSION['usuario']) {
+            if ($usuario->getUsername() !== $_SESSION['usuario']) {
                 echo '<option value="' . $usuario->getUsername() . '">' . $usuario->getUsername() . '</option>';
             }
-            
+
         }
 
         echo '</select>';
@@ -194,9 +216,11 @@ function verDatos()
     }
 }
 
+// Function to register a new user
 function darAlta()
 {
 
+    // Create an array of users
     $arrayUsuarios = creaArrayUsuarios();
 
     $nombre = $_POST['usuario'];
@@ -204,12 +228,16 @@ function darAlta()
     $repPassword = $_POST['repecontrasena'];
     $email = $_POST['email'];
 
+    // Validate user input
     if (validacionUsuario($nombre, $password, $repPassword)) {
 
+        // Generate a unique ID for the new user
         $id = generarId($arrayUsuarios);
 
+        // Hash the user's password for security
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        
+
+        // Create a new User object with the provided information
         $usuario = new Usuario($id, $nombre, $hash, $email);
 
         $conexion = conectarDB();
@@ -243,6 +271,8 @@ function darAlta()
     }
 
 }
+
+// Function to create an array of users from the database
 function creaArrayUsuarios()
 {
 
@@ -250,11 +280,14 @@ function creaArrayUsuarios()
 
     $conexion = conectarDB();
 
+    // SQL query to select all users from the 'usuarios' table
     $sql = "SELECT * FROM usuarios";
     $result = $conexion->query($sql);
 
+    // Check if there are rows in the result
     if ($result->rowCount() > 0) {
 
+        // Loop through each row in the result set
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
             $id = $row["id"];
@@ -262,8 +295,9 @@ function creaArrayUsuarios()
             $contrasena = $row["pwd"];
             $email = $row["email"];
 
-            $usuario = new Usuario($id, $nombre, $contrasena, $email);
 
+            $usuario = new Usuario($id, $nombre, $contrasena, $email);
+            // Add the user object to the array
             $arrayUsuarios[] = $usuario;
 
         }
@@ -272,32 +306,41 @@ function creaArrayUsuarios()
     return $arrayUsuarios;
 }
 
-function modificarUsuario(){
+// Function to modify user details
+function modificarUsuario()
+{
 
-    $nombre = $_POST['usuario'];
+    $usu = $_POST['usuario'];
+    $nombre = $_POST['usuarioN'];
     $password = $_POST['contrasena'];
     $repPassword = $_POST['repecontrasena'];
     $email = $_POST['email'];
 
-    if (validacionUsuario($nombre, $password, $repPassword)) {
-        
+    // Validate user input based on whether the username is being changed or not
+    if ($usu !== $nombre) {
+        $validado = validacionUsuario($nombre, $password, $repPassword);
+    } else {
+        $validado = validacionUsuarioModifica($password, $repPassword);
+    }
+
+    if ($validado) {
+
         $usuario = buscaDatosUsuario();
 
         $conexion = conectarDB();
 
         // Using a prepared statement to prevent SQL injection
-        $sql = "UPDATE usuarios SET pwd = :pwd, SET usuario = :usuario, SET email = :email WHERE id = :id";
+        $sql = "UPDATE usuarios SET pwd = :pwd, usuario = :usuario, email = :email WHERE id = :id";
 
         $statement = $conexion->prepare($sql);
 
         $id = $usuario->getId();
-        $usu = $usuario->getUsername();
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $email = $usuario->getEmail();
+
 
         // Bind parameters
         $statement->bindParam(':id', $id);
-        $statement->bindParam(':usuario', $usu);
+        $statement->bindParam(':usuario', $nombre);
         $statement->bindParam(':pwd', $hash);
         $statement->bindParam(':email', $email);
 
@@ -314,33 +357,37 @@ function modificarUsuario(){
         }
     }
 
+
 }
 
-function eliminarUsuario(){
+// Function to delete a user
+function eliminarUsuario()
+{
 
     $usu = $_POST["usuarios"];
 
     $conexion = conectarDB();
 
-        $sql = "DELETE FROM usuarios WHERE usuario = :usuario";
+    $sql = "DELETE FROM usuarios WHERE usuario = :usuario";
 
-        $statement = $conexion->prepare($sql);
+    $statement = $conexion->prepare($sql);
 
-        // Bind parameters
-        $statement->bindParam(':usuario', $usu);
+    // Bind parameters
+    $statement->bindParam(':usuario', $usu);
 
-        // Execute the query
-        $result = $statement->execute();
+    // Execute the query
+    $result = $statement->execute();
 
-        // Check for success
-        if ($result) {
-            echo '<br>';
-            echo "Usuario eliminado con éxito.";
-        } else {
-            echo "Error al eliminar el usuario.";
-        }
+    // Check for success
+    if ($result) {
+        echo '<br>';
+        echo "Usuario eliminado con éxito.";
+    } else {
+        echo "Error al eliminar el usuario.";
+    }
 }
 
+// Function to generate a unique ID for a new user
 function generarId($arrayUsuarios)
 {
 
@@ -358,7 +405,9 @@ function generarId($arrayUsuarios)
     return $id;
 }
 
-function buscaDatosUsuario(){
+// Function to search for user data based on the selected username
+function buscaDatosUsuario()
+{
 
     $arrayUsuarios = creaArrayUsuarios();
     $usernameSele = $_POST['usuario'];
@@ -371,12 +420,14 @@ function buscaDatosUsuario(){
     }
 }
 
+// Function for validating user input during registration
 function validacionUsuario($usu, $password, $repPassword)
 {
 
     $arrayUsuarios = creaArrayUsuarios();
     $valido = true;
 
+     // Check if the username is already registered
     foreach ($arrayUsuarios as $usuario) {
         if ($usu === $usuario->getUsername()) {
             $valido = false;
@@ -385,6 +436,20 @@ function validacionUsuario($usu, $password, $repPassword)
             break;
         }
     }
+
+    if ($password !== $repPassword) {
+        $valido = false;
+        echo "<br>";
+        echo "Contraseñas diferentes en los dos campos.";
+    }
+
+    return $valido;
+}
+
+// Function for validating user input during modification
+function validacionUsuarioModifica($password, $repPassword)
+{
+    $valido = true;
 
     if ($password !== $repPassword) {
         $valido = false;
