@@ -203,6 +203,7 @@ function verDatos()
 {
     $usuarios = creaArrayUsuarios();
 
+    echo "<br>";
     // Iterate through the array and do something
     foreach ($usuarios as $usuario) {
         // Access individual properties of $usuario

@@ -23,7 +23,7 @@ echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores G
     </form>
     
     <?php
-    verDatos();
+    
     //VARIAS OPCIONES AL USAR CADA BOTON DEL MENÚ
     if (isset($_POST["cerrar_sesion"])) {
         session_unset();
@@ -69,6 +69,8 @@ echo 'Inicio en la Aplicación con éxito - Desarrollada por Juan José Flores G
     if(isset($_POST['eliminarUsuario'])){
         eliminarUsuario();
     }
+    echo "<br>";
+    verDatos();
     ?>
 </body>
 
