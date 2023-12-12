@@ -33,7 +33,7 @@
         include("funciones.php");
         session_start();
 
-        //CREA LA COOKIE CON EL RESPECTIVO COLOR ELEGIDO
+        //Create the cookie with the respective chosen color.
         if (isset($_POST['color'])) {
             $color = $_POST['color'];
             setcookie('colorFondo', $color, time() + 3600, "/"); 
@@ -41,13 +41,13 @@
             exit();
         }
         
-        //APLICA LA COOKIE PARA CAMBIAR EL COLOR DEL FONDO
+        //Apply the cookie to change the background color.
         if (isset($_COOKIE['colorFondo'])) {
             $color = $_COOKIE['colorFondo'];
             echo "<style>body { background-color: $color; }</style>";
         }
         
-        //ELIMINAR LA COOKIE
+        //Delete the cookie
         if (isset($_POST['restablecer'])) {
             borrarCookie('colorFondo');
             header("Location: preferencia.php");

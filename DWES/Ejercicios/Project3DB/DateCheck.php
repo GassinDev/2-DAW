@@ -8,17 +8,17 @@
 <body>
 
 <?php
-// Definir variables y establecer valores predeterminados
+// Define variables and set default values.
 $fecha = $fechaError = "";
 
-// Función para validar el formato de fecha
+// Function to validate the date format.
 function validarFecha($fecha) {
-    // Expresión regular para el formato YYYY-MM-DD
+    // Regular expression for the format YYYY-MM-DD.
     $patron = "/^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])$/";
     return preg_match($patron, $fecha);
 }
 
-// Procesar el formulario cuando se envía
+// Process the form when it is submitted.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validar la fecha
     $fecha = $_POST["fecha"];
