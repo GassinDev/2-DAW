@@ -24,3 +24,17 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
       - "traefik.http.routers.whoami.entrypoints=web"
+  
+  webCa:
+    image: app_empresa
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webCa.rule=Host(`tarefik.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
+
+  apachito:
+    image: httpd
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apachito.rule=Host(`apach.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints=web"

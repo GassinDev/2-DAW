@@ -13,7 +13,7 @@ services:
             WORDPRESS_DB_PASSWORD: examplepass
             WORDPRESS_DB_NAME: exampledb
         volumes:
-            - wordpress:/var/www/html
+            - patata:/var/www/html
 
     db:
         image: mysql:5.7
@@ -24,8 +24,8 @@ services:
             MYSQL_PASSWORD: examplepass
             MYSQL_RANDOM_ROOT_PASSWORD: '1'
         volumes:
-            - db:/var/lib/mysql
+            - picoDeGallo:/var/lib/mysql
 
 volumes:
-    wordpress:
-    db:
+    patata:
+    picoDeGallo:
