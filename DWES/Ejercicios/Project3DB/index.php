@@ -17,7 +17,7 @@
         <input type="submit" name="action" value="MODIFICACION">
         <input type="submit" name="action" value="ELIMINACION">
     </form><br>
-
+    <p>Lea</p>
     <?php
     // Include the functions file and connect to the database
     include("funciones.php");

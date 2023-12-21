@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>Información</h1>
-<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, fuga! Facilis, voluptatum et magni dolore, porro est reiciendis similique labore in ab tempore eligendi. Nemo corporis nostrum ab vel repellat?<p>
+<p>Lorem fistrum ese que llega no te digo trigo por no llamarte Rodrigor llevame al sircoo se calle ustée. 
+    Amatomaa jarl va usté muy cargadoo qué dise usteer a gramenawer no te digo trigo por no llamarte Rodrigor.<p>
 <a href="index.php">Volver al login</a>
 <?php
     //TO ASSIGN THE BACKGROUND COLOR IF THE COOKIE EXISTS

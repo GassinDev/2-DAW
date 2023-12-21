@@ -1,0 +1,33 @@
+Crea una cuenta en Docker Hub:
+Asegúrate de tener una cuenta en Docker Hub. Si no tienes una, ve a Docker Hub y regístrate.
+
+Inicia sesión en Docker desde la línea de comandos:
+Utiliza el siguiente comando para iniciar sesión en Docker desde la línea de comandos. Esto te pedirá tus credenciales de Docker Hub.
+
+bash
+Copy code
+docker login
+Construye tu imagen de Docker:
+Asegúrate de estar en el directorio que contiene tu Dockerfile y otros archivos necesarios para construir la imagen. Luego, utiliza el siguiente comando para construir la imagen. Reemplaza nombre_de_usuario/nombre_de_imagen:etiqueta con la información correcta.
+
+bash
+Copy code
+docker build -t nombre_de_usuario/nombre_de_imagen:etiqueta .
+Etiqueta tu imagen:
+Puedes etiquetar tu imagen con la versión que desees. Esto es opcional, pero puede ser útil para organizar diferentes versiones de tu imagen.
+
+bash
+Copy code
+docker tag nombre_de_usuario/nombre_de_imagen:etiqueta nombre_de_usuario/nombre_de_imagen:etiqueta
+Sube tu imagen a Docker Hub:
+Utiliza el siguiente comando para subir tu imagen a Docker Hub.
+
+bash
+Copy code
+docker push nombre_de_usuario/nombre_de_imagen:etiqueta
+Esto subirá la imagen al repositorio correspondiente en Docker Hub. Asegúrate de tener permisos para subir imágenes a ese repositorio.
+
+Verifica en Docker Hub:
+Ve a tu cuenta en Docker Hub y verifica que la imagen se haya subido correctamente.
+
+Recuerda reemplazar "nombre_de_usuario", "nombre_de_imagen" y "etiqueta" con los valores específicos que deseas utilizar para tu imagen. También, ten en cuenta que este proceso asume que ya has configurado correctamente tu Dockerfile y demás archivos necesarios para construir tu imagen.

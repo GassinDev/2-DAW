@@ -1,0 +1,11 @@
+{
+    "Integer": 1,
+    "String": "Buenas tardes",
+    "Boolean": true,
+    "Object": {
+        "nombre" : "Pepe",
+        "edad" : 1
+    },
+    "Array" : [2,3,4],
+    "Nulo" : null
+}

@@ -1,0 +1,24 @@
+{
+    "inventario": {
+        "productos": [
+            {
+                "nombre": "Televisor",
+                "precio": 599.99,
+                "fecha_ingreso": "2023-07-15",
+                "stock" : 10
+            },
+            {
+                "nombre": "Camiseta",
+                "precio": 29.99,
+                "fecha_ingreso": "2023-07-16",
+                "stock" : 50
+            },
+            {
+                "nombre": "Lámpara",
+                "precio": 39.99,
+                "fecha_ingreso": "2023-07-17",
+                "stock" : 20
+            }
+        ]
+    }
+}
