@@ -9,9 +9,12 @@ const miObjeto = {
 
 const myJSON = JSON.stringify(miObjeto);
 
-document.getElementById("demo").innerText = miObjeto.nombre;
-
 window.location = "demo_json.php?x=" + myJSON;
+
+localStorage.setItem("miJSON", myJSON);
+
+
+
 
 
 
