@@ -1,4 +1,4 @@
-const miObjeto = {
+const Objeto = {
     nombre: "Mario",
     apellidos: "Sánchez López",
     edad: 26,
@@ -7,7 +7,7 @@ const miObjeto = {
     ciudad: "El Puerto de Santa María"
 };
 
-const myJSON = JSON.stringify(miObjeto);
+const myJSON = JSON.stringify(Objeto);
 
 window.location = "demo_json.php?x=" + myJSON;
 

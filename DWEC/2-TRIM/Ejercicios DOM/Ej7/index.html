@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Ej7</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ej7</title>
 </head>
+
 <body>
-  <p>
-    <label for="valor1">Ingrese primer valor:</label>
-    <input type="number" id="valor1" />
-  </p>
-  <p>
-    <label for="valor2">Ingrese segundo valor:</label>
-    <input type="number" id="valor2" />
-  </p>
-  <p>
-    <input type="checkbox" id="suma" />Sumar
-  </p>
-  <p>
-    <input type="checkbox" value="resta" id="resta" />Restar
-  </p>
-  <p>
-    <input type="button" value="Operar" id="calculo" />
-  </p>
+  <form action="#calculo">
+    <p>
+      <label for="valor1">Ingrese primer valor:</label>
+      <input type="number" id="valor1" />
+    </p>
+    <p>
+      <label for="valor2">Ingrese segundo valor:</label>
+      <input type="number" id="valor2" />
+    </p>
+    <p>
+      <input type="checkbox" id="suma" />Sumar
+    </p>
+    <p>
+      <input type="checkbox" value="resta" id="resta" />Restar
+    </p>
+    <p>
+      <input type="button" value="Operar" onclick="calcular();" />
+    </p>
+  </form>
   <p id="resultado"></p>
-  
+
 </body>
+<script src="script.js"></script>
 
 </html>
