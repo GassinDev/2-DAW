@@ -1,0 +1,8 @@
+Ejercicio 03
+
+    Subir la imagen anterior a DockerHub.
+    Borrarla de su equipo.
+    Probar a descargarla y comprobar que se ejecuta correctamente al acceder a http://localhost.
+    Anote los comandos utilizados.
+    Recomendación: Pare y borre todos los contenedores usados.
+

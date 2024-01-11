@@ -1,0 +1,29 @@
+  version: '3.9'
+
+  name: yourprojectname
+
+  services:
+    joomla:
+      image: joomla:5.0.1-php8.2-apache
+      container_name: kingsbridge-app
+      restart: always
+      ports:
+        - 8080:80
+      environment:
+        - JOOMLA_DB_HOST=joomladb
+        - JOOMLA_DB_PASSWORD=example
+      user: 1000:1000
+      volumes:
+        - ./site_joomla:/var/www/html
+      depends_on:
+        - joomladb
+
+    joomladb:
+      image: mysql:8.0.13
+      container_name: kingsbridge-db
+      restart: always
+      environment:
+        - MYSQL_ROOT_PASSWORD=example
+      user: 1000:1000
+      volumes:
+        - ./db:/var/lib/mysql

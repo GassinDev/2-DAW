@@ -1,0 +1,15 @@
+Ejercicio 01
+
+    Descargar la aplicacion asteroides (fichero asteroids-game-master.zip) de la Unidad Compartida. Descompimirla en directorio.
+    Lanzar un contenedor con un servidor web y montar como volumen la aplicación anterior.
+    Compruebe que funciona la aplicación al acceder a http://localhost.
+    Modificar el fichero index.html de la aplicación para que su nombre y apellidos aparezcan en <ooter y en el title.
+    Compruebe que funciona la aplicación al acceder a http://localhost y muestra su nombre y apellidos.
+    Anote los comandos utilizados.
+    Recomendación: Pare y borre todos los contenedores usados.
+
+Opcional: modificar contador de puntos para que incremente más rápidamente.
+
+chmod -R 755 - Dar permisos a la carpeta
+docker run --name juego_asteroides -v ./asteroids-game-master:/usr/share/nginx/html -p 80:80 -d nginx 
+

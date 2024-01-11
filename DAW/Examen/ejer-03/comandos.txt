@@ -1,0 +1,3 @@
+docker tag inseapp:latest gassindev/inseapp:latest
+docker push gassindev/inseapp:latest
+docker rmi inseapp:latest
