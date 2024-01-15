@@ -1,5 +1,5 @@
 function ocultar(parrafo) {
-    parrafo.classList.add("oculto");
+    setTimeout(() => {parrafo.classList.add("oculto");}, 300);
 }
 
 function eliminar(parrafo){

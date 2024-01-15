@@ -13,7 +13,6 @@ for (let i = 0; i < a.length; i++) {
         contador++;
     }
 
-
 }
 
 let p = document.getElementsByTagName("p");
