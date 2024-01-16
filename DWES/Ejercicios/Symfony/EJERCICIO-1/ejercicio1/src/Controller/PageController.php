@@ -14,6 +14,7 @@ class PageController extends AbstractController
 
         return $this->render('/about.html.twig', [
             'title' => 'Sobre mi pagina web',
+            'content' => 'Muy buenos dias, Soy Juan',
         ]);
         
     }
@@ -22,9 +23,8 @@ class PageController extends AbstractController
     public function contact(): Response
     {
         return $this->render('/contact.html.twig', [
-            'title' => 'Contact: ',
+            'title' => 'Contact',
+            'content' => 'Este es mi contacto: 989-234-456',
         ]);
     }
 }
-
-?>
