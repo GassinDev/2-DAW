@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Bienvenido, {{nombre}}</title>
+	</head>
+	<body>
+		<h1 style="color:green">{{saludo}}</h1>
+
+		{% if nombre == "admin" %}
+			<h2>Tienes acceso a todos los apartados de la web.</h2>
+        {% else %}
+            <h2>Tienes acceso a tu usuario.</h2>
+		{% endif %}
+	</body>
+</html>

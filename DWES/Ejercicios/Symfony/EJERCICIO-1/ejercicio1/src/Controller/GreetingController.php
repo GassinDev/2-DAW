@@ -2,28 +2,28 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GreetingController
+class GreetingController extends AbstractController
 {
     #[Route('/home/{slug}')]
-    public function index(string $slug = null): Response
+    public function greeting(string $slug = null): Response
     {
         $greet = '';
-        if($slug){
-            if(preg_match('/^[a-zA-ZñÑ]+$/', $slug) && str_contains("?",$slug) === false){
-                $greet = sprintf("<h1>Buenas tardes %s</h1>", $slug);
-            }else{
+        if ($slug) {
+            if (preg_match('/^[a-zA-ZñÑ]+$/', $slug) && !str_contains($slug, '?')) {
+                $greet = "Buenas tardes $slug";
+            } else {
                 $greet = "ERROR - CARÁCTER INVÁLIDO EN EL NOMBRE";
             }
-            
-        }else{
-            $greet = sprintf('<h1>Buenas tardes amigo!</h1>');
+        } else {
+            $greet = 'Buenas tardes amigo';
         }
-
-        return new Response($greet);
+        
+        return $this->render('/greet.html.twig', ["saludo" => $greet, "nombre" => $slug]);
     }
+
 }
 
