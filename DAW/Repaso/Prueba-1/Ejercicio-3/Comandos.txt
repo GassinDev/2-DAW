@@ -1,0 +1,15 @@
+Ejercicio 03
+
+    Subir la imagen anterior a DockerHub.
+    Borrarla de su equipo.
+    Probar a descargarla y comprobar que se ejecuta correctamente al acceder a http://localhost.
+    Anote los comandos utilizados.
+    Recomendación: Pare y borre todos los contenedores usados.
+
+docker tag juego-asteroides:latest gassindev/juego-asteroides:latest
+docker push gassindev/juego-asteroides:latest
+docker rmi juego-asteroides:latest
+docker pull gassindev/juego-asteroides:latest
+docker run -d --name juego -p 80:80 gassindev/juego-asteroides
+
+PARA INICAR SESION EN DOCKERHUB ----->  docker login -u [docker-registry-username]

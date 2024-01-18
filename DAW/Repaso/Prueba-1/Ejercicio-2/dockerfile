@@ -1,0 +1,2 @@
+FROM nginx
+COPY /asteroids-game-master/. /usr/share/nginx/html 

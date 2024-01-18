@@ -1,0 +1,21 @@
+Ejercicio 06
+
+Crear instancia EC2 en AWS con docker instalado.
+Desplegar el servicio traefik del apartado anterior.
+Modifique el fichero /etc/hosts para asignar la IP de la instancia EC2
+a joomla.suapellido.internal y web.suapellido.internal
+
+    Probar el acceso a http://web.suapellido.internal y a http://joomla.suapellido.internal
+
+
+chmod 400 vockey.pem 
+ssh -i vockey.pem admin@ec2-18-212-36-242.compute-1.amazonaws.com
+scp -i ../../vockey.pem ./docker-compose.yml admin@ec2-18-212-36-242.compute-1.amazonaws.com:/home/admin
+
+
+Cambiar etc/hosts en el cliente
+
+sudo nano etc/hosts
+
+IP_EC2      web.apellido.internal
+IP_EC2      web.apellido.internal

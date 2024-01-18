@@ -1,0 +1,17 @@
+Ejercicio 05
+
+Desplegar servicio traefik en local con: - Servicio del apartado 03 usando su imagen en DockerHub. A este servicio se accede en http://web.suapellido.internal - Aplicación Joomla del apartado 04. A este servicio se accede en http://joomla.suapellido.internal
+
+Debe modificar el fichero local /etc/hosts para asignar la IP local a los siguientes nombres (sustituyendo suapellido por su primer apellido): - joomla.suapellido.internal - web.suapellido.internal
+
+    Mostrar fichero docker-compose.yml y iniciar los servicios.
+
+    Probar el acceso a http://web.suapellido.internal y http://joomla.suapellido.internal
+
+    Anote los comandos utilizados.
+
+
+cat /etc/hosts   
+nano /etc/hosts
+docker compose up -d
+docker compose down

@@ -1,0 +1,10 @@
+Ejercicio 02
+
+    Crear fichero Dockerfile para generar una imagen que ya incluya la aplicación modificada de apartado anterior.
+    Crear la imagen y comprobar que se ejecuta correctamente al acceder a http://localhost.
+    Anote los comandos utilizados.
+    Recomendación: Pare y borre todos los contenedores usados.
+
+
+docker build -t juego-asteroides .
+docker run --name asteroides -p 80:80 -d juego-asteroides

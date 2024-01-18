@@ -1,0 +1,9 @@
+Ejercicio 04
+
+    Desplegar la aplicación Joomla usando docker compose. Puede usar este renlace de ayuda: https://www.avonture.be/blog/docker-joomla/
+    Probar cómo inicia la aplicación y el acceso inicial a http://localhost
+    Anote los comandos utilizados.
+    Recomendación: Pare y borre todos los contenedores usados.
+
+docker compose up -d
+docker compose down
