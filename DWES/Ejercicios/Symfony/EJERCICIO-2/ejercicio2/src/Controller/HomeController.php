@@ -29,7 +29,7 @@ class HomeController extends AbstractController
         $entityManager->persist($s);
         $entityManager->flush();
         
-        return new Response(sprintf("Funciona"));
+        return new Response(sprintf("Introducido el producto con éxito."));
         
     }
 
