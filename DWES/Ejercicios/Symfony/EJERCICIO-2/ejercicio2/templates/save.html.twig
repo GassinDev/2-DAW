@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listar
+{% endblock %}
+
+{% block body %}
+
+    <h1>{{ message }}</h1>
+	<script>
+		//
+setTimeout(function () {
+window.location.href = "{{ path('app_home') }}"; 
+}, 2000); 
+	</script>
+
+{% endblock %}
