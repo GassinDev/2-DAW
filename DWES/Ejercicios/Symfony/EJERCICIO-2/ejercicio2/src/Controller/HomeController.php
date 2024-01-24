@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Producto;
+use App\Form\BuscaProduType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,4 +90,30 @@ class HomeController extends AbstractController
             'arrayproducto' => $producto,
         ]);
     }
+
+    #[Route("/buscarProducto", name: 'buscar')]
+    public function buscarProducto(Request $request): Response
+    {
+        $form = $this->createForm(BuscaProduType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $productoSeleccionado = $form->getData();
+
+            $productoEncontrado = "";
+
+            return $this->render('mostrar_producto.html.twig', [
+                'producto' => $productoEncontrado,
+            ]);
+        }
+
+        return $this->render('buscar.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
+
+
+
+
