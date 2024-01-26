@@ -42,20 +42,6 @@ class HomeController extends AbstractController
         return $this->render('form.html.twig', [
             'form' => $form->createView(),
         ]);
-        //Request $request, 
-    //     $producto = new Producto();
-    //     // $s->setNombre("Leche");
-    //     // $s->setDescripcion("Bebida 100% de Vaca");
-    //     // $s->setPrecio(1.50);
-    //     // $s->setCantidad(4);
-
-    //     $form = $this->createFormBuilder($producto)
-    // ->add('nombre', TextType::class)
-    // ->add('id', NumberType::class)
-    // ->add('descripcion', TextType::class)
-    // ->add('precio', FloatType::class)
-    // ->add('cantidad', NumberType::class, ['label' => 'Crear Producto'])
-    // ->getForm();    
     }
 
     #[Route('/getProducto')]
@@ -72,7 +58,7 @@ class HomeController extends AbstractController
 
     #[Route('/saveProducto', name: 'save')]
     public function guardado(): Response
-    { 
+    {
 
         return $this->render('save.html.twig', [
             'message' => "Producto añadido con éxito",
@@ -85,35 +71,41 @@ class HomeController extends AbstractController
 
         $productoRepository = $entityManager->getRepository(Producto::class);
         $producto = $productoRepository->findAll();
-        
+
         return $this->render('listar.html.twig', [
             'arrayproducto' => $producto,
         ]);
     }
 
     #[Route("/buscarProducto", name: 'buscar')]
-    public function buscarProducto(Request $request): Response
+    public function buscarProducto(Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(BuscaProduType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $productoSeleccionado = $form->getData();
 
-            $productoEncontrado = "";
+            $nombreProducto = $form->get('nombre')->getData();
 
-            return $this->render('mostrar_producto.html.twig', [
-                'producto' => $productoEncontrado,
-            ]);
+            $productoRepository = $entityManager->getRepository(Producto::class);
+
+            $productoEncontrado = $productoRepository->findOneBy(['nombre' => $nombreProducto]);
+
+            if ($productoEncontrado) {
+
+                return $this->render('mostrar_producto.html.twig', [
+                    'producto' => $productoEncontrado,
+                ]);
+            } else {
+
+                $this->addFlash('error', 'El producto no se encontró.');
+                return $this->redirectToRoute('buscar');
+            }
         }
 
         return $this->render('buscar.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
 }
-
-
-
-

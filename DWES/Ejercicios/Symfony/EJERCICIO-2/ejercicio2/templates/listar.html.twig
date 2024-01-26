@@ -2,44 +2,52 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Lista de Productos{% endblock %}
-	{% block stylesheets %}
-        <style>
-    table *{
-        border: 1px black solid;
-    }
-</style>
-	{% endblock %}
+{% block title %}Lista de Productos
+{% endblock %}
+{% block stylesheets %}
+	<style>
+		table * {
+			border: 1px black solid;
+		}
+	</style>
+{% endblock %}
 
 {% block body %}
-    <h1>Listado de Productos</h1>
+	<h1>Listado de Productos</h1>
 
-    {% if arrayproducto is not empty %}
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for producto in arrayproducto %}
-                    <tr>
-                        <td>{{ producto.id }}</td>
-                        <td>{{ producto.nombre }}</td>
-                        <td>{{ producto.descripcion }}</td>
-                        <td>{{ producto.precio }}</td>
-                        <td>{{ producto.cantidad }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No hay productos disponibles.</p>
-    {% endif %}
-    <br>
-    <a href="{{ path('app_home') }}">Volver al inicio</a>
+	{% if arrayproducto is not empty %}
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Descripción</th>
+					<th>Precio</th>
+					<th>Cantidad</th>
+					<th>Acción</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for producto in arrayproducto %}
+					<tr>
+						<td>{{ producto.id }}</td>
+						<td>{{ producto.nombre }}</td>
+						<td>{{ producto.descripcion }}</td>
+						<td>{{ producto.precio }}</td>
+						<td>{{ producto.cantidad }}</td>
+						<td>
+							<form action="{{ path('agregar_al_carrito') }}" method="POST">
+								<input type="hidden" name="producto_id" value="{{ producto.id }}">
+								<button type="submit">Añadir al carrito</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p>No hay productos disponibles.</p>
+	{% endif %}
+	<br>
+	<a href="{{ path('app_home') }}">Volver al inicio</a>
 {% endblock %}
