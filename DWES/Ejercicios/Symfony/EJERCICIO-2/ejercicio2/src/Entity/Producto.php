@@ -22,9 +22,6 @@ class Producto
     #[ORM\Column]
     private ?float $precio = null;
 
-    #[ORM\Column]
-    private ?int $cantidad = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -66,15 +63,4 @@ class Producto
         return $this;
     }
 
-    public function getCantidad(): ?int
-    {
-        return $this->cantidad;
-    }
-
-    public function setCantidad(int $cantidad): static
-    {
-        $this->cantidad = $cantidad;
-
-        return $this;
-    }
 }

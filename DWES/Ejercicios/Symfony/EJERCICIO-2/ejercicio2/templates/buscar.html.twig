@@ -4,6 +4,10 @@
 
 {% block body %}
 
+{% for message in app.flashes('error') %}
+    <div>{{ message }}</div>
+{% endfor %}
+
 <h2>Elije tu producto</h2>
 
 {{ form_start(form) }}

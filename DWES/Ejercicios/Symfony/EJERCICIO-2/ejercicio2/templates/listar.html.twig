@@ -1,9 +1,8 @@
-{# templates/listador/listador.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Lista de Productos
 {% endblock %}
+
 {% block stylesheets %}
 	<style>
 		table * {
@@ -23,8 +22,7 @@
 					<th>Nombre</th>
 					<th>Descripción</th>
 					<th>Precio</th>
-					<th>Cantidad</th>
-					<th>Acción</th>
+					<th>Cantidad para el carrito</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,10 +32,10 @@
 						<td>{{ producto.nombre }}</td>
 						<td>{{ producto.descripcion }}</td>
 						<td>{{ producto.precio }}</td>
-						<td>{{ producto.cantidad }}</td>
 						<td>
-							<form action="{{ path('agregar_al_carrito') }}" method="POST">
+							<form action="{{ path('agregar_al_carrito')}}" method="POST">
 								<input type="hidden" name="producto_id" value="{{ producto.id }}">
+								<input type="number" name="cantidad" value="1" min="1" style="width: 50px;">
 								<button type="submit">Añadir al carrito</button>
 							</form>
 						</td>
@@ -48,6 +46,10 @@
 	{% else %}
 		<p>No hay productos disponibles.</p>
 	{% endif %}
+	<br>
+	{% for message in app.flashes('error') %}
+		<div>{{ message }}</div>
+	{% endfor %}
 	<br>
 	<a href="{{ path('app_home') }}">Volver al inicio</a>
 {% endblock %}
