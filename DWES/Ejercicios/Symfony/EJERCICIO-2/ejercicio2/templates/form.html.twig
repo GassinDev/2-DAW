@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Crea un producto</h1>
-	{{form(form)}}
-		<br>
-		<a href="{{ path('app_home') }}">Volver al inicio</a>
-	{% endblock %}
+	<div class="position-absolute top-50 start-50 translate-middle">
+		<h1>Crea un producto</h1>
+		{{form(form)}}
+	</div>
+{% endblock %}
