@@ -21,16 +21,12 @@ if (!$session->has('carrito')) {
     $session->set('carrito', $carrito);
 }
 
-
-
-$session->set('name', 'Drak');
-
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('base.html.twig', [
             'title' => 'Mi tienda',
         ]);
     }

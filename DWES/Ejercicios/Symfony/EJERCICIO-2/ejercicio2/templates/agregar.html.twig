@@ -1,16 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listar
-{% endblock %}
+{% block title %}Listar{% endblock %}
 
 {% block body %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="card-title">{{ message }}</h1>
+                    <p class="card-text">Redirigiendo al listado en unos segundos...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <h1>{{ message }}</h1>
-	<script>
-		//
-setTimeout(function () {
-window.location.href = "{{ path('listado') }}"; 
-}, 2000); 
-	</script>
-
+<script>
+    setTimeout(function () {
+        window.location.href = "{{ path('listado') }}";
+    }, 2000);
+</script>
 {% endblock %}
+

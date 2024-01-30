@@ -1,11 +1,39 @@
 body{
-    background-color: aliceblue;
+    background-color: rgb(51, 51, 63);
 }
 
-h1{
-    color: black;
+.fon{
+    background-color: white;
+    
 }
 
 a{
     text-decoration: none;
-}   
+}
+
+table{
+    background-color: aliceblue;
+}
+
+caption{
+    background-color: aliceblue;
+}
+
+.scrolling-text {
+    color: rgb(255, 115, 0);
+    position: fixed;
+    bottom: 0;
+    left: 100%;
+    white-space: nowrap;
+    padding: 10px 20px;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -100%;
+    }
+}
