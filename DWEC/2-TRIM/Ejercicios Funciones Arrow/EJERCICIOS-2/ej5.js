@@ -1,4 +1,8 @@
 const DeciaBina = (decimal) => {
     
-    for(let i = 0; i < )
+    while(decimal > 0){
+        let decimal = decimal / 2;
+        let resto = decimal % 2;
+        
+    }
 }
