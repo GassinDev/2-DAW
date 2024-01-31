@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const trabajadorConMejorSueldo = () => {
+            let nombreMax = '';
+            let sueldoMax = 0;
+
+            for (let i = 0; i < 8; i++) {
+
+                let nombre = prompt(`Dime el nombre del empleado ${i + 1}:`);
+                let sueldo = parseFloat(prompt(`Dime el sueldo de ${nombre}:`));
+
+                if (sueldo > sueldoMax) {
+                    sueldoMax = sueldo;
+                    nombreMax = nombre;
+                }
+            }
+
+            alert(`El empleado con mayor sueldo, el cuál es  ${sueldoMax}€, es ${nombreMax}.`);
+        }
+
+        trabajadorConMejorSueldo();
+    </script>
+</body>
+
+</html>
