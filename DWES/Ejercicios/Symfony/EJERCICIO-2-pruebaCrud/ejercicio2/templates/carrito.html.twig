@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carrito de Compras{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-body">
+                    {% if carrito is not empty %}
+                        <h2 class="card-title text-center mb-4">Mi Carrito de Compras</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Total</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for producto in carrito %}
+                                        <tr>
+                                            <td>{{ producto.nombre }}</td>
+                                            <td>{{ producto.cantidad }}</td>
+                                            <td>{{ producto.precio }}</td>
+                                            <td>{{ producto.cantidad * producto.precio }}€</td>
+                                            <td>
+                                                <form action="{{ path('eliminar_producto') }}" method="POST">
+                                                    <input type="hidden" name="producto_id" value="{{ producto.producto_id }}">
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="3"><strong>Total del carrito:</strong></td>
+                                        <td colspan="2">{{ totalPrecio }}€</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center">El carrito está vacío.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

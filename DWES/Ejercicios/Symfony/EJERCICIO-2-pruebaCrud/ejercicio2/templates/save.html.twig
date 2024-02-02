@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 mt-5">
+				<div class="card">
+					<div class="card-body text-center">
+						<h1 class="card-title">{{ message }}</h1>
+						<p>Redirigiendo a la página de inicio en unos segundos...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		setTimeout(function () {
+window.location.href = "{{ path('app_home') }}";
+}, 3000);
+	</script>
+{% endblock %}
