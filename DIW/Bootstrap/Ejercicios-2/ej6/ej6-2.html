@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Ejercicio 5</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <header class=""></header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/LA-Logo-libri-wiki.png" alt="Logo" height="50px" class="p-2">
+        <a class="navbar-brand text-white" href="#">LIBRERÍA GASSÍN</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="ej6.html">INICIO</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="ej6-2.html">LIBROS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ej6-3.html">INFORMACIÓN</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+
+
+        <h2>ÚLTIMOS LIBRO</h2>
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="novedades-tab" data-toggle="tab" href="#noved" role="tab" aria-controls="home" aria-selected="true">Novedades</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="leido-tab" data-toggle="tab" href="#lei" role="tab" aria-controls="profile" aria-selected="false">Leídos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="antiguo-tab" data-toggle="tab" href="#anti" role="tab" aria-controls="contact" aria-selected="false">Antiguos</a>
+            </li>
+        </ul>
+        <div class="tab-content mb-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="noved" role="tabpanel" aria-labelledby="home-tab">
+                <ul class="list-group">
+                    <li class="list-group-item">1. "El Gran Gatsby" por F. Scott Fitzgerald</li>
+                    <li class="list-group-item">2. "Cien años de soledad" por Gabriel García Márquez</li>
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="lei" role="tabpanel" aria-labelledby="profile-tab">
+                <ul class="list-group">
+                    <li class="list-group-item">3. "1984" por George Orwell</li>
+                    <li class="list-group-item">4. "To Kill a Mockingbird" por Harper Lee</li>
+                    <li class="list-group-item">5. "Orgullo y prejuicio" por Jane Austen</li>
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="anti" role="tabpanel" aria-labelledby="contact-tab">
+                <ul class="list-group">
+                    <li class="list-group-item">6. "Don Quijote de la Mancha" por Miguel de Cervantes</li>
+                    <li class="list-group-item">7. "Moby Dick" por Herman Melville</li>
+                </ul>
+            </div>
+        </div>
+    
+        <h2>Busca tu libro deseado</h2>
+        <form>
+            <div class="form-group row">
+                <labe class="col-sm-2 col-form-label">Título</labe>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Título">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Autor</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" placeholder="Autor">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
+
+        <h2>Usuarios que compraron libros</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user"></i></i> Nombre</th>
+                        <th>Apellido</th>
+                        <th><i class="fa-solid fa-envelope"></i> Email</th>
+                        <th><i class="fa-solid fa-book"></i> Libro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Maria</td>
+                        <td>González</td>
+                        <td>maria@example.com</td>
+                        <td>Orgullo y prejuicio</td>
+                    </tr>
+                    <tr>
+                        <td>Carlos</td>
+                        <td>Pérez</td>
+                        <td>carlos@example.com</td>
+                        <td>1984</td>
+                    </tr>
+                    <tr>
+                        <td>Ana</td>
+                        <td>Rodríguez</td>
+                        <td>ana@example.com</td>
+                        <td>Cien años de soledad</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class=""></footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
