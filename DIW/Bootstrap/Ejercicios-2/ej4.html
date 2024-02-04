@@ -14,6 +14,17 @@ PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="a
         .bor {
             border: 5px solid white;
         }
+
+        .ej {
+            background-color: red;
+        }
+
+        /* Media query */
+        @media (min-width: 768px) {
+            .ej {
+                height: 400px;  
+            }
+        }
     </style>
 </head>
 
@@ -25,35 +36,35 @@ PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="a
                 <p class="text-center">Header</p>
             </div>
             <div class="col-12 d-none d-sm-block d-md-none bor" style="background-color: #00eeff;">
-                <p class="text-center">Header</p>
+                <p class="text-left">Header</p>
             </div>
             <div class="col-12 d-none d-md-block bor" style="background-color: #00ff3c;">
-                <p class="text-center">Header</p>
+                <p class="text-left">Header</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 bor p-5" style="background-color: #ff0000;">
-                <p class="text-center display-4"><strong>1</strong></p>
+            <div class="col-12 col-sm-6 col-md-4 bor p-5 ej" style="background-color: #ff0000;">
+                <p class="text-left text-md-center display-4"><strong>1</strong></p>
             </div>
-            <div class="col-12 bor p-5" style="background-color: #ff0000;">
-                <p class="text-center display-4"><strong>2</strong></p>
-            </div>
-            <div class="col-12 d-sm-none d-md-none bor p-5" style="background-color: #ff0000;">
-                <p class="text-center display-4"><strong>3</strong></p>
-            </div>
-            <div class="col-12 d-none d-sm-block d-md-none bor p-5" style="background-color: #00ff1e;">
-                <p class="text-center display-4"><strong>3</strong></p>
+            <div class="col-12 col-sm-6 col-md-4 d-none d-sm-block bor p-5" style="background-color: #ff0000;">
+                <p class="text-center text-md-center text-sm-right display-4"><strong>2</strong></p>
             </div>
             <div class="col-12 d-block d-sm-none bor p-5" style="background-color: #00fffb;">
+                <p class="text-center display-4"><strong>2</strong></p>
+            </div>
+            <div class="col-12 col-md-4 d-sm-none d-md-block bor p-5" style="background-color: #ff0000;">
+                <p class="text-right text-md-center display-4"><strong>3</strong></p>
+            </div>
+            <div class="col-12 d-none d-sm-block d-md-none bor p-3" style="background-color: #00ff1e;">
                 <p class="text-center display-4"><strong>3</strong></p>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 bor" style="background-color: #e5ff00;">
-                <p class="text-center">Footer 1</p>
+            <div class="col-12 col-md-6 bor" style="background-color: #e5ff00;">
+                <p class="text-right">Footer 1</p>
             </div>
-            <div class="col-12 bor" style="background-color: #e5ff00;">
-                <p class="text-center">Footer 2</p>
+            <div class="col-12 col-md-6 bor" style="background-color: #e5ff00;">
+                <p class="text-left">Footer 2</p>
             </div>
         </div>
     </div>
