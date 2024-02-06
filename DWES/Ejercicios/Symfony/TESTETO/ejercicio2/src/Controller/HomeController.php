@@ -13,6 +13,14 @@ use App\Form\ProductoType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+$session = new Session();
+$session->start();
+
+if (!$session->has('carrito')) {
+    $carrito = [];
+    $session->set('carrito', $carrito);
+}
+
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
@@ -191,11 +199,9 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('carrito');
     }
 
-    // #[Route("/{any}")]
-    // public function noEncontrada(): Response
-    // {
-    //     return $this->render('notFound.html.twig');
-    // }
-
-    
+    #[Route("/{any}")]
+    public function noEncontrada(): Response
+    {
+        return $this->render('notFound.html.twig');
+    }
 }
