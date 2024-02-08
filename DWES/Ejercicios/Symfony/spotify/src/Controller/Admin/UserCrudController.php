@@ -23,7 +23,8 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnForm(),
             TextField::new('username'),
             TextField::new('email'),
-            TextField::new('password'),
+            TextField::new('password')
+                ->hideOnIndex(),
             ImageField::new('fotoPerfil', 'Foto Perfil')
                 ->setBasePath('/uploads/images')
                 ->setUploadDir('public/uploads/images')

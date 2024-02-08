@@ -22,6 +22,9 @@ class Song
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fotoPortada = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $fileAudio = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Song
     public function setFotoPortada(?string $fotoPortada): static
     {
         $this->fotoPortada = $fotoPortada;
+
+        return $this;
+    }
+
+    public function getFileAudio(): ?string
+    {
+        return $this->fileAudio;
+    }
+
+    public function setFileAudio(string $fileAudio): static
+    {
+        $this->fileAudio = $fileAudio;
 
         return $this;
     }
