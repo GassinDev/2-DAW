@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="root"></div>
+    <script>
+        var canciones = {{ canciones|json_encode|raw }};
+    </script>
+    <script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App canciones={canciones} />);
+    </script>
+    <script src="{{ asset('build/app.js') }}"></script>
+{% endblock %}
