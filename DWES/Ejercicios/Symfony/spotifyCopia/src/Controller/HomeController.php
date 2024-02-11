@@ -14,25 +14,19 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        // return $this->render('home/index.html.twig', [
-        //     'prop1' => 'Hola',
-        //     'prop2' => 'Mundo',
-        // ]);
-        $canciones = $entityManager->getRepository(Song::class)->findAll();
-
-        return $this->render('song/listaCanciones.html.twig', [
-            'canciones' => $canciones,
+        return $this->render('home/index.html.twig', [
+            'prop1' => 'Hola',
+            'prop2' => 'Mundo',
         ]);
     }
 
     #[Route('/verCanciones', name: 'canciones')]
     public function mostrarElementos(EntityManagerInterface $entityManager): Response
     {
-
         $canciones = $entityManager->getRepository(Song::class)->findAll();
 
         return $this->render('song/listaCanciones.html.twig', [
-            'canciones' => $canciones,
+            'canciones' => $canciones, 
         ]);
     }
 }
