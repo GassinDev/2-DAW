@@ -12,6 +12,8 @@ function NavigationBar() {
             <Nav>
                 <Nav.Link as={Link} to="/verCanciones">Lista de Canciones</Nav.Link>
                 <Nav.Link as={Link} to="/verUsuarios">Lista de Usuarios</Nav.Link>
+                <Nav.Link as={Link} to="/register">Registrarme</Nav.Link>
+                <Nav.Link as={Link} to="/verUsuarios">Login</Nav.Link>
             </Nav>
         </Navbar>
     );

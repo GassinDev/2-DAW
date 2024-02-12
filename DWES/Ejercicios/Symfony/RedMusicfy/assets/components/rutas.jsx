@@ -4,7 +4,7 @@ import ListadoCanciones from './listaCanciones';
 import NavigationBar from './navbar';
 import ListadoUsuarios from './listaUsuarios';
 
-function App() {
+function Rutas() {
     return (
         <Router>
             <div>
@@ -20,4 +20,4 @@ function App() {
     );
 }
 
-export default App;
+export default Rutas;
