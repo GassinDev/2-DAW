@@ -1,0 +1,9 @@
+body {
+  
+    background-color: #222;
+
+    /* Define el gradiente */
+    background-image: radial-gradient(circle, rgb(94, 0, 0), #222);
+}
+
+

@@ -27,13 +27,13 @@ function listaPersonajes() {
         {personajes.map((personaje, index) => (
           <li key={index}>
             <strong>{personaje.name}</strong><br />
-            Altura:{personaje.height}<br />
-            Peso:{personaje.mass}<br />
-            Color de cabello:{personaje.hair_color}<br />
-            Color de piel:{personaje.skin_color}<br />
-            Color de ojos:{personaje.eye_color}<br />
-            Año de nacimiento:{personaje.birth_year}<br />
-            Género:{personaje.gender}<br />
+            Altura: {personaje.height}<br />
+            Peso: {personaje.mass}<br />
+            Color de cabello: {personaje.hair_color}<br />
+            Color de piel: {personaje.skin_color}<br />
+            Color de ojos: {personaje.eye_color}<br />
+            Año de nacimiento: {personaje.birth_year}<br />
+            Género: {personaje.gender}<br />
             <br />
           </li>
         ))}

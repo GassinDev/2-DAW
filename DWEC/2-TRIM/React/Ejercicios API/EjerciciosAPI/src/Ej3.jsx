@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 function datosPais() {
     const [datos, setDatos] = useState(null);
 
-
     useEffect(() => {
         const fetchDatos = async () => {
             try {
