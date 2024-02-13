@@ -1,31 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in!
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		body {
+			color: #ffffff;
+		}
+
+		.form-control {
+			background-color: #1a1a1a;
+			border-color: #8B0000;
+			color: #ffffff;
+            
+            
+		}
+
+		.btn-primary {
+			background-color: #8B0000;
+			border-color: #8B0000;
+		}
+
+		.btn-primary:hover {
+			background-color: #5e0000;
+			border-color: #5e0000;
+		}
+
+		.alert-danger {
+			background-color: #5e0000;
+			border-color: #5e0000;
+			color: #ffffff;
+		}
+	</style>
+{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	<form method="post" class="container mt-5">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+		{% if app.user %}
+			<div class="mb-3">
+				You are logged in as
+				{{ app.user.userIdentifier }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+		<h1 class="h3 mb-3 font-weight-normal">Inicia sesión</h1>
+		<label for="inputEmail" class="form-label">Email</label>
+		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-2" autocomplete="email" required autofocus>
+		<label for="inputPassword" class="form-label">Contraseña</label>
+		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+		<button class="btn btn-lg btn-primary mt-3" type="submit">
+			Sign in
+		</button>
+	</form>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

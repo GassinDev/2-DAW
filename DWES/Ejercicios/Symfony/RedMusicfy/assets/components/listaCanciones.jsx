@@ -40,7 +40,7 @@ function ListaCanciones() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 2 }}
-            className="row row-cols-1 row-cols-md-3 g-4"
+            className="row row-cols-2 row-cols-md-4 g-4"
         >
             {canciones.map((cancion, index) => (
                 <motion.div className="col" key={index} whileHover={{ scale: 1.1 }}>
@@ -49,19 +49,23 @@ function ListaCanciones() {
                             variant="top"
                             src={"uploads/images/" + cancion.fotoPortada}
                             alt="portada"
-                            style={{ height: "500px", objectFit: "cover" }}
+                            style={{ 
+                                height: "250px", 
+                                objectFit: "cover", 
+                                filter: cancionSeleccionada === cancion ? "brightness(20%)" : "none" }}
                         />
                         <Card.Body>
                             <Card.Title>{cancion.title}</Card.Title>
                             {cancionSeleccionada === cancion && <Reproductor cancion={cancionSeleccionada} />}
+                            {cancionSeleccionada === cancion && (
+                                <img src="img/audio.gif" alt="gif" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', maxWidth: '50%', maxHeight: '50%' }} />
+                            )}
                         </Card.Body>
                     </Card>
                 </motion.div>
             ))}
-
         </motion.div>
     );
 }
 
 export default ListaCanciones;
-
