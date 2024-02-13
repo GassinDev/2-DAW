@@ -1,12 +1,21 @@
-import '../styles/app.css';
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import { motion } from 'framer-motion';
 
+function Reproductor({ cancion }) {
+    const [reproduciendo] = useState(true);
+
+    return (
+        <div>
+            <audio className="w-100" id="mireproductor" src={"uploads/music/" + cancion.fileAudio} controls autoPlay={reproduciendo} />
+        </div>
+    );
+}
 
 function ListaCanciones() {
     const [canciones, setCanciones] = useState([]);
+    const [cancionSeleccionada, setCancionSeleccionada] = useState(null);
 
     useEffect(() => {
         const fetchCanciones = async () => {
@@ -35,7 +44,7 @@ function ListaCanciones() {
         >
             {canciones.map((cancion, index) => (
                 <motion.div className="col" key={index} whileHover={{ scale: 1.1 }}>
-                    <Card>
+                    <Card onClick={() => setCancionSeleccionada(cancion)}>
                         <Card.Img
                             variant="top"
                             src={"uploads/images/" + cancion.fotoPortada}
@@ -44,14 +53,15 @@ function ListaCanciones() {
                         />
                         <Card.Body>
                             <Card.Title>{cancion.title}</Card.Title>
+                            {cancionSeleccionada === cancion && <Reproductor cancion={cancionSeleccionada} />}
                         </Card.Body>
                     </Card>
                 </motion.div>
             ))}
+
         </motion.div>
     );
 }
 
 export default ListaCanciones;
-
 
