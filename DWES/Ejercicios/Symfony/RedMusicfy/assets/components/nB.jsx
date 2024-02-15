@@ -17,7 +17,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ marginBottom: '40px' }}>
             <div className="container">
                 <a className="navbar-brand d-flex align-items-center text-white" href="/">
-                    <img src="img/logo.png" alt="Logo" height="30" className="" />
+                    <img src="../img/logo.png" alt="Logo" height="30" className="" />
                     Red Musicfy
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,13 @@ const Navbar = () => {
                             <a className="nav-link text-white" href="/verUsuarios">Usuarios</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white" href="/login">Login Admin</a>
+                            <a className="nav-link text-white" href="/login">Admin</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link text-white" href="/login">Login</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link text-white" href="/cliente/new">Registrarse</a>
                         </li>
                     </ul>
                     <form className="d-flex ms-auto" onSubmit={handleSubmit}>

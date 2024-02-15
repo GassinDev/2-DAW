@@ -1,0 +1,14 @@
+{% form_theme form with 'bootstrap_5_layout.html.twig' %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 custom-container">
+            <h2 class="text-center mb-4">Registro</h2>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-lg btn-primary btn-block">{{ button_label|default('Registrarse') }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
