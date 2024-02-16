@@ -38,7 +38,7 @@ const Navbar = () => {
                             <a className="nav-link text-white" href="/login">Login</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white" href="/cliente/new">Registrarse</a>
+                            <a className="nav-link text-white" href="/register">Registrarse</a>
                         </li>
                     </ul>
                     <form className="d-flex ms-auto" onSubmit={handleSubmit}>

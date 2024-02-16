@@ -44,12 +44,19 @@ class Authenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        $correo = $request->request->get('email', '');
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
         // For example:
-        return new RedirectResponse($this->urlGenerator->generate('admin'));
+        if(strpos($correo, 'admin') !== false){
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }else{
+            return new RedirectResponse($this->urlGenerator->generate('hub'));
+        }
+        
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
