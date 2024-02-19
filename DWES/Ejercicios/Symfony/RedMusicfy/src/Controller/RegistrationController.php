@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\Authenticator;
-use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(FileUploader $fileUploader, Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, Authenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, Authenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -28,16 +27,19 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('Password')->getData()
                 )
             );
 
             $file = $form->get('fotoPerfil')->getData();
-            if ($file) {
-                $fileName = $fileUploader->upload($file);
+            if ($file !== null) {
+                // Generar un nombre único para el archivo
+                $fileName = uniqid() . '.' . $file->guessExtension();
+                // Almacenar el archivo en una ubicación segura
+                $file->move($this->getParameter('images_directory'), $fileName);
+                // Guardar el nombre del archivo en la propiedad del usuario
                 $user->setFotoPerfil($fileName);
             }
-
 
             $entityManager->persist($user);
             $entityManager->flush();

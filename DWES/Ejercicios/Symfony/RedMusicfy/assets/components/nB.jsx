@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 
 const Navbar = () => {
-    const [searchTerm, setSearchTerm] = useState('');
 
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
-    };
+    // const [user, setUser] = useState(null);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Aquí puedes realizar la lógica para manejar la búsqueda
-        console.log('Buscando por:', searchTerm);
-    };
+    // useEffect(() => {
+    //     fetch('/api/user/info')
+    //         .then(response => response.json())
+    //         .then(data => setUser(data));
+    // }, []);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ marginBottom: '40px' }}>
@@ -32,26 +29,18 @@ const Navbar = () => {
                             <a className="nav-link text-white" href="/verUsuarios">Usuarios</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white" href="/login">Admin</a>
-                        </li>
-                        <li className="nav-item">
                             <a className="nav-link text-white" href="/login">Login</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link text-white" href="/register">Registrarse</a>
                         </li>
+                        {/* {user && (
+                            <li>
+                                <a href="/miPerfil">{user.username}</a>
+                                <a href="#" onClick={() => handleLogout()}>Cerrar sesión</a>
+                            </li>
+                        )} */}
                     </ul>
-                    <form className="d-flex ms-auto" onSubmit={handleSubmit}>
-                        <input
-                            className="form-control me-2"
-                            type="search"
-                            placeholder="Buscar..."
-                            aria-label="Buscar"
-                            value={searchTerm}
-                            onChange={handleSearch}
-                        />
-                        <button className="btn btn-outline-light" type="submit">Buscar</button>
-                    </form>
                 </div>
             </div>
         </nav>

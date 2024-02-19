@@ -27,4 +27,11 @@ class APISController extends AbstractController
         return $this->json($usuarios);
     }
 
+    #[Route('api/usuarioInfo', name: 'usuarioInfo')]
+    public function info()
+{
+    $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+    return $this->json($this->getUser());
+}
 }

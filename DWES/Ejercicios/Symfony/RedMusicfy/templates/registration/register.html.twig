@@ -13,28 +13,41 @@
 		<div class="custom-container mt-5">
 			<h1 class="h3 mb-3 font-weight-normal">Registro</h1>
 
-			{{ form_errors(registrationForm) }}
+			{{ form_start(registrationForm) }}
 
-			<form method="post">
-				{{ form_start(registrationForm) }}
-				<div class="mb-3">
-					{{ form_row(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
-				</div>
-				<div class="mb-3">
-					{{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-				</div>
-				<div class="mb-3">
-					{{ form_row(registrationForm.plainPassword, {'label': 'Password', 'attr': {'class': 'form-control'}}) }}
-				</div>
-				<div class="mb-3">
-					{{ form_row(registrationForm.fotoPerfil)}}
-				</div>
-				<div class="form-check mb-3">
-					{{ form_row(registrationForm.agreeTerms, {'label_attr': {'class': 'form-check-label'}}) }}
-				</div>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Registrarme</button>
-				{{ form_end(registrationForm) }}
-			</form>
+			<div class="mb-3">
+				{{ form_row(registrationForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}}) }}
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+			</div>
+
+			<div class="mb-3 form-check">
+				{{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+				<label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}">
+					I agree to the terms
+				</label>
+				<div class="invalid-feedback">{{ form_errors(registrationForm.agreeTerms) }}</div>
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.Password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+				<div class="invalid-feedback">{{ form_errors(registrationForm.Password) }}</div>
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.fotoPerfil) }}
+				<div class="invalid-feedback">{{ form_errors(registrationForm.fotoPerfil) }}</div>
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.submit)}}
+				<div class="invalid-feedback">{{ form_errors(registrationForm.fotoPerfil) }}</div>
+			</div>
+
+			{{ form_end(registrationForm) }}
+
 		</div>
 	</div>
 {% endblock %}
