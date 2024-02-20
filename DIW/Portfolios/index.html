@@ -20,34 +20,39 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#sobre-mi">Sobre mí</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#habilidades">Habilidades</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Proyectos</a>
+                        <a class="nav-link" href="#proyectos">Proyectos</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container-lg mt-5">
-        <div class="row align-items-center">
-            <div class="col-12 col-md-6 d-flex justify-content-center">
-                <div class="image-container">
-                    <img src="./img/logoGassinDev.jpg" alt="logo" class="w-100" style="border-radius: 10%;">
-                    <div class="overlay">
-                        <img src="./img/juan.png" alt="overlay" class="overlay-image" style="border-radius: 30%;">
+    <section id="inicio">
+        <div class="container-lg mt-5">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6 d-flex justify-content-center">
+                    <div class="image-container">
+                        <img src="./img/logoGassinDev.jpg" alt="logo" class="w-100" style="border-radius: 10%;">
+                        <div class="overlay">
+                            <img src="./img/juan.png" alt="overlay" class="overlay-image" style="border-radius: 30%;">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 d-flex justify-content-center">
-                <p class="display-5">Soy <strong style="color: #185263;">GassinDev</strong>, desarrollador de
-                    aplicaciones web y amante del diseño gráfico.</p>
+                <div class="col-12 col-md-6 d-flex justify-content-center">
+                    <p class="display-5">Soy <strong style="color: #185263;">GassinDev</strong>, desarrollador de
+                        aplicaciones web y amante del diseño gráfico.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
     <section id="sobre-mi" class="text-white">
         <div class="text-center bg-custom">
             <div class="container p-5">
@@ -101,6 +106,48 @@
             </div>
         </div>
     </section>
+    <section id="proyectos">
+        <div id="carousel" class="carousel carousel-light slide" data-bs-ride="carousel">
+            <h2 class="text-center mb-5 bg-custom title">PROYECTOS</h2>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <div class="carousel-overlay">
+                        <img src="./img/redmusify.JPG" class="d-block mx-auto img-fluid" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>RedMusicfy</h5>
+                            <p>Realizado con Symfony 7 y React</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <div class="carousel-overlay">
+                        <img src="./img/tienda.JPG" class="d-block mx-auto img-fluid" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Tienda</h5>
+                            <p>Realizado en Symfony 7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <footer class="text-center mt-5 bg-custom">
+        <p>&copy; 2024 Juan José Flores Gassín.</p>
+        <p>Contacto: gassintdev@gmail.com | Teléfono: 123-456-7890 |
+            <a href="https://github.com/GassinDev"><img src="./img/github.png" alt="LogGitHub" class="logo"></a>
+            <a href="https://www.instagram.com"><img src="./img/instagram.png" alt="LogoInstagram" class="logo"></a>
+        </p>
+
+
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
