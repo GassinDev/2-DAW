@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mi Perfil
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+		.fondoPerfil {
+			background: radial-gradient(circle, #9b0000, #000000);
+			padding: 20px;
+			border-radius: 10px;
+			color: #FFFFFF;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		}
+
+		.list-group-item {
+			background-color: rgba(255, 255, 255, 0.1);
+			color: #FFFFFF;
+			border: none;
+		}
+
+		.list-group-item:first-child {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+
+		.list-group-item:last-child {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		img {
+			border-radius: 50%;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		}
+
+		/* Agrega este estilo para la animación */
+		#formularioEditarPerfil {
+			display: none;
+			transition: max-height 0.5s ease-out;
+			max-height: 0;
+			overflow: hidden;
+		}
+
+		#formularioEditarPerfil.mostrar {
+			display: block;
+			max-height: 1000px; /* Ajusta este valor según la altura máxima que esperas */
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5 fondoPerfil">
+		{% if app.user %}
+			<div class="row">
+				<div class="col-md-4">
+					<img src="{{ 'uploads/images/' ~ app.user.fotoPerfil }}" alt="Profile Picture" class="img-fluid">
+				</div>
+				<div class="col-md-8">
+					<h2 class="mb-4">Información del Perfil</h2>
+					<ul class="list-group">
+						<li class="list-group-item">Nombre de usuario:
+							{{ app.user.username }}</li>
+						<li class="list-group-item">Correo electrónico:
+							{{ app.user.email }}</li>
+					</ul>
+					<!-- Botón para editar perfil -->
+					<button class="btn btn-danger mt-3" id="editarPerfilBtn">Editar Perfil</button>
+				</div>
+				<div id="formularioEditarPerfil">
+					<h2 class="mt-5 mb-4">Editar Perfil</h2>
+					<form method="POST">
+						<div class="mb-3">
+							<label for="username" class="form-label">Nombre de usuario:</label>
+							<input type="text" class="form-control" id="username" name="username" value="{{ app.user.username }}">
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Correo electrónico:</label>
+							<input type="email" class="form-control" id="email" name="email" value="{{ app.user.email }}">
+						</div>
+						<button type="submit" class="btn btn-danger">Guardar Cambios</button>
+					</form>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+
+	<script>
+		// Script para mostrar/ocultar el formulario de edición cuando se hace clic en el botón
+document.getElementById('editarPerfilBtn').addEventListener('click', function () {
+document.getElementById('formularioEditarPerfil').classList.toggle('mostrar');
+});
+	</script>
+{% endblock %}

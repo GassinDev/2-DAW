@@ -25,4 +25,10 @@ class HomeController extends AbstractController
     {
         return $this->render('listadoUsuarios.html.twig');
     }
+
+    #[Route('/perfil', name: 'perfil')]
+    public function perfil(): Response
+    {
+        return $this->render('perfil.html.twig');
+    }
 }
