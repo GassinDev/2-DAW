@@ -54,6 +54,7 @@ class PerfilController extends AbstractController
 
         // Obtener datos del formulario de la solicitud
         $photo = $request->files->get('profile-picture');
+        $oldPhoto = $user->getFotoPerfil();
 
         if ($photo instanceof UploadedFile) {
             // Generar un nombre único para la foto
@@ -61,6 +62,11 @@ class PerfilController extends AbstractController
 
             // Mover el archivo cargado al directorio de destino
             try {
+                $oldPhotoPath = "../public/uploads/images/" . $oldPhoto; // Ruta completa al archivo antiguo
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath); // Eliminar el archivo antiguo
+                }
+
                 $photo->move(
                     $this->getParameter('images_directory'), // Directorio de destino configurado en services.yaml
                     $newFilename
