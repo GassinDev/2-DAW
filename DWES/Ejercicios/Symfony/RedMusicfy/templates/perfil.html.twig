@@ -46,6 +46,37 @@
 			display: block;
 			max-height: 1000px; /* Ajusta este valor según la altura máxima que esperas */
 		}
+
+		.profile-picture-label {
+			position: relative;
+			display: inline-block;
+		}
+
+		.profile-picture {
+			border-radius: 50%;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			transition: filter 0.3s ease;
+		}
+
+		.profile-picture:hover {
+			filter: brightness(50%);
+		}
+
+		.profile-picture-overlay {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: white;
+			font-size: 16px;
+			font-weight: bold;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.profile-picture-label:hover .profile-picture-overlay {
+			opacity: 1;
+		}
 	</style>
 {% endblock %}
 
@@ -54,7 +85,13 @@
 		{% if app.user %}
 			<div class="row">
 				<div class="col-md-4">
-					<img src="{{ 'uploads/images/' ~ app.user.fotoPerfil }}" alt="Profile Picture" class="img-fluid">
+					<form id="profile-form" action="{{ path('changePhoto', {'id': app.user.id}) }}" method="POST" enctype="multipart/form-data">
+						<label for="profile-picture" class="profile-picture-label">
+							<img src="{{ 'uploads/images/' ~ app.user.fotoPerfil }}" alt="Profile Picture" class="img-fluid profile-picture" id="profile-picture">
+							<span class="profile-picture-overlay">Cambiar foto de perfil</span>
+						</label>
+						<input type="file" id="profile-picture-input" name="profile-picture" accept="image/*" style="display: none;">
+					</form>
 				</div>
 				<div class="col-md-8">
 					<h2 class="mb-4">Información del Perfil</h2>
@@ -64,12 +101,11 @@
 						<li class="list-group-item">Correo electrónico:
 							{{ app.user.email }}</li>
 					</ul>
-					<!-- Botón para editar perfil -->
 					<button class="btn btn-danger mt-3" id="editarPerfilBtn">Editar Perfil</button>
 				</div>
 				<div id="formularioEditarPerfil">
 					<h2 class="mt-5 mb-4">Editar Perfil</h2>
-					<form method="POST">
+					<form method="POST" action="{{ path('edit', {'id': app.user.id}) }}">
 						<div class="mb-3">
 							<label for="username" class="form-label">Nombre de usuario:</label>
 							<input type="text" class="form-control" id="username" name="username" value="{{ app.user.username }}">
@@ -86,9 +122,20 @@
 	</div>
 
 	<script>
-		// Script para mostrar/ocultar el formulario de edición cuando se hace clic en el botón
-document.getElementById('editarPerfilBtn').addEventListener('click', function () {
+		document.getElementById('editarPerfilBtn').addEventListener('click', function () {
 document.getElementById('formularioEditarPerfil').classList.toggle('mostrar');
+});
+
+const inputFile = document.getElementById('profile-picture-input');
+
+// Cuando se haga clic en la imagen, activar el input de tipo archivo
+document.getElementById('profile-picture').addEventListener('click', function () {
+inputFile.click();
+});
+
+// Cuando se seleccione un archivo, enviar el formulario
+inputFile.addEventListener('change', function () {
+document.getElementById('profile-form').submit();
 });
 	</script>
 {% endblock %}
