@@ -15,15 +15,25 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/perfil')]
 class PerfilController extends AbstractController
 {
-    #[Route('/{id}', name: 'app_perfil_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}/{username}', name: 'app_perfil_delete', methods: ['POST'])]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager, UserRepository $userRepository, string $id, string $username): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+        $textoUser = $request->request->get('textoUser');
+        $user = $userRepository->find($id);
+        $photo = $user->getFotoPerfil();
+
+        if ($username === $textoUser) {
+
+            if (file_exists($photo)) {
+                unlink($photo);
+            }
             $entityManager->remove($user);
             $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('app_perfil_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('hub');
+        } else {
+            return $this->redirectToRoute('perfil');
+        }
     }
 
     #[Route('/edit/{id}', name: 'edit', methods: ['POST'])]
