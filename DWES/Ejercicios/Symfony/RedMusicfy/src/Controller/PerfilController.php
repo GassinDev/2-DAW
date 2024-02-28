@@ -24,13 +24,16 @@ class PerfilController extends AbstractController
 
         if ($username === $textoUser) {
 
-            if (file_exists($photo)) {
-                unlink($photo);
+            
+            $photoPath = "../public/uploads/images/" . $photo;
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
             }
+
             $entityManager->remove($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('hub');
+            return $this->redirectToRoute('app_logout');
         } else {
             return $this->redirectToRoute('perfil');
         }
@@ -93,5 +96,11 @@ class PerfilController extends AbstractController
             $this->addFlash('success', 'Perfil actualizado con éxito!');
             return $this->redirectToRoute('perfil');
         }
+    }
+
+    #[Route(path: '/logout', name: 'app_logout')]
+    public function logout(): void
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

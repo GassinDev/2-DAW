@@ -1,0 +1,100 @@
+{
+    "personajes": [
+        {
+            "nombre": "Ashe",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/22/ICON",
+            "estilo": "Tirador",
+            "ataque": 80,
+            "defensa": 40,
+            "vida": 500
+        },
+        {
+            "nombre": "Garen",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/86/ICON",
+            "estilo": "Luchador",
+            "ataque": 70,
+            "defensa": 60,
+            "vida": 600
+        },
+        {
+            "nombre": "Jhin",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/202/ICON",
+            "estilo": "Tirador",
+            "ataque": 90,
+            "defensa": 30,
+            "vida": 480
+        },
+        {
+            "nombre": "Lux",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/99/ICON",
+            "estilo": "Daño",
+            "ataque": 75,
+            "defensa": 35,
+            "vida": 450
+        },
+        {
+            "nombre": "Lee Sin",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/64/ICON",
+            "estilo": "Luchador",
+            "ataque": 85,
+            "defensa": 45,
+            "vida": 550
+        },
+        {
+            "nombre": "Leona",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/89/ICON",
+            "estilo": "Tanque",
+            "ataque": 60,
+            "defensa": 70,
+            "vida": 700
+        },
+        {
+            "nombre": "Warwick",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/19/ICON",
+            "estilo": "Tanque",
+            "ataque": 75,
+            "defensa": 55,
+            "vida": 650
+        },
+        {
+            "nombre": "Annie",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/1/ICON",
+            "estilo": "Daño",
+            "ataque": 85,
+            "defensa": 40,
+            "vida": 480
+        },
+        {
+            "nombre": "Tristana",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/18/ICON",
+            "estilo": "Tirador",
+            "ataque": 95,
+            "defensa": 30,
+            "vida": 470
+        },
+        {
+            "nombre": "Ryze",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/13/ICON",
+            "estilo": "Daño",
+            "ataque": 80,
+            "defensa": 45,
+            "vida": 490
+        },
+        {
+            "nombre": "Olaf",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/2/ICON",
+            "estilo": "Tanque",
+            "ataque": 70,
+            "defensa": 75,
+            "vida": 750
+        },
+        {
+            "nombre": "Darius",
+            "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/122/ICON",
+            "estilo": "Tanque",
+            "ataque": 90,
+            "defensa": 70,
+            "vida": 800
+        }
+    ]
+}

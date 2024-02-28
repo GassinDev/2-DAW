@@ -1,0 +1,54 @@
+{
+  "usuarios": [
+    {
+      "id": "e2f1",
+      "nombreUsuario": "Joselito",
+      "contrasena": "123456"
+    },
+    {
+      "id": "6d8d",
+      "nombreUsuario": "sad",
+      "contrasena": "asdasd"
+    },
+    {
+      "id": "5850",
+      "nombreUsuario": "sad",
+      "contrasena": "asdasd"
+    },
+    {
+      "id": "d69e",
+      "nombreUsuario": "Gema",
+      "contrasena": "123456"
+    },
+    {
+      "id": "2ec1",
+      "nombreUsuario": "gfhgf",
+      "contrasena": "fghfg"
+    },
+    {
+      "id": "4da7",
+      "nombreUsuario": "asda",
+      "contrasena": "asdas"
+    },
+    {
+      "id": "2e1e",
+      "nombreUsuario": "Gema",
+      "contrasena": "1233"
+    },
+    {
+      "id": "3627",
+      "nombreUsuario": "Dani",
+      "contrasena": "123"
+    },
+    {
+      "id": "4814",
+      "nombreUsuario": "fgf",
+      "contrasena": "fgfg"
+    },
+    {
+      "id": "d797",
+      "nombreUsuario": "Alex",
+      "contrasena": "123"
+    }
+  ]
+}
