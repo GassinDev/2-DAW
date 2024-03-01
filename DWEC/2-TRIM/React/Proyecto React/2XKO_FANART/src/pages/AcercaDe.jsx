@@ -1,9 +1,10 @@
 import React from 'react';
+import Info from '../components/Info';
 
 const AcercaDe = () => {
     return (
         <div>
-            <h2>HOLA</h2>
+            <Info/>
         </div>
     );
 };

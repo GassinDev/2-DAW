@@ -6,7 +6,7 @@
             "estilo": "Tirador",
             "ataque": 80,
             "defensa": 40,
-            "vida": 500
+            "vida": 50
         },
         {
             "nombre": "Garen",
@@ -14,7 +14,7 @@
             "estilo": "Luchador",
             "ataque": 70,
             "defensa": 60,
-            "vida": 600
+            "vida": 60
         },
         {
             "nombre": "Jhin",
@@ -22,7 +22,7 @@
             "estilo": "Tirador",
             "ataque": 90,
             "defensa": 30,
-            "vida": 480
+            "vida": 48
         },
         {
             "nombre": "Lux",
@@ -30,7 +30,7 @@
             "estilo": "Daño",
             "ataque": 75,
             "defensa": 35,
-            "vida": 450
+            "vida": 45
         },
         {
             "nombre": "Lee Sin",
@@ -38,7 +38,7 @@
             "estilo": "Luchador",
             "ataque": 85,
             "defensa": 45,
-            "vida": 550
+            "vida": 55
         },
         {
             "nombre": "Leona",
@@ -46,7 +46,7 @@
             "estilo": "Tanque",
             "ataque": 60,
             "defensa": 70,
-            "vida": 700
+            "vida": 70
         },
         {
             "nombre": "Warwick",
@@ -54,7 +54,7 @@
             "estilo": "Tanque",
             "ataque": 75,
             "defensa": 55,
-            "vida": 650
+            "vida": 65
         },
         {
             "nombre": "Annie",
@@ -62,7 +62,7 @@
             "estilo": "Daño",
             "ataque": 85,
             "defensa": 40,
-            "vida": 480
+            "vida": 48
         },
         {
             "nombre": "Tristana",
@@ -70,7 +70,7 @@
             "estilo": "Tirador",
             "ataque": 95,
             "defensa": 30,
-            "vida": 470
+            "vida": 47
         },
         {
             "nombre": "Ryze",
@@ -78,7 +78,7 @@
             "estilo": "Daño",
             "ataque": 80,
             "defensa": 45,
-            "vida": 490
+            "vida": 49
         },
         {
             "nombre": "Olaf",
@@ -86,7 +86,7 @@
             "estilo": "Tanque",
             "ataque": 70,
             "defensa": 75,
-            "vida": 750
+            "vida": 75
         },
         {
             "nombre": "Darius",
@@ -94,7 +94,7 @@
             "estilo": "Tanque",
             "ataque": 90,
             "defensa": 70,
-            "vida": 800
+            "vida": 80
         }
     ]
 }

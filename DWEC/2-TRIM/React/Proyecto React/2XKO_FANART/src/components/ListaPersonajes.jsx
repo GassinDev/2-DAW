@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import personajesDatos from '../data/personajes.json';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const ListaPersonajes = () => {
     const [personajeSeleccionado, setPersonajeSeleccionado] = useState(null);
@@ -56,9 +57,9 @@ const ListaPersonajes = () => {
                                 <div className="overlay">
                                     <div>
                                         <h5>Estadísticas</h5>
-                                        <p>Vida: {personaje.vida}</p>
-                                        <p>Ataque: {personaje.ataque}</p>
-                                        <p>Defensa: {personaje.defensa}</p>
+                                        <p>Vida: <ProgressBar  animated variant="success" now={personaje.vida} /></p>
+                                        <p>Ataque: <ProgressBar animated variant="danger" now={personaje.ataque}/></p>
+                                        <p>Defensa: <ProgressBar animated variant="info" now={personaje.defensa}/></p>
                                     </div>
                                 </div>
                             )}

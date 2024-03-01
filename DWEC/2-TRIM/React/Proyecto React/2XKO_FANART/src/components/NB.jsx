@@ -19,7 +19,12 @@ function NB() {
         <Router>
             <Navbar expand="lg" className="navbar-custom">
                 <Container>
-                    <Navbar.Brand className='nombre'>2XKO</Navbar.Brand>
+                    <Navbar.Brand className='nombre titulo'>
+                        <div className="logo-container">
+                            <img src="https://media0.giphy.com/media/Uv39iy4kHkig4hDkWL/giphy.gif?cid=6c09b952ct979h1jfvzr3gr03tts4j4qtfzo3kwkqi5yg62o&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" alt="bardo" className="logo-img" />
+                            <span className="logo-text">2XKO</span>
+                        </div>
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
