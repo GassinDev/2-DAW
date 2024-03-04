@@ -1,6 +1,8 @@
 import React from 'react';
 import portadaImage from '../images/portada.gif';
 
+// Contenido de información de la página
+
 const Info = () => {
     return (
         <div className='container-custom'>

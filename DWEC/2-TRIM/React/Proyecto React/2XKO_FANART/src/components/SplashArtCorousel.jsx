@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel } from 'react-bootstrap';
 
+
+// Componente con un carrusel
 const SplashArtCarousel = () => {
     return (
         <Carousel prevIcon={null} nextIcon={null} indicators={false} interval={5000} fade className='carousel'>

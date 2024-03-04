@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Pie de la página con información
 
 const Footer = () => {
     return (
