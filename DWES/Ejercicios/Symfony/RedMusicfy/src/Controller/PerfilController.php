@@ -17,10 +17,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class PerfilController extends AbstractController
 {
     #[Route('/delete/{id}/{username}', name: 'app_perfil_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager, UserRepository $userRepository, string $id, string $username, SessionInterface $session): Response
+    public function delete(Request $request, EntityManagerInterface $entityManager, User $user, string $username): Response
     {
         $textoUser = $request->request->get('textoUser');
-        $user = $userRepository->find($id);
         $photo = $user->getFotoPerfil();
 
         if ($username === $textoUser) {
@@ -34,8 +33,9 @@ class PerfilController extends AbstractController
 
             $entityManager->remove($user);
             $entityManager->flush();
+            
 
-            return $this->redirectToRoute('hub');
+            return $this->redirectToRoute('loader');
         } else {
             return $this->redirectToRoute('perfil');
         }
@@ -104,5 +104,12 @@ class PerfilController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+
+    #[Route('/loader', name: 'loader')]
+    public function otro(): Response
+    {
+        return $this->render('loader.html.twig');
     }
 }

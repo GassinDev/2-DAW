@@ -41,6 +41,12 @@ class RegistrationController extends AbstractController
                 $user->setFotoPerfil($fileName);
             }
 
+            if (strtoupper($user->getUsername()) === 'ADMIN') {
+                $user->setRoles(['ROLE_ADMIN']);
+            } else {
+                $user->setRoles(['ROLE_USER']);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
