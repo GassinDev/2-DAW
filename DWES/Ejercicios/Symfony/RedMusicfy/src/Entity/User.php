@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -34,6 +36,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fotoPerfil = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Playlist::class, orphanRemoval: true)]
+    private Collection $playlists;
+
+    public function __construct()
+    {
+        $this->playlists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -67,7 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-
+        // guarantee every user at least has ROLE_USER
         if(strtoupper($this->getUsername()) !== 'ADMIN'){
             $roles[] = 'ROLE_USER';
         }else{
@@ -128,6 +138,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFotoPerfil(?string $fotoPerfil): static
     {
         $this->fotoPerfil = $fotoPerfil;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
+    }
+
+    public function addPlaylist(Playlist $playlist): static
+    {
+        if (!$this->playlists->contains($playlist)) {
+            $this->playlists->add($playlist);
+            $playlist->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaylist(Playlist $playlist): static
+    {
+        if ($this->playlists->removeElement($playlist)) {
+            // set the owning side to null (unless already changed)
+            if ($playlist->getUser() === $this) {
+                $playlist->setUser(null);
+            }
+        }
 
         return $this;
     }

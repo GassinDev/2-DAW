@@ -9,7 +9,7 @@ const logoElement = document.getElementById('logo');
 if (logoElement) {
     createRoot(logoElement).render(
         <React.StrictMode>
-            
+            <Logo />
         </React.StrictMode>
     );
 }

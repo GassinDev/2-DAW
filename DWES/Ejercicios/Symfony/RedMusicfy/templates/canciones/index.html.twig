@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de Canciones{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .card {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-5 g-4">
+        {% for cancion in canciones %}
+        <div class="col mb-4">
+            <div class="card h-100">
+                <img src="{{ asset('uploads/images/' ~ cancion.fotoPortada) }}" class="card-img-top" alt="Portada de la Canción">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cancion.title }}</h5>
+                    <p class="card-text">{{ cancion.author }}</p>
+                    <audio controls class="w-100">
+                        <source src="{{ asset('uploads/music/' ~ cancion.fileAudio) }}" type="audio/mp3">
+                    </audio>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
