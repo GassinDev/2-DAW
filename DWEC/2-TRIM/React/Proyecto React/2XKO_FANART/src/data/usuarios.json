@@ -35,6 +35,12 @@
       "nombreUsuario": "k",
       "contrasena": "k",
       "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/79/ICON"
+    },
+    {
+      "id": "9a96",
+      "nombreUsuario": "u",
+      "contrasena": "u",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/12/ICON"
     }
   ]
 }

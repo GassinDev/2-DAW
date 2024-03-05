@@ -1,29 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Detalles del Producto
-{% endblock %}
+{% block title %}Detalles del Producto{% endblock %}
 
 {% block body %}
-	<style>
-		table * {
-			border: 1px black solid;
-		}
-	</style>
-	<div class="fon position-absolute top-50 start-50 translate-middle">
-		<h1>Detalles del Producto</h1>
-		<table>
-			<tr>
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Descripción</th>
-				<th>Precio</th>
-			</tr>
-			<tr>
-				<td>{{ producto.id }}</td>
-				<td>{{ producto.nombre }}</td>
-				<td>{{ producto.descripcion }}</td>
-				<td>{{ producto.precio }}</td>
-			</tr>
-		</table>
-	</div>
+    <style>
+        /* Additional CSS styles for enhanced appearance */
+        .container-custom {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px;
+        }
+        .card {
+            background-color: #ffffff; /* White */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #343a40; /* Dark gray */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6; /* Light gray */
+            text-align: left;
+        }
+        th {
+            background-color: #343a40; /* Dark gray */
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5; /* Lighter gray on hover */
+        }
+    </style>
+    
+    <div class="container-custom">
+        <div class="card">
+            <div class="card-body">
+                <h1>Detalles del Producto</h1>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                    </tr>
+                    <tr>
+                        <td>{{ producto.id }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.precio }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

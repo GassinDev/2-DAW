@@ -26,6 +26,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
+         // Render the base template with title
         return $this->render('base.html.twig', [
             'title' => 'Mi tienda',
         ]);
@@ -34,10 +35,12 @@ class HomeController extends AbstractController
     #[Route('/formProdu', name: 'formularioProducto')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        // Handle form submission for creating new product
         $producto = new Producto();
         $form = $this->createForm(ProductoType::class, $producto);
         $form->handleRequest($request);
 
+        // If form is submitted and valid, save the product
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager->persist($producto);
@@ -46,6 +49,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('save');
         }
 
+        // Render the form template
         return $this->render('form.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -54,10 +58,14 @@ class HomeController extends AbstractController
     #[Route('/getProducto')]
     public function consulta(EntityManagerInterface $entityManager): Response
     {
+        // Retrieve all products from database
         $productoRespository = $entityManager->getRepository(Producto::class);
         $producto = $productoRespository->findAll();
+
+         // Output the products (for debugging)
         dd($producto);
 
+        // Return success response
         return new Response(sprintf(
             'CONSULTA CON ÉXITO',
         ));
@@ -67,6 +75,7 @@ class HomeController extends AbstractController
     public function guardado(): Response
     {
 
+        // Render the save template with success message
         return $this->render('save.html.twig', [
             'message' => "Producto añadido con éxito",
         ]);
@@ -75,7 +84,7 @@ class HomeController extends AbstractController
     #[Route("/listarProductos", name: 'listado')]
     public function listar(EntityManagerInterface $entityManager): Response
     {
-
+        // Retrieve all products from database and render the list template
         $productoRepository = $entityManager->getRepository(Producto::class);
         $producto = $productoRepository->findAll();
 
@@ -87,17 +96,21 @@ class HomeController extends AbstractController
     #[Route("/buscarProducto", name: 'buscar')]
     public function buscarProducto(Request $request, EntityManagerInterface $entityManager): Response
     {
+        // Handle product search form submission
         $form = $this->createForm(BuscaProduType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Retrieve product name from form
             $nombreProducto = $form->get('nombre')->getData();
 
+            // Retrieve product name from form
             $productoRepository = $entityManager->getRepository(Producto::class);
 
             $productoEncontrado = $productoRepository->findOneBy(['nombre' => $nombreProducto]);
 
+            // If product is found, render the product template; otherwise, redirect with error message
             if ($productoEncontrado) {
 
                 return $this->render('mostrar_producto.html.twig', [
@@ -167,6 +180,7 @@ class HomeController extends AbstractController
     #[Route("/verCarrito", name: 'carrito')]
     public function carrito(SessionInterface $session): Response
     {
+        // Retrieve cart from session and calculate total price
         $carrito = $session->get('carrito', []);
 
         $totalPrecio = 0;
@@ -183,9 +197,12 @@ class HomeController extends AbstractController
     #[Route("/eliminar", name: 'eliminar_producto')]
     public function eliminar(Request $request, SessionInterface $session): Response
     {
+        // Retrieve cart from session
         $carrito = $session->get('carrito', []);
+        // Retrieve product ID to remove
         $producto_id = $request->request->get('producto_id');
 
+        // Remove product from cart
         foreach ($carrito as $key => $producto) {
 
             if ($producto['producto_id'] == $producto_id) {
@@ -194,6 +211,7 @@ class HomeController extends AbstractController
             }
         }
 
+         // Save updated cart in session
         $session->set('carrito', $carrito);
 
         return $this->redirectToRoute('carrito');
@@ -202,6 +220,7 @@ class HomeController extends AbstractController
     #[Route("/{any}")]
     public function noEncontrada(): Response
     {
+        // Render not found template for any unmatched routes
         return $this->render('notFound.html.twig');
     }
 }

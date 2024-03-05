@@ -10,13 +10,14 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/perfil')]
 class PerfilController extends AbstractController
 {
     #[Route('/delete/{id}/{username}', name: 'app_perfil_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager, UserRepository $userRepository, string $id, string $username): Response
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager, UserRepository $userRepository, string $id, string $username, SessionInterface $session): Response
     {
         $textoUser = $request->request->get('textoUser');
         $user = $userRepository->find($id);
@@ -24,7 +25,8 @@ class PerfilController extends AbstractController
 
         if ($username === $textoUser) {
 
-            
+            $this->redirectToRoute('app_logout');
+
             $photoPath = "../public/uploads/images/" . $photo;
             if (file_exists($photoPath)) {
                 unlink($photoPath);
@@ -33,7 +35,7 @@ class PerfilController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_logout');
+            return $this->redirectToRoute('hub');
         } else {
             return $this->redirectToRoute('perfil');
         }

@@ -31,7 +31,7 @@
                                         <td>
                                             <form action="{{ path('agregar_al_carrito')}}" method="POST" class="d-flex align-items-center">
                                                 <input type="hidden" name="producto_id" value="{{ producto.id }}">
-                                                <input type="number" name="cantidad" value="1" min="1" style="width: 50px;" class="form-control me-2">
+                                                <input type="number" name="cantidad" value="1" min="1" style="width: 100px;" class="form-control me-2"> {# Adjusted width to 100px #}
                                                 <button type="submit" class="btn btn-primary">Añadir al carrito</button>
                                             </form>
                                         </td>

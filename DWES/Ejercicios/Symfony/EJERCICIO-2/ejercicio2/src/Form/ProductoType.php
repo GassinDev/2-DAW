@@ -14,10 +14,10 @@ class ProductoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nombre')
-            ->add('descripcion')
-            ->add('precio')
-            ->add('save', SubmitType::class, ['label' => 'Crear Producto'])
+            ->add('nombre')  // Add field for product name
+            ->add('descripcion') // Add field for product description
+            ->add('precio') // Add field for product price
+            ->add('save', SubmitType::class, ['label' => 'Crear Producto']) // Add submit button with label "Create Product"
         ;
     }
 

@@ -14,7 +14,9 @@ class BuscaProduType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        // Add field for entering product name
         ->add('nombre')
+        // Add submit button with label "Search Product"
         ->add('search', SubmitType::class, ['label' => 'Buscar Producto'])
     ;
     }
