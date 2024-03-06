@@ -162,6 +162,22 @@ body {
   color: #222;
 }
 
+.btn-custom2{
+  font-family: 'Titulos';
+  background-color: rgb(255, 251, 0);
+  color: #222;
+  border: 2px solid;
+  margin-right: 10px;
+}
+
+.btn-custom2:hover{
+  font-family: 'Titulos';
+  color: rgb(255, 251, 0);
+  background-color: transparent;
+  border: 2px solid;
+  margin-right: 10px;
+}
+
 .elegido {
   font-family: 'Titulos';
   background-color: rgb(255, 251, 0);
