@@ -43,10 +43,17 @@
       "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/12/ICON"
     },
     {
+<<<<<<< HEAD
       "id": "8183",
       "nombreUsuario": "a",
       "contrasena": "a",
       "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/71/ICON"
+=======
+      "id": "0b33",
+      "nombreUsuario": "juan",
+      "contrasena": "1",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/84/ICON"
+>>>>>>> 35f54d2e114338f22d6f6c7a68be156e0030ce15
     }
   ]
 }
