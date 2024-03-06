@@ -55,7 +55,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('admin'));
         }else{
             return new RedirectResponse($this->urlGenerator->generate('hub'));
-        }
+        }     
         
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

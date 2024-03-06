@@ -14,23 +14,25 @@ class PlaylistType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Add form fields for playlist name, associated user, and songs
         $builder
-            ->add('name')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            ->add('name') // Field for the name of the playlist
+            ->add('user', EntityType::class, [ // Field for the associated user
+                'class' => User::class, // User entity class
+                'choice_label' => 'id', // Display the user's ID as the choice label
             ])
-            ->add('songs', EntityType::class, [
-                'class' => Song::class,
-                'choice_label' => 'title',
-                'multiple' => true,
+            ->add('songs', EntityType::class, [ // Field for the associated songs
+                'class' => Song::class, // Song entity class
+                'choice_label' => 'title', // Display the song title as the choice label
+                'multiple' => true, // Allow selecting multiple songs
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        // Configure the form options
         $resolver->setDefaults([
-            'data_class' => Playlist::class,
+            'data_class' => Playlist::class, // Data class for the form (Playlist entity)
         ]);
     }
 }

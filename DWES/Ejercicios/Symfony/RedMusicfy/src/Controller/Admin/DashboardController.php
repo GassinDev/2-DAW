@@ -12,17 +12,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
-    public function index(): Response
+    public function checker(): Response
     {
 
-        if($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')){
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->render('security/login.html.twig', ['last_username' => 'admin']);
         }
+
+        // Verifica si el usuario tiene el rol de administrador
 
         // return parent::index();
 

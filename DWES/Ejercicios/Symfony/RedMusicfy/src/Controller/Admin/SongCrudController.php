@@ -18,23 +18,30 @@ class SongCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            // Field for the record ID, hidden on the form
             IdField::new('id')
                 ->hideOnForm(),
+
+            // Field for the title of the song
             TextField::new('title'),
+
+            // Field for the author of the song
             TextField::new('author'),
 
-            ImageField::new('fotoPortada', 'Portada')
-                ->setBasePath('/uploads/images')
-                ->setUploadDir('public/uploads/images'),
+            // Field for the cover image of the song
+            ImageField::new('fotoPortada', 'Cover')
+                ->setBasePath('/uploads/images') // Base path for image display
+                ->setUploadDir('public/uploads/images'), // Upload directory for storing images
 
-            ImageField::new('fileAudio', 'Archivo de audio')
-                ->setBasePath('/uploads/music')
-                ->setUploadDir('public/uploads/music')
-                ->hideOnIndex()
+            // Field for the audio file of the song, hidden on the index page
+            ImageField::new('fileAudio', 'Audio File')
+                ->setBasePath('/uploads/music') // Base path for audio file display
+                ->setUploadDir('public/uploads/music') // Upload directory for storing audio files
+                ->hideOnIndex() // Hide this field on the index page
         ];
     }
 
-    
+
 
     /*
     public function configureFields(string $pageName): iterable

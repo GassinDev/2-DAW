@@ -18,5 +18,4 @@ class CancionesController extends AbstractController
         ]);
     }
 
-    
 }

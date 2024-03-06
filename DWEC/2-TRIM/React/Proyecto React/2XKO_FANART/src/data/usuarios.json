@@ -41,6 +41,12 @@
       "nombreUsuario": "u",
       "contrasena": "u",
       "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/12/ICON"
+    },
+    {
+      "id": "0b33",
+      "nombreUsuario": "juan",
+      "contrasena": "1",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/84/ICON"
     }
   ]
 }

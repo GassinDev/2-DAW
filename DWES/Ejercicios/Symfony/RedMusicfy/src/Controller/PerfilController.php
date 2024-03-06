@@ -112,4 +112,5 @@ class PerfilController extends AbstractController
     {
         return $this->render('loader.html.twig');
     }
+
 }
