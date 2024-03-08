@@ -29,7 +29,7 @@ const PartidasJugadas = () => {
 
     return (
         <div className="container py-5" style={{ color: 'yellow' }}>
-            <h2 className="text-center mb-4 nombre">Partidas Jugadas</h2>
+            <h2 className="text-center mb-4 nombre">Partidas Globales</h2>
             {partidas.map((partida, index) => (
                 <Row key={index} className="mb-4 justify-content-center">
                     <Col lg={10}>
@@ -53,7 +53,7 @@ const PartidasJugadas = () => {
                                         </div>
                                     </Col>
                                     <Col lg={2} className="d-flex align-items-center justify-content-center">
-                                        <h1 className=''>VS</h1>
+                                        <h1 className='nombre'>VS</h1>
                                     </Col>
                                     <Col lg={5} className="d-flex flex-column align-items-center">
                                         <h5>Equipo Rojo</h5>

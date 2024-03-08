@@ -7,7 +7,7 @@
             "ataque": 80,
             "defensa": 40,
             "vida": 50,
-            "gif" : "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Y3dWNveXhxc2dnM2k3YWJ1OTVwdDR5M2N4eDM3Y21ud3hzem13cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l2JhCvtYNZBE4k7PG/giphy.gif"
+            "gif" : "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTAybjk2bTZoMTJ3YWluNzNxaXkwcjBtMzZzdGhvdnJsdDVqMnY1dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mWFyKOtmnK7QEQawfm/giphy.gif"
         },
         {
             "nombre": "Garen",
@@ -97,7 +97,7 @@
             "ataque": 70,
             "defensa": 75,
             "vida": 75,
-            "gif" : ""
+            "gif" : "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDF3Z2poaGtkZjhyNmd0NmNvMGN5eWgyNW9pd3dnczc1amtmZ3NzNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LTDiS9o1OU6no1oj5m/giphy.gif"
         },
         {
             "nombre": "Darius",
@@ -106,7 +106,7 @@
             "ataque": 90,
             "defensa": 70,
             "vida": 80,
-            "gif" : ""
+            "gif" : "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z1cmcwdXc2OTJ5MG40OWdiODhmd3RzOG82eGN6dTB5eTNmdHRxYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KXapRED95RBKP0Uysr/giphy.gif"
         }
     ]
 }

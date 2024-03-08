@@ -4,85 +4,127 @@
       "id": "e9f2",
       "nombreUsuario": "Pepe",
       "contrasena": "ss",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/153/ICON"
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/153/ICON",
+      "partidas": [
+        {
+          "equipoAzul": [
+            {
+              "nombre": "Ashe",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/22/ICON"
+            },
+            {
+              "nombre": "Lee Sin",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/64/ICON"
+            }
+          ],
+          "equipoRojo": [
+            {
+              "nombre": "Warwick",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/19/ICON"
+            },
+            {
+              "nombre": "Annie",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/1/ICON"
+            }
+          ]
+        },
+        {
+          "equipoAzul": [
+            {
+              "nombre": "Garen",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/86/ICON"
+            },
+            {
+              "nombre": "Jhin",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/202/ICON"
+            }
+          ],
+          "equipoRojo": [
+            {
+              "nombre": "Lux",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/99/ICON"
+            },
+            {
+              "nombre": "Lee Sin",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/64/ICON"
+            }
+          ]
+        },
+        {
+          "equipoAzul": [
+            {
+              "nombre": "Leona",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/89/ICON"
+            },
+            {
+              "nombre": "Warwick",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/19/ICON"
+            }
+          ],
+          "equipoRojo": [
+            {
+              "nombre": "Annie",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/1/ICON"
+            },
+            {
+              "nombre": "Tristana",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/18/ICON"
+            }
+          ]
+        },
+        {
+          "equipoAzul": [
+            {
+              "nombre": "Ekko",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/245/ICON"
+            },
+            {
+              "nombre": "Miss Fortune",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/21/ICON"
+            }
+          ],
+          "equipoRojo": [
+            {
+              "nombre": "Alistar",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/12/ICON"
+            },
+            {
+              "nombre": "Zed",
+              "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/238/ICON"
+            }
+          ]
+        }
+      ]
     },
     {
-      "id": "54fe",
-      "nombreUsuario": "a",
-      "contrasena": "a",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/68/ICON"
+      "id": "55fc",
+      "nombreUsuario": "Manuel",
+      "contrasena": "123456",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/171/ICON"
     },
     {
-      "id": "4ba8",
-      "nombreUsuario": "s",
-      "contrasena": "s",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/130/ICON"
+      "id": "33ff",
+      "nombreUsuario": "Juan",
+      "contrasena": "123456",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/38/ICON"
     },
     {
-      "id": "9d75",
-      "nombreUsuario": "x",
-      "contrasena": "x",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/67/ICON"
+      "id": "8162",
+      "nombreUsuario": "Alex",
+      "contrasena": "123456",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/184/ICON"
     },
     {
-      "id": "d420",
-      "nombreUsuario": "f",
-      "contrasena": "f",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/85/ICON"
+      "id": "fa21",
+      "nombreUsuario": "Joselito",
+      "contrasena": "123456",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/172/ICON"
     },
     {
-      "id": "7450",
-      "nombreUsuario": "k",
-      "contrasena": "k",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/79/ICON"
-    },
-    {
-      "id": "9a96",
-      "nombreUsuario": "u",
-      "contrasena": "u",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/12/ICON"
-    },
-    {
-      "id": "0b33",
-      "nombreUsuario": "juan",
-      "contrasena": "1",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/84/ICON"
-    },
-    {
-      "id": "96dd",
-      "nombreUsuario": "x",
-      "contrasena": "x",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/124/ICON"
-    },
-    {
-      "id": "0795",
-      "nombreUsuario": "xyh",
-      "contrasena": "x",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/126/ICON"
-    },
-    {
-      "id": "50ca",
-      "nombreUsuario": "sadasd",
-      "contrasena": "asdasd",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/167/ICON"
-    },
-    {
-      "id": "be6b",
-      "nombreUsuario": "c",
-      "contrasena": "c",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/189/ICON"
-    },
-    {
-      "id": "6238",
-      "nombreUsuario": "v",
-      "contrasena": "v",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/41/ICON"
-    },
-    {
-      "id": "6599",
-      "nombreUsuario": "w",
-      "contrasena": "w",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/150/ICON"
+      "id": "1325",
+      "nombreUsuario": "Juane",
+      "contrasena": "123456",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/198/ICON"
     }
   ]
 }

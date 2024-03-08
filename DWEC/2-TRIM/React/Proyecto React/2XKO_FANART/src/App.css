@@ -376,3 +376,21 @@ footer {
   max-width: 500px;
 }
 
+/* INTRO */
+.intro-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px; /* Ancho de la página */
+  height: 1080px; /* Alto de la página */
+  z-index: 9999; /* Asegura que esté por encima del contenido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-overlay img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
