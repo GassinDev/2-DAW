@@ -6,7 +6,8 @@
             "estilo": "Tirador",
             "ataque": 80,
             "defensa": 40,
-            "vida": 50
+            "vida": 50,
+            "gif" : "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Y3dWNveXhxc2dnM2k3YWJ1OTVwdDR5M2N4eDM3Y21ud3hzem13cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l2JhCvtYNZBE4k7PG/giphy.gif"
         },
         {
             "nombre": "Garen",
@@ -14,7 +15,8 @@
             "estilo": "Luchador",
             "ataque": 70,
             "defensa": 60,
-            "vida": 60
+            "vida": 60,
+            "gif" : "https://media0.giphy.com/media/WBB8G2r2vxlPmpa3oE/giphy.gif?cid=ecf05e47yur6x4zgcp6qag7uhw1toh0h8h75xm2eaf3acrbk&ep=v1_gifs_related&rid=giphy.gif&ct=g"
         },
         {
             "nombre": "Jhin",
@@ -22,7 +24,8 @@
             "estilo": "Tirador",
             "ataque": 90,
             "defensa": 30,
-            "vida": 48
+            "vida": 48,
+            "gif" : "https://media0.giphy.com/media/tQrJlriGulo7up5g3f/giphy.webp?cid=ecf05e47iwqguh5j4p7gjoymm6c3w43eqe6pxtup7zag1t3r&ep=v1_gifs_search&rid=giphy.webp&ct=g"
         },
         {
             "nombre": "Lux",
@@ -30,7 +33,8 @@
             "estilo": "Daño",
             "ataque": 75,
             "defensa": 35,
-            "vida": 45
+            "vida": 45,
+            "gif" : "https://media1.giphy.com/media/W50t54DeaIh3pyUkyd/giphy.webp?cid=ecf05e47kkz0tr2wl807vtgd7yhz8z16vkf86dv9kdof73k8&ep=v1_gifs_search&rid=giphy.webp&ct=g"
         },
         {
             "nombre": "Lee Sin",
@@ -38,7 +42,8 @@
             "estilo": "Luchador",
             "ataque": 85,
             "defensa": 45,
-            "vida": 55
+            "vida": 55,
+            "gif" : "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDkxZWJ5ZnFiOXE5cG9uYW93Z3ZxbW9kMmJid21jZGNla3N2MDMweCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WpZSK1Y1J4t7O6sP8O/giphy.gif"
         },
         {
             "nombre": "Leona",
@@ -46,7 +51,8 @@
             "estilo": "Tanque",
             "ataque": 60,
             "defensa": 70,
-            "vida": 70
+            "vida": 70,
+            "gif" : "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTcwZmpsYWZsNmNkdHZ3NW9hZTUwZ20xM24wcjBpbWxueHYyZnphaCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/3xS1GMYhV3F4G0BEaX/giphy.gif"
         },
         {
             "nombre": "Warwick",
@@ -54,7 +60,8 @@
             "estilo": "Tanque",
             "ataque": 75,
             "defensa": 55,
-            "vida": 65
+            "vida": 65,
+            "gif" : "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzJiaWQ1bzV0bDlxM2MwbDFlZXl0cWx2NXl4OTJvaWV0MGZ3ZHhrOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gYOdBrT3MKcTj3O/giphy.gif"
         },
         {
             "nombre": "Annie",
@@ -62,7 +69,8 @@
             "estilo": "Daño",
             "ataque": 85,
             "defensa": 40,
-            "vida": 48
+            "vida": 48,
+            "gif" : "https://media3.giphy.com/media/VaQRPzgW6WqIpFOIYN/giphy.gif?cid=ecf05e47prw4v7cd1zd56g96jm4trcv0kvcj4dpgd87ppfca&ep=v1_gifs_related&rid=giphy.gif&ct=g"
         },
         {
             "nombre": "Tristana",
@@ -70,7 +78,8 @@
             "estilo": "Tirador",
             "ataque": 95,
             "defensa": 30,
-            "vida": 47
+            "vida": 47,
+            "gif" : "https://media1.giphy.com/media/hDbr6vKW9Bv1G8bR5y/200.webp"
         },
         {
             "nombre": "Ryze",
@@ -78,7 +87,8 @@
             "estilo": "Daño",
             "ataque": 80,
             "defensa": 45,
-            "vida": 49
+            "vida": 49,
+            "gif" : "https://media4.giphy.com/media/wt8INvfpp21s7o3xbK/giphy.gif?cid=ecf05e47tky6duzjlr448qr2r4srqghrrsdisss33nzh7g7b&ep=v1_gifs_related&rid=giphy.gif&ct=s"
         },
         {
             "nombre": "Olaf",
@@ -86,7 +96,8 @@
             "estilo": "Tanque",
             "ataque": 70,
             "defensa": 75,
-            "vida": 75
+            "vida": 75,
+            "gif" : ""
         },
         {
             "nombre": "Darius",
@@ -94,7 +105,8 @@
             "estilo": "Tanque",
             "ataque": 90,
             "defensa": 70,
-            "vida": 80
+            "vida": 80,
+            "gif" : ""
         }
     ]
 }

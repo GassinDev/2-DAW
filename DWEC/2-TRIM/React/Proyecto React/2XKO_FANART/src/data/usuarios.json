@@ -43,17 +43,46 @@
       "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/12/ICON"
     },
     {
-<<<<<<< HEAD
-      "id": "8183",
-      "nombreUsuario": "a",
-      "contrasena": "a",
-      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/71/ICON"
-=======
       "id": "0b33",
       "nombreUsuario": "juan",
       "contrasena": "1",
       "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/84/ICON"
->>>>>>> 35f54d2e114338f22d6f6c7a68be156e0030ce15
+    },
+    {
+      "id": "96dd",
+      "nombreUsuario": "x",
+      "contrasena": "x",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/124/ICON"
+    },
+    {
+      "id": "0795",
+      "nombreUsuario": "xyh",
+      "contrasena": "x",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/126/ICON"
+    },
+    {
+      "id": "50ca",
+      "nombreUsuario": "sadasd",
+      "contrasena": "asdasd",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/167/ICON"
+    },
+    {
+      "id": "be6b",
+      "nombreUsuario": "c",
+      "contrasena": "c",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/189/ICON"
+    },
+    {
+      "id": "6238",
+      "nombreUsuario": "v",
+      "contrasena": "v",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/41/ICON"
+    },
+    {
+      "id": "6599",
+      "nombreUsuario": "w",
+      "contrasena": "w",
+      "fotoPerfil": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/150/ICON"
     }
   ]
 }

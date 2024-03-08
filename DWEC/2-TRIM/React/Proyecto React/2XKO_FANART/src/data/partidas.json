@@ -1,0 +1,70 @@
+{
+    "partidas": [
+        {
+            "equipoAzul": [
+                {
+                    "nombre": "Ashe",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/22/ICON"
+                },
+                {
+                    "nombre": "Lee Sin",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/64/ICON"
+                }
+            ],
+            "equipoRojo": [
+                {
+                    "nombre": "Warwick",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/19/ICON"
+                },
+                {
+                    "nombre": "Annie",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/1/ICON"
+                }
+            ]
+        },
+        {
+            "equipoAzul": [
+                {
+                    "nombre": "Garen",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/86/ICON"
+                },
+                {
+                    "nombre": "Jhin",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/202/ICON"
+                }
+            ],
+            "equipoRojo": [
+                {
+                    "nombre": "Lux",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/99/ICON"
+                },
+                {
+                    "nombre": "Lee Sin",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/64/ICON"
+                }
+            ]
+        },
+        {
+            "equipoAzul": [
+                {
+                    "nombre": "Leona",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/89/ICON"
+                },
+                {
+                    "nombre": "Warwick",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/19/ICON"
+                }
+            ],
+            "equipoRojo": [
+                {
+                    "nombre": "Annie",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/1/ICON"
+                },
+                {
+                    "nombre": "Tristana",
+                    "foto": "https://prod.api.assets.riotgames.com/public/v1/asset/lol/14.3.1/CHAMPION/18/ICON"
+                }
+            ]
+        }
+    ]
+}

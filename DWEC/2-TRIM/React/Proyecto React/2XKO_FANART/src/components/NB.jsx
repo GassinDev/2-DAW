@@ -13,6 +13,7 @@ import VerPersonajes from '../pages/VerPersonajes';
 import InicioSesion from '../pages/InicioSesion';
 import Error from './Error';
 import Perfil from '../pages/Perfil';
+import Partidas from '../pages/Partidas';
 
 
 // Componente para la barra de navegacion
@@ -46,6 +47,7 @@ function NB() {
                             {!sesionIniciada && <Nav.Link as={Link} to="/AltaUsuarios" className='opcion'>Alta de usuarios</Nav.Link>}
                             {!sesionIniciada && <Nav.Link as={Link} to="/InicioSesion" className='opcion'>Inicio de sesión</Nav.Link>}
                             {sesionIniciada && <Nav.Link as={Link} to="/VerPersonajes" className='opcion'>Ver Personajes</Nav.Link>}
+                            {sesionIniciada && <Nav.Link as={Link} to="/Partidas" className='opcion'>Partidas</Nav.Link>}
                             {sesionIniciada && <Nav.Link as={Link} to="/Perfil" className='opcion'>Perfil</Nav.Link>}
                             {sesionIniciada && <Nav.Link className='opcion' onClick={handleLogout}>Cerrar sesión</Nav.Link>}
                         </Nav>
@@ -56,6 +58,7 @@ function NB() {
                 <Route path="/" element={<Inicio />} />
                 <Route path="/AcercaDe" element={<AcercaDe />} />
                 <Route path="/VerPersonajes" element={<VerPersonajes />} />
+                <Route path="/Partidas" element={<Partidas />} />
                 <Route path="/AltaUsuarios" element={<AltaUsuarios />} />
                 <Route path="/InicioSesion" element={<InicioSesion />} />
                 <Route path="/Perfil" element={<Perfil />} />
